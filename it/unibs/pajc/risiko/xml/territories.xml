@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<world>
+    <territory>
+        <name>Territory1</name>
+        <tanks>5</tanks>
+        <owner>Player1</owner>
+        <linkedTerritories>
+            <territory>Territory2</territory>
+            <territory>Territory3</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Territory2</name>
+        <tanks>3</tanks>
+        <owner>Player2</owner>
+        <linkedTerritories>
+            <territory>Territory1</territory>
+        </linkedTerritories>
+    </territory>
+</world>
