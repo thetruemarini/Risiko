@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Continent {
     private String name;
-    private ArrayList<Territory> states; // TODO constructor
+    private ArrayList<Territory> states; 
 
     public Continent(String name) {
         this.name = name;

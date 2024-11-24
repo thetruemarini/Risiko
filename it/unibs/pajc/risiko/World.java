@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class World {
-    private ArrayList<Continent> continents; // TODO constructor
+    private ArrayList<Continent> continents;
 
     public World() {
         inizializeContinents();
