@@ -1,20 +1,129 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <world>
+ <!-- America Del Nord (ti amo ugo lo sto facendo a mano)-->
     <territory>
-        <name>Territory1</name>
-        <tanks>5</tanks>
-        <owner>Player1</owner>
+        <name>Alaska</name>
         <linkedTerritories>
-            <territory>Territory2</territory>
-            <territory>Territory3</territory>
+            <territory>Territori del Nord Ovest</territory>
+            <territory>Alberta</territory>
+            <territory>Kamchatka</territory>
         </linkedTerritories>
     </territory>
     <territory>
-        <name>Territory2</name>
-        <tanks>3</tanks>
-        <owner>Player2</owner>
+        <name>Territori del Nord Ovest</name>
         <linkedTerritories>
-            <territory>Territory1</territory>
+            <territory>Alaska</territory>
+            <territory>Alberta</territory>
+            <territory>Ontario</territory>
+            <territory>Groenlandia</territory>
         </linkedTerritories>
     </territory>
+    <territory>
+        <name>Groenlandia</name>
+        <linkedTerritories>
+            <territory>Territori del Nord Ovest</territory>
+            <territory>Ontario</territory>
+            <territory>Quebec</territory>
+            <territory>Islanda</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Alberta</name>
+        <linkedTerritories>
+            <territory>Alaska</territory>
+            <territory>Ontario</territory>
+            <territory>Territori del Nord Ovest</territory>
+            <territory>Stati Uniti Occidentali</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Ontario</name>
+        <linkedTerritories>
+            <territory>Alberta</territory>
+            <territory>Territori del Nord Ovest</territory>
+            <territory>Groenlandia</territory>
+            <territory>Quebec</territory>
+            <territory>Stati Uniti Occidentali</territory>
+            <territory>Stati Uniti Orientali</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Quebec</name>
+        <linkedTerritories>
+            <territory>Ontario</territory>
+            <territory>Groenlandia</territory>
+            <territory>Stati Uniti Orientali</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Stati Uniti Occidentali</name>
+        <linkedTerritories>
+            <territory>Alberta</territory>
+            <territory>Ontario</territory>
+            <territory>Stati Uniti Orientali</territory>
+            <territory>America Centrale</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Stati Uniti Orientali</name>
+        <linkedTerritories>
+            <territory>Stati Uniti Occidentali</territory>
+            <territory>Ontario</territory>
+            <territory>Quebec</territory>
+            <territory>America Centrale</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>America Centrale</name>
+        <linkedTerritories>
+            <territory>Stati Uniti Occidentali</territory>
+            <territory>Stati Uniti Orientali</territory>
+            <territory>Venezuela</territory>
+        </linkedTerritories>
+    </territory>
+     <!-- America Del Sud-->
+    <territory>
+        <name>Venezuela</name>
+        <linkedTerritories>
+            <territory>Brasile</territory>
+            <territory>Perù</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Brasile</name>
+        <linkedTerritories>
+            <territory>Venezuela</territory>
+            <territory>Perù</territory>
+            <territory>Argentina</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Perù</name>
+        <linkedTerritories>
+            <territory>Venezuela</territory>
+            <territory>Brasile</territory>
+            <territory>Argentina</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Argentina</name>
+        <linkedTerritories>
+            <territory>Perù</territory>
+            <territory>Brasile</territory>
+        </linkedTerritories>
+    </territory>
+     <!-- America Del Sud-->
+    <territory>
+        <name></name>
+        <linkedTerritories>
+            <territory></territory>
+            <territory></territory>
+            <territory></territory>
+            <territory></territory>
+        </linkedTerritories>
+    </territory>
+    
+
+    
+
 </world>
