@@ -22,7 +22,7 @@ public class RisikoWindow {
 
         // Pannello centrale
         JPanel centerPanel = new JPanel();
-        centerPanel.setPreferredSize(new Dimension(100,100));
+        centerPanel.setPreferredSize(new Dimension(100, 100));
         centerPanel.setBackground(Color.LIGHT_GRAY);
 
         // Pannello sinistro con layout verticale
