@@ -28,4 +28,9 @@ public class Territory {
         this.numberTanks -= nTanks;
     }
 
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    
 }
