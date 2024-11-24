@@ -1,59 +1,61 @@
 package it.unibs.pajc.risiko;
 
-import javax.swing.JFrame;
-
-import it.unibs.pajc.risiko.panels.*;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.Color;
 
 public class RisikoWindow {
-    private JFrame frame;
+    JFrame frame;
+
+    public RisikoWindow() {
+        initialize();
+    }
+
+    private void initialize() {
+        // Crea il frame
+        frame = new JFrame("Risiko");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+
+        // Imposta il layout principale del frame
+        frame.setLayout(new BorderLayout());
+
+        // Pannello centrale
+        JPanel centerPanel = new JPanel();
+        centerPanel.setPreferredSize(new Dimension(100,100));
+        centerPanel.setBackground(Color.LIGHT_GRAY);
+
+        // Pannello sinistro con layout verticale
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(2, 1)); // Due pannelli verticali
+        JPanel leftTopPanel = new JPanel();
+        JPanel leftBottomPanel = new JPanel();
+        leftTopPanel.setBackground(Color.RED);
+        leftBottomPanel.setBackground(Color.ORANGE);
+        leftPanel.add(leftTopPanel);
+        leftPanel.add(leftBottomPanel);
+
+        // Pannello destro con layout verticale
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new GridLayout(2, 1)); // Due pannelli verticali
+        JPanel rightTopPanel = new JPanel();
+        JPanel rightBottomPanel = new JPanel();
+        rightTopPanel.setBackground(Color.BLUE);
+        rightBottomPanel.setBackground(Color.CYAN);
+        rightPanel.add(rightTopPanel);
+        rightPanel.add(rightBottomPanel);
+
+        // Aggiungi i pannelli al frame
+        frame.add(leftPanel, BorderLayout.WEST); // Pannelli verticali a sinistra
+        frame.add(rightPanel, BorderLayout.EAST); // Pannelli verticali a destra
+        frame.add(centerPanel, BorderLayout.CENTER); // Pannello centrale
+
+        // Mostra il frame
+        frame.setVisible(true);
+    }
+
     public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Risikozzo window = new Risikozzo();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public Risikozzo() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		MapPanel mapPanel = new MapPanel();
-		mapPanel.setBounds(124, 69, 176, 110);
-		frame.getContentPane().add(mapPanel);
-		
-		ChronoPanel chronoPnl = new ChronoPnl();
-		chronoPnl.setBounds(10, 10, 47, 232);
-		frame.getContentPane().add(chronoPnl);
-		
-		PlayerPnl playerPnl = new PlayerPnl();
-		playerPnl.setBounds(67, 10, 47, 232);
-		frame.getContentPane().add(playerPnl);
-		
-		TurnPnl turnPnl = new TurnPnl();
-		turnPnl.setBounds(310, 131, 116, 103);
-		frame.getContentPane().add(turnPnl);
-		
-		Pnl pnl = new Pnl();
-		pnl.setBounds(309, 20, 117, 101);
-		frame.getContentPane().add(pnl);
-	}
+        // Avvia l'applicazione
+        SwingUtilities.invokeLater(() -> new RisikoWindow());
+    }
 }
