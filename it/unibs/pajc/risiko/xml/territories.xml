@@ -95,6 +95,7 @@
             <territory>Venezuela</territory>
             <territory>Perù</territory>
             <territory>Argentina</territory>
+             <territory>Africa del Nord</territory>
         </linkedTerritories>
     </territory>
     <territory>
@@ -112,16 +113,113 @@
             <territory>Brasile</territory>
         </linkedTerritories>
     </territory>
-     <!-- America Del Sud-->
+     <!-- Europa (marini ti amo)-->
     <territory>
-        <name></name>
+        <name>Islanda</name>
         <linkedTerritories>
-            <territory></territory>
-            <territory></territory>
-            <territory></territory>
-            <territory></territory>
+            <territory>Groenlandia</territory>
+            <territory>Scandinavia</territory>
+            <territory>Gran Bretagna</territory>
         </linkedTerritories>
     </territory>
+    <territory>
+        <name>Scandinavia</name>
+        <linkedTerritories>
+            <territory>Islanda</territory>
+            <territory>Gran Bretagna</territory>
+            <territory>Europa Settentrionale</territory>
+            <territory>Ucraina</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Gran Bretagna</name>
+        <linkedTerritories>
+            <territory>Europa Occidentale</territory>
+            <territory>Europa Settentrionale</territory>
+            <territory>Scandinavia</territory>
+            <territory>Islanda</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Europa Settentrionale</name>
+        <linkedTerritories>
+            <territory>Gran Bretagna</territory>
+            <territory>Scandinavia</territory>
+            <territory>Ucraina</territory>
+            <territory>Europa Meridionale</territory>
+            <territory>Europa Occidentale</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Europa Occidentale</name>
+        <linkedTerritories>
+            <territory>Gran Bretagna</territory>
+            <territory>Africa del Nord</territory>
+            <territory>Europa Meridionale</territory>
+            <territory>Europa Settentrionale</territory>
+        </linkedTerritories>
+    </territory>
+     <territory>
+        <name>Ucraina</name>
+        <linkedTerritories>
+            <territory>Urali</territory>
+            <territory>Scandinavia</territory>
+            <territory>Afghanistan</territory>
+            <territory>Europa Meridionale</territory>
+            <territory>Europa Settentrionale</territory>
+            <territory>Medio Oriente</territory>
+        </linkedTerritories>
+    </territory>
+    <!-- Africa (marini ti amo)-->
+    <territory>
+        <name>Africa del Nord</name>
+        <linkedTerritories>
+            <territory>Brasile</territory>
+            <territory>Egitto</territory>
+            <territory>Europa Occidentale</territory>
+            <territory>Europa Meridionale</territory>
+            <territory>Africa Orientale</territory>
+            <territory>Congo</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Egitto</name>
+        <linkedTerritories>
+            <territory>Africa del Nord</territory>
+            <territory>Europa Meridionale</territory>
+            <territory>Africa Orientale</territory>
+            <territory>Medio Oriente</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Africa Orientale</name>
+        <linkedTerritories>
+            <territory>Congo</territory>
+            <territory>Egitto</territory>
+            <territory>Africa del Nord</territory>
+            <territory>Africa del Sud</territory>
+            <territory>Madagascar</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Africa del Sud</name>
+        <linkedTerritories>
+            <territory>Congo</territory>
+            <territory>Africa Orientale</territory>
+            <territory>Madagascar</territory>
+        </linkedTerritories>
+    </territory>
+    <territory>
+        <name>Madagascar</name>
+        <linkedTerritories>
+            <territory>Africa Orientale</territory>
+            <territory>Africa del Sud</territory>
+        </linkedTerritories>
+    </territory>
+
+
+
+
     
 
     
