@@ -2,7 +2,9 @@ package it.unibs.pajc.risiko;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
+import it.unibs.pajc.risiko.map.Map;
 import it.unibs.pajc.risiko.utility.MyMath;
 import it.unibs.pajc.risiko.xml.XmlReader;
 
@@ -25,10 +27,13 @@ public class RisikoApp {
          */
 
         // Crea un'istanza della classe TerritoryReader
-        XmlReader reader = new XmlReader();
+        // XmlReader reader = new XmlReader();
 
         // Chiama il metodo per leggere e stampare i nomi dei territori
-        reader.printTerritoryNames("it/unibs/pajc/risiko/xml/territories.xml"); // Modifica il percorso con il tuo file
-                                                                                // XML
+        // reader.printTerritoryNames("it/unibs/pajc/risiko/xml/territories.xml"); //
+        // Modifica il percorso con il tuo file
+        // XML
+
+        SwingUtilities.invokeLater(Map::new);
     }
 }
