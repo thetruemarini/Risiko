@@ -2,7 +2,6 @@ package it.unibs.pajc.risiko;
 
 import javax.swing.*;
 import java.awt.*;
-import processing.core.PApplet;
 import it.unibs.pajc.risiko.utility.MyMath;
 import it.unibs.pajc.risiko.xml.XmlReader;
 
