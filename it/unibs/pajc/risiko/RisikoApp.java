@@ -1,10 +1,8 @@
 package it.unibs.pajc.risiko;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
-import it.unibs.pajc.risiko.map.Map;
+import javax.swing.*;
+import java.awt.*;
+import processing.core.PApplet;
 import it.unibs.pajc.risiko.utility.MyMath;
 import it.unibs.pajc.risiko.xml.XmlReader;
 
@@ -33,7 +31,5 @@ public class RisikoApp {
         // reader.printTerritoryNames("it/unibs/pajc/risiko/xml/territories.xml"); //
         // Modifica il percorso con il tuo file
         // XML
-
-        SwingUtilities.invokeLater(Map::new);
     }
 }
