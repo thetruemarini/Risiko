@@ -8,10 +8,10 @@ public class Territory {
     private Player owner;
     private ArrayList<Territory> linkedTerritories = new ArrayList<>(); 
 
-    public Territory(String name, int numberTanks, Player owner, ArrayList<Territory> linkedTerritories) {
+    public Territory(String name) {
         this.name = name;
-        this.numberTanks = numberTanks;
-        this.owner = owner;
+        this.numberTanks = 0;
+        this.owner = null;
         inizializeLinkedTerritories();
     }
 
@@ -30,5 +30,16 @@ public class Territory {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    public void setNumberTanks(int numberTanks){
+        
+    }
+
+    public boolean isLinked(Territory t){//TODO cambiarla, sad
+        for(Territory tx: linkedTerritories)
+            if(tx.name.equals(t.name))
+             return true;
+        return false;
     }
 }

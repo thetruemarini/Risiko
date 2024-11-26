@@ -3,20 +3,31 @@ package it.unibs.pajc.risiko;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import it.unibs.pajc.risiko.xml.XmlReader;
 public class Game {
     private ArrayList<Player> players; // TODO constructor
-    private ArrayList<Territory> territories; // per ors teniamos cosis
-    private World world;
     private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
+    private ArrayList<Territory> territories = new ArrayList<>(); //che sarà =world.getTerritories(); questo dico
+    private ArrayList<Continent> continents = new ArrayList<>();
     private ArrayList<Achievement> targetDeck = new ArrayList<>(); // non bellissimo
+     private XmlReader reader; 
 
-    public Game(World world) {
-        this.world = world;
+    public Game() {
+        this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml"); 
+        setContinent(reader.getTerritoryNames());
+
     }
 
     private void addPlayer(Player p) {
         players.add(p);
     }
+
+    private void setContinent(ArrayList<String> territoriesNames){
+        for(String name: reader.getContinentNames()){
+            continents.add(new Continent(name,territoriesNames, 0)); //TODO gestire i bonusTank dal file xml
+        }
+    }
+    
 
     ArrayList<Territory> toAssign = new ArrayList<>(territories);
 

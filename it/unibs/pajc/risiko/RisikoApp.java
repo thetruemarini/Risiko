@@ -24,11 +24,14 @@ public class RisikoApp {
          */
 
         // Crea un'istanza della classe TerritoryReader
-        // XmlReader reader = new XmlReader();
+         XmlReader reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml");
 
         // Chiama il metodo per leggere e stampare i nomi dei territori
-        // reader.printTerritoryNames("it/unibs/pajc/risiko/xml/territories.xml"); //
+         reader.getTerritoryNames(); //
+
         // Modifica il percorso con il tuo file
         // XML
     }
+
+    
 }
