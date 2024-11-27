@@ -1,11 +1,10 @@
 package it.unibs.pajc.risiko.xml;
 
-import org.w3c.dom.*;
-
-import javax.xml.parsers.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
 
 //Bro io ho fatto sta cosa, ci ho messo un bel po, sara che senza gpt sono un bot pero secondo me funziona ed è funzionale
 //TODO l'unica cosa che si potrebbe fare è impostare i parametri delle ultime due funzioni a String se serve(solo se serve)
@@ -33,7 +32,7 @@ public class XmlReader {
     // relativi territori(con i relativi territori confinanti)
     public HashMap<String, HashMap<String, ArrayList<String>>> getData() {
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
-        HashMap<String, ArrayList<String>> territories = new HashMap<>();
+        HashMap<String, ArrayList<String>> territories;
 
         try {
             // TODO immagino che le ultime due nodeList saranno da spostare nei for

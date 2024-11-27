@@ -1,13 +1,9 @@
 package it.unibs.pajc.risiko;
 
-import javax.swing.*;
-import java.awt.*;
+import it.unibs.pajc.risiko.xml.XmlReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import it.unibs.pajc.risiko.utility.MyMath;
-import it.unibs.pajc.risiko.xml.XmlReader;
 
 public class RisikoApp {
 
@@ -28,7 +24,7 @@ public class RisikoApp {
          */
 
         // Crea un'istanza della classe TerritoryReader
-         XmlReader reader = new XmlReader("/Users/riccardomarini/Desktop/Risiko/it/unibs/pajc/risiko/xml/territories.xml");
+         XmlReader reader = new XmlReader("c:\\Users\\ughin\\Desktop\\Luca\\Università\\JavaAvanzata\\Risiko\\it\\unibs\\pajc\\risiko\\xml\\territories.xml");
 
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
