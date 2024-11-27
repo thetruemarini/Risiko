@@ -1,33 +1,28 @@
 package it.unibs.pajc.risiko;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
+import java.util.Map.Entry;
 
 import it.unibs.pajc.risiko.xml.XmlReader;
 public class Game {
+    private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players; // TODO constructor
     private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
     private ArrayList<Territory> territories = new ArrayList<>(); //che sarà =world.getTerritories(); questo dico
     private ArrayList<Continent> continents = new ArrayList<>();
     private ArrayList<Achievement> targetDeck = new ArrayList<>(); // non bellissimo
-     private XmlReader reader; 
+    private XmlReader reader; 
 
     public Game() {
         this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml"); 
-        setContinent(reader.getTerritoryNames());
+        data = reader.getData();
+        setContinent();
 
     }
 
     private void addPlayer(Player p) {
         players.add(p);
     }
-
-    private void setContinent(ArrayList<String> territoriesNames){
-        for(String name: reader.getContinentNames()){
-            continents.add(new Continent(name,territoriesNames, 0)); //TODO gestire i bonusTank dal file xml
-        }
-    }
-    
 
     ArrayList<Territory> toAssign = new ArrayList<>(territories);
 
@@ -59,4 +54,55 @@ public class Game {
         }
     }
 
+   private void setContinent() {
+    // Mappa globale che collega i nomi dei territori alle loro istanze
+    HashMap<String, Territory> territoryMap = new HashMap<>();
+
+    // Primo passaggio: Creare tutti i territori e inserirli nella mappa
+    for (String continentName : data.keySet()) {
+        HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
+
+        for (String territoryName : continentTerritoriesData.keySet()) {
+            // Se il territorio non è già stato creato, lo creiamo
+            if (!territoryMap.containsKey(territoryName)) {
+                Territory territory = new Territory(territoryName);
+                territoryMap.put(territoryName, territory);
+                territories.add(territory); // Aggiungilo alla lista globale
+            }
+        }
+    }
+
+    // Secondo passaggio: Popolare i territori confinanti
+    for (String continentName : data.keySet()) {
+        HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
+
+        for (String territoryName : continentTerritoriesData.keySet()) {
+            Territory currentTerritory = territoryMap.get(territoryName);
+            ArrayList<String> linkedTerritoriesNames = continentTerritoriesData.get(territoryName);
+
+            // Aggiungi i territori confinanti alla lista del territorio corrente
+            for (String linkedTerritoryName : linkedTerritoriesNames) {
+                Territory linkedTerritory = territoryMap.get(linkedTerritoryName);
+                currentTerritory.addLinkedTerritory(linkedTerritory);
+            }
+        }
+    }
+
+    // Terzo passaggio: Creare i continenti e popolare la lista `continents`
+    for (String continentName : data.keySet()) {
+        HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
+        ArrayList<Territory> continentTerritories = new ArrayList<>();
+
+        for (String territoryName : continentTerritoriesData.keySet()) {
+            continentTerritories.add(territoryMap.get(territoryName));
+        }
+
+        Continent continent = new Continent(continentName, continentTerritories);
+        continents.add(continent);
+    }
 }
+
+
+}
+
+

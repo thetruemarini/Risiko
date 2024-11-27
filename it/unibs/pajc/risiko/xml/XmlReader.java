@@ -6,8 +6,9 @@ import java.util.HashMap;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 
-//Bro io ho fatto sta cosa, ci ho messo un bel po, sara che senza gpt sono un bot pero secondo me funziona ed è funzionale
-//TODO l'unica cosa che si potrebbe fare è impostare i parametri delle ultime due funzioni a String se serve(solo se serve)
+//Bro io ho fatto sta cosa, ci ho messo un bel po,sono un bot pero secondo me funziona ed è funzionale mi chiamo marini sono gay fes mi piace
+//il pisello
+//TODO l'unica cosa che si potrebbe fare è impostare i parametri delle ultime due funzioni a String e non nodo se serve (solo se serve)
 public class XmlReader {
     File inputFile;
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

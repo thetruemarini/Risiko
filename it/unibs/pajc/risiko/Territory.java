@@ -12,12 +12,18 @@ public class Territory {
         this.name = name;
         this.numberTanks = 0;
         this.owner = null;
-        inizializeLinkedTerritories();
     }
 
-    private void inizializeLinkedTerritories() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inizializeLinkedTerritories'");
+    public ArrayList<Territory> getLinkedTerritories() {
+        return linkedTerritories;
+    }
+
+    public void addLinkedTerritory(Territory territory) {
+        linkedTerritories.add(territory);
+    }
+
+    public void setLinkedTerritories(ArrayList<Territory> linkedTerritories){
+        this.linkedTerritories = linkedTerritories;
     }
 
     public void incrementsUnits(int nTanks){

@@ -7,16 +7,8 @@ public class Continent {
     private ArrayList<Territory> states;
     private int bonusTanks;
 
-    public Continent(String name, ArrayList<String> territoriesName, int bonusTanks) {
+    public Continent(String name, ArrayList<Territory> territoriesName/* , int bonusTanks */) { //TODO pensare ai bonus tank
         this.name = name;
         this.bonusTanks = bonusTanks;
-        inizializeStates(territoriesName);
     }
-
-    private void inizializeStates(ArrayList<String> territoryNames) {
-            for(String name:territoryNames){
-                states.add(new Territory(name));
-            }
-    }
-
 }

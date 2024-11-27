@@ -24,7 +24,7 @@ public class RisikoApp {
          */
 
         // Crea un'istanza della classe TerritoryReader
-         XmlReader reader = new XmlReader("c:\\Users\\ughin\\Desktop\\Luca\\Università\\JavaAvanzata\\Risiko\\it\\unibs\\pajc\\risiko\\xml\\territories.xml");
+         XmlReader reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml");
 
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
