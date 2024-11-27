@@ -28,7 +28,7 @@ public class RisikoApp {
          */
 
         // Crea un'istanza della classe TerritoryReader
-         XmlReader reader = new XmlReader("/Users/riccardomarini/Desktop/Risiko/Risiko/it/unibs/pajc/risiko/xml/territories.xml ");
+         XmlReader reader = new XmlReader("/Users/riccardomarini/Desktop/Risiko/it/unibs/pajc/risiko/xml/territories.xml");
 
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
@@ -54,7 +54,7 @@ public class RisikoApp {
                 ArrayList<String> list = innerEntry.getValue();
 
                 // Stampa gli elementi della lista
-                System.out.println("    List Elements: ");
+               // System.out.println("    List Elements: ");
                 for (String item : list) {
                     System.out.println("      " + item);
                 }

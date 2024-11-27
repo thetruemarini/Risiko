@@ -85,6 +85,8 @@
         </territory>
     </continent>
     <!-- America Del Sud-->
+    <continent>
+    <name>America Del Sud</name>
     <territory>
         <name>Venezuela</name>
         <linkedTerritories>
@@ -116,6 +118,7 @@
             <territory>Brasile</territory>
         </linkedTerritories>
     </territory>
+    </continent>
     <!-- Europa (marini ti amo)-->
     <continent>
         <name>Europa</name>
