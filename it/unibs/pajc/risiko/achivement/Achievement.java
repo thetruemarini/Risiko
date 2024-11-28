@@ -1,5 +1,7 @@
 package it.unibs.pajc.risiko.achivement;
 
+import it.unibs.pajc.risiko.Player;
+
 public class Achievement {
     
     private String description;
@@ -17,6 +19,10 @@ public class Achievement {
 
     public Condition getCondition() {
         return condition;
+    }
+
+    public boolean isAchived(Player player){
+        return condition.isAchived(player);
     }
 
     

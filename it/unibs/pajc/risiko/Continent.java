@@ -7,8 +7,17 @@ public class Continent {
     private ArrayList<Territory> states;
     private int bonusTanks;
 
+
     public Continent(String name, ArrayList<Territory> territories/* , int bonusTanks */) { //TODO pensare ai bonus tank
         this.name = name;
         this.states = territories;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public ArrayList<Territory> getTerritories(){
+        return this.states;
     }
 }

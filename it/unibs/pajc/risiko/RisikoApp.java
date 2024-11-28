@@ -1,6 +1,8 @@
 package it.unibs.pajc.risiko;
 
+import it.unibs.pajc.risiko.achivement.Achievement;
 import it.unibs.pajc.risiko.xml.XmlReader;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,8 +53,20 @@ public class RisikoApp {
             e.printStackTrace();
         } */
 
+        //creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero che Dio mi voglia bene
         Game game = new Game();
         //TODO game.start();
+        Player p = new Player("marini", Color.RED);
+        game.addPlayer(p);
+        Achievement target = game.getAchievements().get(1);
+        p.setAchievements(target);
+        ArrayList<Territory> territories = game.getTerritories();
+        for(int i = 0; i < 28; i++){
+            p.addTerritory(territories.get(i));
+        }
+        System.out.println(p.getAchievement().isAchived(p));
+
+
         
     }
 

@@ -1,11 +1,9 @@
 package it.unibs.pajc.risiko;
 
+import it.unibs.pajc.risiko.achivement.Achievement;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import it.unibs.pajc.risiko.achivement.Achievement;
-
-import java.awt.Color;
 
 public class Player {
     private String name;
@@ -14,10 +12,18 @@ public class Player {
     private HashMap<Card, Integer> cards = new HashMap<>();; 
     private Achievement target; //TODO implement
     
-    public Player(String name, Color color, ArrayList<Territory> territoriesList) {
+    public Player(String name, Color color) {
         this.name = name;
         this.color = color;
         initializeCards();
+    }
+
+    public void setAchievements(Achievement target){
+        this.target = target;
+    }
+
+    public Achievement getAchievement(){
+        return target;
     }
 
     private void initializeCards(){
@@ -30,8 +36,16 @@ public class Player {
         territoriesList.add(t);
     }
 
+    public Color getColor(){
+        return this.color;
+    }
+
     public int getNumberTerritories(){
         return territoriesList.size();
+    }
+
+    public ArrayList<Territory> getTerritories(){
+        return territoriesList;
     }
 
     public boolean hasAtLeastTwoTanks(){
@@ -39,6 +53,16 @@ public class Player {
             if(t.getNumberTanks() < 2)
                 return false;
         return true;
+    }
+    
+    public boolean hasConqueredContinent(Continent continent){
+
+        ArrayList<Territory> continentTerritories = continent.getTerritories();
+        return territoriesList.containsAll(continentTerritories);
+    }
+
+    public boolean isEliminated(){
+        return territoriesList.size() == 0;
     }
     
     
