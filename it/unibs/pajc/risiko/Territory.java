@@ -50,6 +50,10 @@ public class Territory {
         
     }
 
+    public int getNumberTanks(){
+        return this.numberTanks;
+    }
+
     public boolean isLinked(Territory t){//TODO cambiarla, sad
         for(Territory tx: linkedTerritories)
             if(tx.name.equals(t.name))

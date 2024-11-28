@@ -2,6 +2,9 @@ package it.unibs.pajc.risiko;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import it.unibs.pajc.risiko.achivement.Achievement;
+
 import java.awt.Color;
 
 public class Player {
@@ -27,7 +30,16 @@ public class Player {
         territoriesList.add(t);
     }
 
-    
+    public int getNumberTerritories(){
+        return territoriesList.size();
+    }
+
+    public boolean hasAtLeastTwoTanks(){
+        for(Territory t: territoriesList)
+            if(t.getNumberTanks() < 2)
+                return false;
+        return true;
+    }
     
     
 }

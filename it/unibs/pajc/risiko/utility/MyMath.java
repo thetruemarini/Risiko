@@ -2,8 +2,8 @@ package it.unibs.pajc.risiko.utility;
 
 import java.util.Random;
 
-import it.unibs.pajc.risiko.Achievement;
 import it.unibs.pajc.risiko.Card;
+import it.unibs.pajc.risiko.achivement.Achievement;
 
 public class MyMath {
     private static Random random = new Random();
