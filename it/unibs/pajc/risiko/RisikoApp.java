@@ -1,9 +1,15 @@
 package it.unibs.pajc.risiko;
 
+import it.unibs.pajc.risiko.svg.SVGDrawer;
+import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JFrame;
+
+import org.w3c.dom.Document;
 
 public class RisikoApp {
 
@@ -29,9 +35,27 @@ public class RisikoApp {
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
         data = reader.getData(); 
-        printMap(data);
+        //printMap(data);
         // Modifica il percorso con il tuo file
         // XML
+
+        //print della mappa con svg si spera:
+        try {
+            // Carica il file SVG
+            Document svgDocument = SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
+    
+            // Crea il pannello per visualizzare il file SVG
+            SVGDrawer drawer = new SVGDrawer(svgDocument);
+    
+            // Crea il frame
+            JFrame frame = new JFrame("SVG Viewer");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600); // Imposta una dimensione iniziale ragionevole
+            frame.add(drawer);
+            frame.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
      public static void printMap(HashMap<String, HashMap<String, ArrayList<String>>> map) {
