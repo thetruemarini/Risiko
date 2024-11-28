@@ -11,7 +11,8 @@ import java.awt.geom.Rectangle2D;
 
 
     //TODO gestire meglio il pannello
-public class SVGDrawer extends JPanel implements MouseMotionListener {
+    //TODO thread per velocizzare il disegno
+public class SVGDrawer extends JPanel implements MouseMotionListener { //TODO AnnaMaria: gestire meglio il pannello
     private final GraphicsNode svgGraphics;
     private Rectangle2D highlightedBounds;  // Per tenere traccia della forma evidenziata
     private boolean isHighlighted;          // Per sapere se l'elemento è evidenziato

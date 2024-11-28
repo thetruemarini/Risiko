@@ -167,6 +167,17 @@
                 <territory>Europa Settentrionale</territory>
             </linkedTerritories>
         </territory>
+         <territory>
+            <name>Europa Meridionale</name>
+            <linkedTerritories>
+                <territory>Medio Oriente</territory>
+                <territory>Africa del Nord</territory>
+                <territory>Egitto</territory>
+                <territory>Europa Occidentale</territory>
+                <territory>Ucraina</territory>
+                <territory>Europa Settentrionale</territory>
+            </linkedTerritories>
+        </territory>
         <territory>
             <name>Ucraina</name>
             <linkedTerritories>

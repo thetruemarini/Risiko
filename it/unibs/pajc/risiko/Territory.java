@@ -7,6 +7,7 @@ public class Territory {
     private int numberTanks;
     private Player owner;
     private ArrayList<Territory> linkedTerritories = new ArrayList<>(); 
+    //TODO confine come attributo (->svg)
 
     public Territory(String name) {
         this.name = name;
@@ -55,4 +56,5 @@ public class Territory {
              return true;
         return false;
     }
+    //TODO canBeAttacked per vedere l'owner del territorio
 }

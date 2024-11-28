@@ -7,8 +7,8 @@ public class Continent {
     private ArrayList<Territory> states;
     private int bonusTanks;
 
-    public Continent(String name, ArrayList<Territory> territoriesName/* , int bonusTanks */) { //TODO pensare ai bonus tank
+    public Continent(String name, ArrayList<Territory> territories/* , int bonusTanks */) { //TODO pensare ai bonus tank
         this.name = name;
-        this.bonusTanks = bonusTanks;
+        this.states = territories;
     }
 }

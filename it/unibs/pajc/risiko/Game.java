@@ -1,9 +1,7 @@
 package it.unibs.pajc.risiko;
 
-import java.util.*;
-import java.util.Map.Entry;
-
 import it.unibs.pajc.risiko.xml.XmlReader;
+import java.util.*;
 public class Game {
     private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players; // TODO constructor
@@ -16,7 +14,7 @@ public class Game {
     public Game() {
         this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml"); 
         data = reader.getData();
-        setContinent();
+        initializeWorld();
 
     }
 
@@ -24,11 +22,11 @@ public class Game {
         players.add(p);
     }
 
-    ArrayList<Territory> toAssign = new ArrayList<>(territories);
+    //ArrayList<Territory> toAssign = new ArrayList<>(territories);
 
-    int nPlayers = players.size();
+    //int nPlayers = players.size();
 
-    public void assignedTerritories() { // setOwner
+    /*public void assignedTerritories() { // setOwner
 
         Collections.shuffle(territories); // sostanzialmente mischia casualmente gli elementi di una lista
 
@@ -52,9 +50,9 @@ public class Game {
             selectedPlayer.addTerritory(assignedTerritory);
             assignedTerritory.setOwner(selectedPlayer);
         }
-    }
+    }*/
 
-   private void setContinent() {
+   private void initializeWorld() {
     // Mappa globale che collega i nomi dei territori alle loro istanze
     HashMap<String, Territory> territoryMap = new HashMap<>();
 
@@ -100,6 +98,7 @@ public class Game {
         Continent continent = new Continent(continentName, continentTerritories);
         continents.add(continent);
     }
+    
 }
 
 
