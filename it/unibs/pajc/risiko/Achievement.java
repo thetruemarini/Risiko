@@ -1,5 +1,17 @@
 package it.unibs.pajc.risiko;
 
 public class Achievement {
-    // ci pensiamo
+    
+    private String description;
+    
+    public Achievement(String description) {
+        this.description = description;
+    }
+
+    public boolean isCompleted() {
+        return false;
+    }
+
+
+
 }
