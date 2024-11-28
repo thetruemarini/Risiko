@@ -22,11 +22,11 @@ public class Game {
         players.add(p);
     }
 
-    //ArrayList<Territory> toAssign = new ArrayList<>(territories);
+    ArrayList<Territory> toAssign = new ArrayList<>(territories);
 
-    //int nPlayers = players.size();
+    int nPlayers = players.size();
 
-    /*public void assignedTerritories() { // setOwner
+    public void assignedTerritories() { // setOwner
 
         Collections.shuffle(territories); // sostanzialmente mischia casualmente gli elementi di una lista
 
@@ -50,7 +50,7 @@ public class Game {
             selectedPlayer.addTerritory(assignedTerritory);
             assignedTerritory.setOwner(selectedPlayer);
         }
-    }*/
+    }
 
    private void initializeWorld() {
     // Mappa globale che collega i nomi dei territori alle loro istanze
