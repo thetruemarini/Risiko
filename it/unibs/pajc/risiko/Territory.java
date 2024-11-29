@@ -15,13 +15,6 @@ public class Territory {
         this.owner = null;
     }
 
-    //TODO illuminazione: va bene anche cosi senza il grafo, l'importante è gestire i linked
-    //TODO con un array e inserire funzioni add e remove per aggiungere e rimuovere territori
-    //TODO collegati cosi non serve inizializzare nella classe territorio la lista territori 
-    //TODO che creerebbe loop strani e basta usare queste funzioni nella classe game o (se si 
-    //TODO vuole) nella classe world che svolge il compito della classe grafo . oh yea
-
-
     public ArrayList<Territory> getLinkedTerritories() {
         return linkedTerritories;
     }
