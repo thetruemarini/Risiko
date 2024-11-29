@@ -1,11 +1,18 @@
 package it.unibs.pajc.risiko;
 
 import it.unibs.pajc.risiko.achivement.Achievement;
+import it.unibs.pajc.risiko.svg.SVGDrawer;
+import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JFrame;
+
+import org.w3c.dom.Document;
+
 
 public class RisikoApp {
 
@@ -36,7 +43,7 @@ public class RisikoApp {
         // XML
 
         //print della mappa con svg si spera:
-        /* try {
+        try {
             // Carica il file SVG
             Document svgDocument = SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
     
@@ -51,7 +58,7 @@ public class RisikoApp {
             frame.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
-        } */
+        }
 
         //creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero che Dio mi voglia bene
         Game game = new Game();
