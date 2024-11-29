@@ -154,32 +154,30 @@ public class Game {
         this.achievements.add(new Achievement(
                 "Conquistare la totalità dell'Europa, dell'Oceania e di un terzo continente a scelta",
                         player -> player.getNumberTerritories() >= 192));
-        
+        //armata rossa
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate rosse. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> {
-                    Color c = Color.RED;
-                    Player p = findPlayerFromColor(c);
-                    if(p != null)
-                        return p.isEliminated();
-                    else
-                        return player.getNumberTerritories() >= 24;
-                }));
+                player -> defeatArmy(Color.RED, player)));
+        //armata nera
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate nere. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> player.getNumberTerritories() >= 216));
+                player -> defeatArmy(Color.BLACK, player)));
+        //armata blu
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate blu. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> player.getNumberTerritories() >= 216));
+                player -> defeatArmy(Color.BLUE, player)));
+        //armata verde
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate verdi. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> player.getNumberTerritories() >= 216));
+                player -> defeatArmy(Color.GREEN, player)));
+        //il viola non esiste
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate viola. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> player.getNumberTerritories() >= 216));
+                player -> defeatArmy(Color.PINK, player)));
+        //armate gialle
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate gialle. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
-                player -> player.getNumberTerritories() >= 216));
+                player -> defeatArmy(Color.YELLOW, player)));
     }
 
     public Continent findContinent(String nameContinent){
@@ -189,7 +187,7 @@ public class Game {
         return null;
     }
 
-    public boolean defeatArmy(Color c, Player player){
+    public boolean defeatArmy(Color c, Player player){ //passo il player distruttente anche se è controintuitivo
         Player p = findPlayerFromColor(c);
         if(p != null)
             return p.isEliminated();

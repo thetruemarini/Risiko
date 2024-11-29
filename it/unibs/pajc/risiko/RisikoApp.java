@@ -64,6 +64,7 @@ public class RisikoApp {
         for(int i = 0; i < 28; i++){
             p.addTerritory(territories.get(i));
         }
+        //per funzionare funziona, però: prendo p, il suo achievement e per vedere se è raggiungo rimetto p?????
         System.out.println(p.getAchievement().isAchived(p));
 
 
