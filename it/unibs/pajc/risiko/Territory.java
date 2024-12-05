@@ -54,4 +54,8 @@ public class Territory {
         return false;
     }
     //TODO canBeAttacked per vedere l'owner del territorio
+
+    public String getName() {
+        return name;
+    }
 }

@@ -62,7 +62,11 @@ public class Player {
     }
 
     public boolean isEliminated(){
-        return territoriesList.size() == 0;
+        return territoriesList.isEmpty();
+    }
+
+    public String getName() {
+        return name;
     }
     
     

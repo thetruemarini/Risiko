@@ -24,6 +24,9 @@ public class Achievement {
     public boolean isAchived(Player player){
         return condition.isAchived(player);
     }
+    public String getName() {
+        return description;
+    }
 
     
 

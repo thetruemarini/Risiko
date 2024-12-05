@@ -1,17 +1,10 @@
 package it.unibs.pajc.risiko;
 
-import it.unibs.pajc.risiko.achivement.Achievement;
-import it.unibs.pajc.risiko.svg.SVGDrawer;
-import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JFrame;
-
-import org.w3c.dom.Document;
 
 
 public class RisikoApp {
@@ -38,12 +31,12 @@ public class RisikoApp {
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
         data = reader.getData(); 
-        printMap(data);
+        //printMap(data);
         // Modifica il percorso con il tuo file
         // XML
 
         //print della mappa con svg si spera:
-        try {
+        /* try {
             // Carica il file SVG
             Document svgDocument = SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
     
@@ -58,21 +51,45 @@ public class RisikoApp {
             frame.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        } */
 
         //creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero che Dio mi voglia bene
         Game game = new Game();
         //TODO game.start();
-        Player p = new Player("marini", Color.RED);
+        Player p = new Player("marini", Color.red);
+        Player p1 = new Player("ugo", Color.yellow);
+        Player p2 = new Player("prins", Color.black);
+        Player p3 = new Player("redolfi", Color.green);
         game.addPlayer(p);
-        Achievement target = game.getAchievements().get(1);
+        game.addPlayer(p1);
+        game.addPlayer(p2);
+        game.addPlayer(p3);
+
+
+        game.assignTerritories();
+        game.assignAchievements();
+        
+
+        for (Player player : game.getPlayers()) {
+            game.placeTanks(30, player);
+            System.out.println(player.getName() + " has " + player.getTerritories().size() + " territories.");
+            for (Territory territory : player.getTerritories()) {
+                System.out.println(territory.getName() + " has " + territory.getNumberTanks() + " armies.");
+            } 
+            System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
+    
+        }
+
+   
+
+        /* Achievement target = game.getAchievements().get(1);
         p.setAchievements(target);
         ArrayList<Territory> territories = game.getTerritories();
         for(int i = 0; i < 28; i++){
             p.addTerritory(territories.get(i));
         }
         //per funzionare funziona, però: prendo p, il suo achievement e per vedere se è raggiungo rimetto p?????
-        System.out.println(p.getAchievement().isAchived(p));
+        System.out.println(p.getAchievement().isAchived(p)); */
 
 
         

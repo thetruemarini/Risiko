@@ -18,7 +18,7 @@ public class Game {
         this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml");
         data = reader.getData();
         initializeWorld();
-        setAchievements();
+        initializeAchievements();
 
     }
 
@@ -34,36 +34,7 @@ public class Game {
         return territories;
     }
 
-    /*ArrayList<Territory> toAssign = new ArrayList<>(territories);
-
-    int nPlayers = players.size();
-
-    public void assignedTerritories() { // setOwner
-
-        Collections.shuffle(territories); // sostanzialmente mischia casualmente gli elementi di una lista
-
-        for (int i = 0; i < nPlayers; i++) {
-
-            Player selectedPlayer = players.get(i);
-            int territoriesPerPlayer = territories.size() / nPlayers;
-            for (int j = 0; j < territoriesPerPlayer; j++) {
-                Territory t = toAssign.remove(0); // cosi di sicuro elimino sempre uno dopo averlo assegnato
-                // e il tutto avviene per il giusto numero di volte, territoriPerPlayer
-                selectedPlayer.addTerritory(t);
-                t.setOwner(selectedPlayer);
-            }
-
-        }
-
-        int remainingTerritories = toAssign.size();
-        for (int i = 0; i < remainingTerritories; i++) {
-            Player selectedPlayer = players.get(i);
-            Territory assignedTerritory = toAssign.remove(0);
-            selectedPlayer.addTerritory(assignedTerritory);
-            assignedTerritory.setOwner(selectedPlayer);
-        }
-    }
-*/
+    
     private void initializeWorld() {
         // Mappa globale che collega i nomi dei territori alle loro istanze
         HashMap<String, Territory> territoryMap = new HashMap<>();
@@ -112,7 +83,7 @@ public class Game {
         }
 
     }
-    public void setAchievements() { //usa la findcontinent()  e hasConquiredContinent() che ho fatto
+    public void initializeAchievements() { //usa la findcontinent()  e hasConquiredContinent() che ho fatto
         //18 ter con 2 armate 
         this.achievements.add(new Achievement("Conquistare 18 territori presidiandoli con almeno due armate ciascuno",
                 player -> player.getNumberTerritories() >= 18 && player.hasAtLeastTwoTanks()));  
@@ -188,9 +159,9 @@ public class Game {
     }
 
     public boolean defeatArmy(Color c, Player player){ //passo il player distruttente anche se è controintuitivo
-        Player p = findPlayerFromColor(c);
-        if(p != null)
-            return p.isEliminated();
+        Player opponent = findPlayerFromColor(c);
+        if(opponent != null)
+            return opponent.isEliminated();
         else
             return player.getNumberTerritories() >= 24;
     }
@@ -202,6 +173,64 @@ public class Game {
         return null; 
     }
 
-    
+    //TODO assegnazione colori
+
+    //assegnazione territori 
+    public void assignTerritories() { // setOwner
+        ArrayList<Territory> toAssign = new ArrayList<>(territories);
+        int nPlayers = players.size();
+
+        Collections.shuffle(territories); // sostanzialmente mischia casualmente gli elementi di una lista
+        int territoriesPerPlayer = territories.size() / nPlayers;
+        for (int i = 0; i < nPlayers; i++) {
+
+            Player selectedPlayer = players.get(i);
+            for (int j = 0; j < territoriesPerPlayer; j++) {
+                Territory t = toAssign.remove(new Random().nextInt(toAssign.size())); // cosi di sicuro elimino sempre uno dopo averlo assegnato
+                // e il tutto avviene per il giusto numero di volte, territoriPerPlayer
+                selectedPlayer.addTerritory(t);
+                t.setOwner(selectedPlayer);
+            }
+
+        }
+
+        int remainingTerritories = toAssign.size();
+        for (int i = 0; i < remainingTerritories; i++) {
+            Player selectedPlayer = players.get(i);
+            Territory assignedTerritory = toAssign.remove(0);
+            selectedPlayer.addTerritory(assignedTerritory);
+            assignedTerritory.setOwner(selectedPlayer);
+        }
+    }
+
+    public ArrayList<Player> getPlayers() {
+       return players;
+    }
+
+    //assegna obbiettivi
+    public void assignAchievements() {
+        ArrayList<Achievement> toAssign = new ArrayList<>(achievements);
+        for(Player p: players){
+            p.setAchievements(toAssign.remove(new Random().nextInt(toAssign.size())));
+        }
+    }
+
+    //disposizione tank
+
+    public void placeTanks(int placebleTanks, Player p) {//TODO pensare alla classe turno
+        while(placebleTanks > 0){
+            for(Territory t: p.getTerritories()){
+                if(placebleTanks > 0){
+                    t.incrementsUnits(1);
+                    placebleTanks--;
+                }else{
+                    break;  
+                }
+            }
+        }
+        
+        //TODO implementare la logica di distribuzione dei tank
+    }
+
 
 }
