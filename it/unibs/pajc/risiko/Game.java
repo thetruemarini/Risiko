@@ -323,7 +323,7 @@ public class Game {
                 else
                     att.decrementsUnits(1);
             }   
-            if(dif.getNumberTanks() == 0){
+            if(dif.getNumberTanks() == 0){//TODO da qualche parte ma no qui, se conquista almeno un territorio dai la carta
                 dif.setOwner(att.getOwner());
                 return true;
             }
