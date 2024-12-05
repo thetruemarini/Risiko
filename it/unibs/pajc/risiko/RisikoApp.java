@@ -70,7 +70,7 @@ public class RisikoApp {
         game.assignAchievements();
         
 
-        for (Player player : game.getPlayers()) {
+        /* for (Player player : game.getPlayers()) {
             game.placeTanks(30, player);
             System.out.println(player.getName() + " has " + player.getTerritories().size() + " territories.");
             for (Territory territory : player.getTerritories()) {
@@ -78,9 +78,23 @@ public class RisikoApp {
             } 
             System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
     
+        } */
+
+        int i = 1;
+        for(Player player : game.startFirst()){
+            System.out.println(i+"\t"+player.getName());
+            i++;
         }
 
+       System.out.println(game.bonusTankPerTerritories(p));
+
+       for(Territory t: game.getContinents().get(2).getTerritories()){
+            p.addTerritory(t);
+            System.out.println(t.getName());
+       }
+       System.out.println(game.bonusTankPerContinent(p));
    
+
 
         /* Achievement target = game.getAchievements().get(1);
         p.setAchievements(target);

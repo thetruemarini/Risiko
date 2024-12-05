@@ -39,6 +39,10 @@ public class Territory {
         this.owner = owner;
     }
 
+    public Player getOwner() {
+        return this.owner;
+    }
+
     public void setNumberTanks(int numberTanks){
         
     }

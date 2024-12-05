@@ -1,6 +1,7 @@
 package it.unibs.pajc.risiko;
 
 import it.unibs.pajc.risiko.achivement.*;
+import it.unibs.pajc.risiko.utility.MyMath;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.*;
@@ -33,6 +34,10 @@ public class Game {
     public ArrayList<Territory> getTerritories(){
         return territories;
     }
+
+    public ArrayList<Continent> getContinents(){
+        return continents;
+    } 
 
     
     private void initializeWorld() {
@@ -93,7 +98,7 @@ public class Game {
         //nordAmerica e africa
         this.achievements.add(new Achievement("Conquistare la totalità del Nord America e dell'Africa",
                 player -> {
-                    Continent nordAmerica = findContinent("Nord America");
+                    Continent nordAmerica = findContinent("America Del Nord");
                     Continent africa = findContinent("Africa");
                     return player.hasConqueredContinent(africa) && player.hasConqueredContinent(nordAmerica);
                 }));
@@ -108,7 +113,7 @@ public class Game {
         this.achievements.add(new Achievement("Conquistare la totalità dell'Asia e del Sud America",
         player -> {
             Continent asia = findContinent("Asia");
-            Continent sudAmerica = findContinent("Sud America");
+            Continent sudAmerica = findContinent("America Del Sud");
             return player.hasConqueredContinent(asia) && player.hasConqueredContinent(sudAmerica);
         }));
         //asia e africa
@@ -215,8 +220,7 @@ public class Game {
         }
     }
 
-    //disposizione tank
-
+    //TODO disposizione tank
     public void placeTanks(int placebleTanks, Player p) {//TODO pensare alla classe turno
         while(placebleTanks > 0){
             for(Territory t: p.getTerritories()){
@@ -232,5 +236,101 @@ public class Game {
         //TODO implementare la logica di distribuzione dei tank
     }
 
+    //inizia per primo
+    public ArrayList<Player> startFirst() {
+        ArrayList<Player> firstPlayers = new ArrayList<>();
+        HashMap<Player, Integer> rolledNumbers = new HashMap<>();
 
+       //Ogni giocatore tira il dado
+        for (Player p : players) {
+            rolledNumbers.put(p, MyMath.diceRoll());
+            System.out.println(p.getName() + rolledNumbers.get(p));
+        }
+
+
+        // Ordina i giocatori in base ai valori dei dadi tirati (decrescente)
+        rolledNumbers.entrySet()
+                 .stream()
+                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())) // do il criterio
+                 .forEach(entry -> firstPlayers.add(entry.getKey())); // Aggiungi i giocatori ordinati
+
+        return firstPlayers;
+    } 
+
+    //conta territori
+    public int bonusTankPerTerritories(Player p){
+
+        return p.getTerritories().size()/3;
+    }
+
+    //hai continenti?-> aggiunta tank
+    public int bonusTankPerContinent(Player p){ //TODO sommare tutti i bonus o altro attributo?
+        ArrayList<Continent> conqueredContinents = new ArrayList<>();
+        int bonus = 0;
+        for(Continent c: continents){
+            if(p.hasConqueredContinent(c))
+                conqueredContinents.add(c);
+        }
+        for(Continent c: conqueredContinents){
+            switch (c.getName()) {
+                case "Africa" -> bonus+= 3;
+                case "Asia" -> bonus += 7;
+                case "Europa" -> bonus += 5;
+                case "America Del Nord" -> bonus += 5;
+                case "America Del Sud" -> bonus += 2;
+                case "Ocenia" -> bonus += 2;
+            
+                default -> {
+                }
+            }
+            }
+            return bonus;
+        }
+
+    //TODO disponi bonus 
+
+    //attacco
+    public boolean attack(Territory att, Territory dif, int attTanks){ //OSS: DIPENDE ANCHE SE ATTACCO E V 1 O 1 V 2 ROBE COSI //TODO CAPIRE
+        int difTanks = 0;
+        switch(dif.getNumberTanks()){
+            case 1:
+            difTanks = 1;
+            break;
+            case 2: 
+            difTanks = 2;
+            break;
+            default: 
+            difTanks = 3;
+            break;
+        }
+
+        if(att.isLinked(dif) && att.getNumberTanks() > 1 && !att.getOwner().equals(dif.getOwner())){
+            int[] difRolls = new int[attTanks]; //= {MyMath.diceRoll ...}
+            int[] attRolls = new int[difTanks];
+            //dipende con quanto attacchi e quanto difendi
+            for(int i = 0; i < difTanks; i++){
+                difRolls[i] = MyMath.diceRoll();
+            }
+            for(int i = 0; i < attTanks; i++){
+                attRolls[i] = MyMath.diceRoll();
+            }
+            Arrays.sort(difRolls);
+            Arrays.sort(attRolls);
+
+            for(int i = 0; i < Math.min(attTanks, difTanks); i++){ //ha senso. se è 3 v 1 gioca il maggior risultato dell'attacco contro l'unico della difesa. avendone lanciati 3 ha piu probabilità di fare un numero piu alto ma si itera 1 sola volta
+                if(attRolls[i] > difRolls[i]) //al pareggio vince la difesa, io ho sempre giocato cosi
+                    dif.decrementsUnits(1);
+                else
+                    att.decrementsUnits(1);
+            }   
+            if(dif.getNumberTanks() == 0){
+                dif.setOwner(att.getOwner());
+                return true;
+            }
+        }else
+            System.out.println("ATTACCO NON FATTIBILE, PULLAPPA UN NEGRO");
+        return false; 
+    }
 }
+
+    

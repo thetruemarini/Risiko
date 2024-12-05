@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Player {
     private String name;
     private Color color;
+    //TODO bonusTank
     private ArrayList<Territory> territoriesList = new ArrayList<>();
     private HashMap<Card, Integer> cards = new HashMap<>();; 
     private Achievement target; //TODO implement
