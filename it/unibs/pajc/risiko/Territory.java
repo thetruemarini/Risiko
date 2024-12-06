@@ -6,8 +6,8 @@ public class Territory {
     private String name;
     private int numberTanks;
     private Player owner;
-    private ArrayList<Territory> linkedTerritories = new ArrayList<>(); 
-    //TODO confine come attributo (->svg)
+    private ArrayList<Territory> linkedTerritories = new ArrayList<>();
+    // TODO confine come attributo (->svg)
 
     public Territory(String name) {
         this.name = name;
@@ -23,15 +23,15 @@ public class Territory {
         linkedTerritories.add(territory);
     }
 
-    public void setLinkedTerritories(ArrayList<Territory> linkedTerritories){
+    public void setLinkedTerritories(ArrayList<Territory> linkedTerritories) {
         this.linkedTerritories = linkedTerritories;
     }
 
-    public void incrementsUnits(int nTanks){
+    public void incrementsUnits(int nTanks) {
         this.numberTanks += nTanks;
     }
-    
-    public void decrementsUnits(int nTanks){
+
+    public void decrementsUnits(int nTanks) {
         this.numberTanks -= nTanks;
     }
 
@@ -43,21 +43,21 @@ public class Territory {
         return this.owner;
     }
 
-    public void setNumberTanks(int numberTanks){
-        
+    public void setNumberTanks(int numberTanks) {
+
     }
 
-    public int getNumberTanks(){
+    public int getNumberTanks() {
         return this.numberTanks;
     }
 
-    public boolean isLinked(Territory t){//TODO cambiarla, sad
-        for(Territory tx: linkedTerritories)
-            if(tx.name.equals(t.name))
-             return true;
+    public boolean isLinked(Territory t) {// TODO cambiarla, sad
+        for (Territory tx : linkedTerritories)
+            if (tx.name.equals(t.name))
+                return true;
         return false;
     }
-    //TODO canBeAttacked per vedere l'owner del territorio
+    // TODO canBeAttacked per vedere l'owner del territorio
 
     public String getName() {
         return name;

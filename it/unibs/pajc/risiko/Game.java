@@ -27,19 +27,18 @@ public class Game {
         players.add(p);
     }
 
-    public ArrayList<Achievement> getAchievements(){
+    public ArrayList<Achievement> getAchievements() {
         return achievements;
     }
-    
-    public ArrayList<Territory> getTerritories(){
+
+    public ArrayList<Territory> getTerritories() {
         return territories;
     }
 
-    public ArrayList<Continent> getContinents(){
+    public ArrayList<Continent> getContinents() {
         return continents;
-    } 
+    }
 
-    
     private void initializeWorld() {
         // Mappa globale che collega i nomi dei territori alle loro istanze
         HashMap<String, Territory> territoryMap = new HashMap<>();
@@ -88,99 +87,100 @@ public class Game {
         }
 
     }
-    public void initializeAchievements() { //usa la findcontinent()  e hasConquiredContinent() che ho fatto
-        //18 ter con 2 armate 
+
+    public void initializeAchievements() { // usa la findcontinent() e hasConquiredContinent() che ho fatto
+        // 18 ter con 2 armate
         this.achievements.add(new Achievement("Conquistare 18 territori presidiandoli con almeno due armate ciascuno",
-                player -> player.getNumberTerritories() >= 18 && player.hasAtLeastTwoTanks()));  
-        //24 ter
+                player -> player.getNumberTerritories() >= 18 && player.hasAtLeastTwoTanks()));
+        // 24 ter
         this.achievements
                 .add(new Achievement("Conquistare 24 territori", player -> player.getNumberTerritories() >= 24));
-        //nordAmerica e africa
+        // nordAmerica e africa
         this.achievements.add(new Achievement("Conquistare la totalità del Nord America e dell'Africa",
                 player -> {
                     Continent nordAmerica = findContinent("America Del Nord");
                     Continent africa = findContinent("Africa");
                     return player.hasConqueredContinent(africa) && player.hasConqueredContinent(nordAmerica);
                 }));
-        //america e oceania
+        // america e oceania
         this.achievements.add(new Achievement("Conquistare la totalità del Nord America e dell'Oceania",
-        player -> {
-            Continent oceania = findContinent("Oceania");
-            Continent africa = findContinent("Africa");
-            return player.hasConqueredContinent(africa) && player.hasConqueredContinent(oceania);
-        }));
-        //asia e sud america
+                player -> {
+                    Continent oceania = findContinent("Oceania");
+                    Continent africa = findContinent("Africa");
+                    return player.hasConqueredContinent(africa) && player.hasConqueredContinent(oceania);
+                }));
+        // asia e sud america
         this.achievements.add(new Achievement("Conquistare la totalità dell'Asia e del Sud America",
-        player -> {
-            Continent asia = findContinent("Asia");
-            Continent sudAmerica = findContinent("America Del Sud");
-            return player.hasConqueredContinent(asia) && player.hasConqueredContinent(sudAmerica);
-        }));
-        //asia e africa
+                player -> {
+                    Continent asia = findContinent("Asia");
+                    Continent sudAmerica = findContinent("America Del Sud");
+                    return player.hasConqueredContinent(asia) && player.hasConqueredContinent(sudAmerica);
+                }));
+        // asia e africa
         this.achievements.add(new Achievement("Conquistare la totalità dell'Asia e dell'Africa",
                 player -> {
-            Continent asia = findContinent("Asia");
-            Continent africa = findContinent("Africa");
-            return player.hasConqueredContinent(africa) && player.hasConqueredContinent(asia);
-        }));
+                    Continent asia = findContinent("Asia");
+                    Continent africa = findContinent("Africa");
+                    return player.hasConqueredContinent(africa) && player.hasConqueredContinent(asia);
+                }));
 
         this.achievements.add(new Achievement(
                 "Conquistare la totalità dell'Europa, del Sud America e di un terzo continente a scelta",
                 player -> player.getNumberTerritories() >= 168));
         this.achievements.add(new Achievement(
                 "Conquistare la totalità dell'Europa, dell'Oceania e di un terzo continente a scelta",
-                        player -> player.getNumberTerritories() >= 192));
-        //armata rossa
+                player -> player.getNumberTerritories() >= 192));
+        // armata rossa
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate rosse. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.RED, player)));
-        //armata nera
+        // armata nera
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate nere. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.BLACK, player)));
-        //armata blu
+        // armata blu
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate blu. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.BLUE, player)));
-        //armata verde
+        // armata verde
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate verdi. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.GREEN, player)));
-        //il viola non esiste
+        // il viola non esiste
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate viola. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.PINK, player)));
-        //armate gialle
+        // armate gialle
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate gialle. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.YELLOW, player)));
     }
 
-    public Continent findContinent(String nameContinent){
-        for(Continent c: continents)
-            if(c.getName().equals(nameContinent))
+    public Continent findContinent(String nameContinent) {
+        for (Continent c : continents)
+            if (c.getName().equals(nameContinent))
                 return c;
         return null;
     }
 
-    public boolean defeatArmy(Color c, Player player){ //passo il player distruttente anche se è controintuitivo
+    public boolean defeatArmy(Color c, Player player) { // passo il player distruttente anche se è controintuitivo
         Player opponent = findPlayerFromColor(c);
-        if(opponent != null)
+        if (opponent != null)
             return opponent.isEliminated();
         else
             return player.getNumberTerritories() >= 24;
     }
 
-    public Player findPlayerFromColor(Color c){
-        for(Player p: players)
-            if(p.getColor().equals(c))
-            return p;
-        return null; 
+    public Player findPlayerFromColor(Color c) {
+        for (Player p : players)
+            if (p.getColor().equals(c))
+                return p;
+        return null;
     }
 
-    //TODO assegnazione colori
+    // TODO assegnazione colori
 
-    //assegnazione territori 
+    // assegnazione territori
     public void assignTerritories() { // setOwner
         ArrayList<Territory> toAssign = new ArrayList<>(territories);
         int nPlayers = players.size();
@@ -191,7 +191,8 @@ public class Game {
 
             Player selectedPlayer = players.get(i);
             for (int j = 0; j < territoriesPerPlayer; j++) {
-                Territory t = toAssign.remove(new Random().nextInt(toAssign.size())); // cosi di sicuro elimino sempre uno dopo averlo assegnato
+                Territory t = toAssign.remove(new Random().nextInt(toAssign.size())); // cosi di sicuro elimino sempre
+                                                                                      // uno dopo averlo assegnato
                 // e il tutto avviene per il giusto numero di volte, territoriPerPlayer
                 selectedPlayer.addTerritory(t);
                 t.setOwner(selectedPlayer);
@@ -209,128 +210,130 @@ public class Game {
     }
 
     public ArrayList<Player> getPlayers() {
-       return players;
+        return players;
     }
 
-    //assegna obbiettivi
+    // assegna obbiettivi
     public void assignAchievements() {
         ArrayList<Achievement> toAssign = new ArrayList<>(achievements);
-        for(Player p: players){
+        for (Player p : players) {
             p.setAchievements(toAssign.remove(new Random().nextInt(toAssign.size())));
         }
     }
 
-    //TODO disposizione tank
-    public void placeTanks(int placebleTanks, Player p) {//TODO pensare alla classe turno
-        while(placebleTanks > 0){
-            for(Territory t: p.getTerritories()){
-                if(placebleTanks > 0){
+    // TODO disposizione tank
+    public void placeTanks(int placebleTanks, Player p) {// TODO pensare alla classe turno
+        while (placebleTanks > 0) {
+            for (Territory t : p.getTerritories()) {
+                if (placebleTanks > 0) {
                     t.incrementsUnits(1);
                     placebleTanks--;
-                }else{
-                    break;  
+                } else {
+                    break;
                 }
             }
         }
-        
-        //TODO implementare la logica di distribuzione dei tank
+
+        // TODO implementare la logica di distribuzione dei tank
     }
 
-    //inizia per primo
+    // inizia per primo
     public ArrayList<Player> startFirst() {
         ArrayList<Player> firstPlayers = new ArrayList<>();
         HashMap<Player, Integer> rolledNumbers = new HashMap<>();
 
-       //Ogni giocatore tira il dado
+        // Ogni giocatore tira il dado
         for (Player p : players) {
             rolledNumbers.put(p, MyMath.diceRoll());
             System.out.println(p.getName() + rolledNumbers.get(p));
         }
 
-
         // Ordina i giocatori in base ai valori dei dadi tirati (decrescente)
         rolledNumbers.entrySet()
-                 .stream()
-                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())) // do il criterio
-                 .forEach(entry -> firstPlayers.add(entry.getKey())); // Aggiungi i giocatori ordinati
+                .stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())) // do il criterio
+                .forEach(entry -> firstPlayers.add(entry.getKey())); // Aggiungi i giocatori ordinati
 
         return firstPlayers;
-    } 
-
-    //conta territori
-    public int bonusTankPerTerritories(Player p){
-
-        return p.getTerritories().size()/3;
     }
 
-    //hai continenti?-> aggiunta tank
-    public int bonusTankPerContinent(Player p){ //TODO sommare tutti i bonus o altro attributo?
+    // conta territori
+    public int bonusTankPerTerritories(Player p) {
+
+        return p.getTerritories().size() / 3;
+    }
+
+    // hai continenti?-> aggiunta tank
+    public int bonusTankPerContinent(Player p) { // TODO sommare tutti i bonus o altro attributo?
         ArrayList<Continent> conqueredContinents = new ArrayList<>();
         int bonus = 0;
-        for(Continent c: continents){
-            if(p.hasConqueredContinent(c))
+        for (Continent c : continents) {
+            if (p.hasConqueredContinent(c))
                 conqueredContinents.add(c);
         }
-        for(Continent c: conqueredContinents){
+        for (Continent c : conqueredContinents) {
             switch (c.getName()) {
-                case "Africa" -> bonus+= 3;
+                case "Africa" -> bonus += 3;
                 case "Asia" -> bonus += 7;
                 case "Europa" -> bonus += 5;
                 case "America Del Nord" -> bonus += 5;
                 case "America Del Sud" -> bonus += 2;
                 case "Ocenia" -> bonus += 2;
-            
+
                 default -> {
                 }
             }
-            }
-            return bonus;
         }
+        return bonus;
+    }
 
-    //TODO disponi bonus 
+    // TODO disponi bonus
 
-    //attacco
-    public boolean attack(Territory att, Territory dif, int attTanks){ //OSS: DIPENDE ANCHE SE ATTACCO E V 1 O 1 V 2 ROBE COSI //TODO CAPIRE
+    // attacco
+    public boolean attack(Territory att, Territory dif, int attTanks) { // OSS: DIPENDE ANCHE SE ATTACCO E V 1 O 1 V 2
+                                                                        // ROBE COSI //TODO CAPIRE
         int difTanks = 0;
-        switch(dif.getNumberTanks()){
+        switch (dif.getNumberTanks()) {
             case 1:
-            difTanks = 1;
-            break;
-            case 2: 
-            difTanks = 2;
-            break;
-            default: 
-            difTanks = 3;
-            break;
+                difTanks = 1;
+                break;
+            case 2:
+                difTanks = 2;
+                break;
+            default:
+                difTanks = 3;
+                break;
         }
 
-        if(att.isLinked(dif) && att.getNumberTanks() > 1 && !att.getOwner().equals(dif.getOwner())){
-            int[] difRolls = new int[attTanks]; //= {MyMath.diceRoll ...}
+        if (att.isLinked(dif) && att.getNumberTanks() > 1 && !att.getOwner().equals(dif.getOwner())) {
+            int[] difRolls = new int[attTanks]; // = {MyMath.diceRoll ...}
             int[] attRolls = new int[difTanks];
-            //dipende con quanto attacchi e quanto difendi
-            for(int i = 0; i < difTanks; i++){
+            // dipende con quanto attacchi e quanto difendi
+            for (int i = 0; i < difTanks; i++) {
                 difRolls[i] = MyMath.diceRoll();
             }
-            for(int i = 0; i < attTanks; i++){
+            for (int i = 0; i < attTanks; i++) {
                 attRolls[i] = MyMath.diceRoll();
             }
             Arrays.sort(difRolls);
             Arrays.sort(attRolls);
 
-            for(int i = 0; i < Math.min(attTanks, difTanks); i++){ //ha senso. se è 3 v 1 gioca il maggior risultato dell'attacco contro l'unico della difesa. avendone lanciati 3 ha piu probabilità di fare un numero piu alto ma si itera 1 sola volta
-                if(attRolls[i] > difRolls[i]) //al pareggio vince la difesa, io ho sempre giocato cosi
+            for (int i = 0; i < Math.min(attTanks, difTanks); i++) { // ha senso. se è 3 v 1 gioca il maggior risultato
+                                                                     // dell'attacco contro l'unico della difesa.
+                                                                     // avendone lanciati 3 ha piu probabilità di fare
+                                                                     // un numero piu alto ma si itera 1 sola volta
+                if (attRolls[i] > difRolls[i]) // al pareggio vince la difesa, io ho sempre giocato cosi
                     dif.decrementsUnits(1);
                 else
                     att.decrementsUnits(1);
-            }   
-            if(dif.getNumberTanks() == 0){//TODO da qualche parte ma no qui, se conquista almeno un territorio dai la carta
+            }
+            if (dif.getNumberTanks() == 0) {// TODO da qualche parte ma no qui, se conquista almeno un territorio dai la
+                                            // carta
                 dif.setOwner(att.getOwner());
                 return true;
             }
-        }else
+        } else
             System.out.println("ATTACCO NON FATTIBILE, PULLAPPA UN NEGRO");
-        return false; 
+        return false;
     }
 }
-
-    
