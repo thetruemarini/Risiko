@@ -245,7 +245,7 @@ public class Game {
         // Ogni giocatore tira il dado
         for (Player p : players) {
             rolledNumbers.put(p, MyMath.diceRoll());
-            System.out.println(p.getName() + rolledNumbers.get(p));
+            System.out.println(p.getName() + "\t" + rolledNumbers.get(p));
         }
 
         // Ordina i giocatori in base ai valori dei dadi tirati (decrescente)

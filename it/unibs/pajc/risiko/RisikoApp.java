@@ -1,10 +1,16 @@
 package it.unibs.pajc.risiko;
 
+import it.unibs.pajc.risiko.svg.SVGDrawer;
+import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JFrame;
+
+import org.w3c.dom.Document;
 
 public class RisikoApp {
 
@@ -36,25 +42,25 @@ public class RisikoApp {
         // XML
 
         // print della mappa con svg si spera:
-        /*
-         * try {
-         * // Carica il file SVG
-         * Document svgDocument =
-         * SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
-         * 
-         * // Crea il pannello per visualizzare il file SVG
-         * SVGDrawer drawer = new SVGDrawer(svgDocument);
-         * 
-         * // Crea il frame
-         * JFrame frame = new JFrame("SVG Viewer");
-         * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         * frame.setSize(800, 600); // Imposta una dimensione iniziale ragionevole
-         * frame.add(drawer);
-         * frame.setVisible(true);
-         * } catch (Exception e) {
-         * e.printStackTrace();
-         * }
-         */
+        
+          /* try {
+          // Carica il file SVG
+          Document svgDocument =
+          SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
+          
+          // Crea il pannello per visualizzare il file SVG
+          SVGDrawer drawer = new SVGDrawer(svgDocument);
+          
+          // Crea il frame
+          JFrame frame = new JFrame("SVG Viewer");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.setSize(800, 600); // Imposta una dimensione iniziale ragionevole
+          frame.add(drawer);
+          frame.setVisible(true);
+          } catch (Exception e) {
+          e.printStackTrace();
+         } */
+        
 
         // creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero
         // che Dio mi voglia bene
@@ -72,19 +78,19 @@ public class RisikoApp {
         game.assignTerritories();
         game.assignAchievements();
 
-        /*
-         * for (Player player : game.getPlayers()) {
-         * game.placeTanks(30, player);
-         * System.out.println(player.getName() + " has " +
-         * player.getTerritories().size() + " territories.");
-         * for (Territory territory : player.getTerritories()) {
-         * System.out.println(territory.getName() + " has " + territory.getNumberTanks()
-         * + " armies.");
-         * }
-         * System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
-         * 
-         * }
-         */
+        
+          for (Player player : game.getPlayers()) {
+          game.placeTanks(30, player);
+          System.out.println(player.getName() + " has " +
+          player.getTerritories().size() + " territories.");
+          for (Territory territory : player.getTerritories()) {
+          System.out.println(territory.getName() + " has " + territory.getNumberTanks()
+          + " armies.");
+          }
+          System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
+          
+          }
+        
 
         int i = 1;
         for (Player player : game.startFirst()) {
