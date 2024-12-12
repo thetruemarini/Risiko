@@ -22,7 +22,7 @@ public class Territory {
     public void addLinkedTerritory(Territory territory) {
         linkedTerritories.add(territory);
     }
-
+    
     public void setLinkedTerritories(ArrayList<Territory> linkedTerritories) {
         this.linkedTerritories = linkedTerritories;
     }
@@ -44,7 +44,7 @@ public class Territory {
     }
 
     public void setNumberTanks(int numberTanks) {
-
+    this.numberTanks = numberTanks;
     }
 
     public int getNumberTanks() {

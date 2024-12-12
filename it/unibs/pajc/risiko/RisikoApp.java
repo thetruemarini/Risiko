@@ -75,11 +75,28 @@ public class RisikoApp {
         game.addPlayer(p2);
         game.addPlayer(p3);
 
-        game.assignTerritories();
-        game.assignAchievements();
+        // game.assignTerritories();
+        // game.assignAchievements();
+
+        Territory t = game.getTerritories().get(0);
+        Territory t1 = t.getLinkedTerritories().get(0);
+        p.addTerritory(t);
+        
+        t.setNumberTanks(5);
+        t1.setNumberTanks(1);
+        System.out.println(t);
+        
+        p1.addTerritory(t1);
+        System.out.println(t1);
+        
+
+        System.out.println(t.getNumberTanks() + "\t" + t1.getNumberTanks());
+
+        game.attack(t, t1, 3);
+        
 
         
-          for (Player player : game.getPlayers()) {
+         /*  for (Player player : game.getPlayers()) {
           game.placeTanks(30, player);
           System.out.println(player.getName() + " has " +
           player.getTerritories().size() + " territories.");
@@ -89,10 +106,10 @@ public class RisikoApp {
           }
           System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
           
-          }
+          } */
         
 
-        int i = 1;
+        /* int i = 1;
         for (Player player : game.startFirst()) {
             System.out.println(i + "\t" + player.getName());
             i++;
@@ -104,7 +121,7 @@ public class RisikoApp {
             p.addTerritory(t);
             System.out.println(t.getName());
         }
-        System.out.println(game.bonusTankPerContinent(p));
+        System.out.println(game.bonusTankPerContinent(p)); */
 
         /*
          * Achievement target = game.getAchievements().get(1);

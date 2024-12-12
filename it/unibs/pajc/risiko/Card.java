@@ -4,6 +4,7 @@ public enum Card {
 
     gun, jack, knight;
 
+
     public static Card[] getCard() {
         return Card.values();
     }
