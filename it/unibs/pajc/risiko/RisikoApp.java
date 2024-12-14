@@ -43,7 +43,7 @@ public class RisikoApp {
 
         // print della mappa con svg si spera:
         
-          /* try {
+          try {
           // Carica il file SVG
           Document svgDocument =
           SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
@@ -59,7 +59,7 @@ public class RisikoApp {
           frame.setVisible(true);
           } catch (Exception e) {
           e.printStackTrace();
-         } */
+         }
         
 
         // creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero
@@ -78,7 +78,7 @@ public class RisikoApp {
         // game.assignTerritories();
         // game.assignAchievements();
 
-        Territory t = game.getTerritories().get(0);
+       /*  Territory t = game.getTerritories().get(0);
         Territory t1 = t.getLinkedTerritories().get(0);
         p.addTerritory(t);
         
@@ -94,7 +94,7 @@ public class RisikoApp {
 
         game.attack(t, t1, 3);
         
-
+ */
         
          /*  for (Player player : game.getPlayers()) {
           game.placeTanks(30, player);
