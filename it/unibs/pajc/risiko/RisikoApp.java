@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -46,10 +47,10 @@ public class RisikoApp {
           try {
           // Carica il file SVG
           Document svgDocument =
-          SVGLoader.loadSVG("it/unibs/pajc/risiko/resources/oceania.svg");
-          
+          SVGLoader.loadSVGDocument("it/unibs/pajc/risiko/resources/oceania.svg");
+          List<String> paths = SVGLoader.extractPaths(svgDocument);
           // Crea il pannello per visualizzare il file SVG
-          SVGDrawer drawer = new SVGDrawer(svgDocument);
+          SVGDrawer drawer = new SVGDrawer(paths);
           
           // Crea il frame
           JFrame frame = new JFrame("SVG Viewer");
