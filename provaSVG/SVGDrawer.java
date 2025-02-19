@@ -52,8 +52,8 @@ public class SVGDrawer extends JPanel {
 
             // Crea e mostra il frame con il pannello di disegno
             JFrame frame = new JFrame("SVG Drawer");
-            SVGDrawer svgDrawer = new SVGDrawer(paths);
-            frame.add(svgDrawer);
+            //SVGDrawer svgDrawer = new SVGDrawer(paths);
+            //frame.add(svgDrawer);
             frame.setSize(800, 600);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
