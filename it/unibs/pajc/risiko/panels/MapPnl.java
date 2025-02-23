@@ -3,7 +3,6 @@ package it.unibs.pajc.risiko.panels;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -16,6 +15,7 @@ public class MapPnl extends JPanel {
     }
 
     @Override
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;

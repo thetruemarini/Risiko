@@ -6,11 +6,9 @@ import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-
+import java.util.Map;
 import javax.swing.JFrame;
-
 import org.w3c.dom.Document;
 
 public class RisikoApp {
