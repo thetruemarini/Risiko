@@ -2,6 +2,7 @@ package it.unibs.pajc.risiko;
 
 import it.unibs.pajc.risiko.svg.SVGDrawer;
 import it.unibs.pajc.risiko.svg.SVGLoader;
+import it.unibs.pajc.risiko.svg.SVGParser;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -36,29 +37,29 @@ public class RisikoApp {
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
         data = reader.getData();
-        // printMap(data);
+        printMap(data);
         // Modifica il percorso con il tuo file
         // XML
 
         // print della mappa con svg si spera:
         
-          try {
-          // Carica il file SVG
-          Document svgDocument =
-          SVGLoader.loadSVGDocument("it/unibs/pajc/risiko/resources/oceania.svg");
-          List<String> paths = SVGLoader.extractPaths(svgDocument);
-          // Crea il pannello per visualizzare il file SVG
-          SVGDrawer drawer = new SVGDrawer(paths);
-          
-          // Crea il frame
-          JFrame frame = new JFrame("SVG Viewer");
-          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.setSize(800, 600); // Imposta una dimensione iniziale ragionevole
-          frame.add(drawer);
-          frame.setVisible(true);
-          } catch (Exception e) {
-          e.printStackTrace();
-         }
+         try {
+            // Carica il file SVG
+            Document svgDocument = SVGLoader.loadSVGDocument("it/unibs/pajc/risiko/resources/oceania.svg");
+
+            // Estrai i percorsi dal documento SVG
+            List<String> paths = SVGParser.extractPaths(svgDocument);
+
+            // Crea e mostra il frame con il pannello di disegno
+            JFrame frame = new JFrame("SVG Drawer");
+            SVGDrawer svgDrawer = new SVGDrawer(paths);
+            frame.add(svgDrawer);
+            frame.setSize(800, 600);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
 
         // creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero
