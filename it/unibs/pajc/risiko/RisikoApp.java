@@ -37,7 +37,7 @@ public class RisikoApp {
         // Chiama il metodo per leggere e stampare i nomi dei territori
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
         data = reader.getData();
-        printMap(data);
+        //printMap(data);
         // Modifica il percorso con il tuo file
         // XML
 
@@ -75,8 +75,8 @@ public class RisikoApp {
         game.addPlayer(p2);
         game.addPlayer(p3);
 
-        // game.assignTerritories();
-        // game.assignAchievements();
+         game.assignTerritories();
+         game.assignAchievements();
 
        /*  Territory t = game.getTerritories().get(0);
         Territory t1 = t.getLinkedTerritories().get(0);
@@ -96,7 +96,7 @@ public class RisikoApp {
         
  */
         
-         /*  for (Player player : game.getPlayers()) {
+          for (Player player : game.getPlayers()) {
           game.placeTanks(30, player);
           System.out.println(player.getName() + " has " +
           player.getTerritories().size() + " territories.");
@@ -106,7 +106,7 @@ public class RisikoApp {
           }
           System.out.println("OBIETTIVO:\t" + player.getAchievement().getName());
           
-          } */
+          }
         
 
         /* int i = 1;
