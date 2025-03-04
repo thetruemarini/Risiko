@@ -23,14 +23,15 @@ public class SVGDrawer extends JPanel {
             new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    handleMouseClick(e);
+                    //handleMouseClick(e); //TODO gestire click mouse
                 }
             });
         addMouseMotionListener(
             new MouseAdapter() {
                 @Override
                 public void mouseMoved(MouseEvent e) {
-                    handleMouseMoved(e);
+                    movePoint = e.getPoint();
+                    repaint();
                 }
             });
     }
@@ -66,6 +67,8 @@ public class SVGDrawer extends JPanel {
             for (Shape shape : shapes) {
                 g2d.draw(shape);
             }
+
+            fillShape(g2d);
         }
     }
 
@@ -93,36 +96,12 @@ public class SVGDrawer extends JPanel {
         }
     }
 
-    private void handleMouseClick(MouseEvent e) {
-        Point clickPoint = e.getPoint();
-        try {
-            Point2D transformedPoint = transform.inverseTransform(clickPoint, null);
-            for (Shape shape : shapes) {
-                if (shape.contains(transformedPoint)) {
-                    // System.out.println("Shape clicked: " + shape);
-                    // Add your custom click handling logic here
-                    Graphics g = getGraphics();
-                    Graphics2D g2d = (Graphics2D) g;
-                    g2d.setTransform(transform); // Apply the same transformation
-                    g2d.setColor(Color.RED); // Change the color as needed
-                    g2d.fill(shape);
-                    break;
+    Point movePoint = new Point(0, 0);
 
-                    //TODO: instead of filling the shape adding an utility method
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void handleMouseMoved(MouseEvent e) {
-        Point movePoint = e.getPoint();
+    private void fillShape(Graphics2D g2d) {
         try {
             Point2D transformedPoint = transform.inverseTransform(movePoint, null);
-            Graphics g = getGraphics();
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setTransform(transform);
+            g2d.setTransform(transform); //TODO coordinate mondo (gia fatto)
             for (Shape shape : shapes) {
                 if (shape.contains(transformedPoint)) {
                     // System.out.println("Shape moved: " + shape);
@@ -132,13 +111,13 @@ public class SVGDrawer extends JPanel {
                     return;
                 } else {
                     setCursor(Cursor.getDefaultCursor());
-                    g2d.setColor(Color.WHITE);
-                    g2d.fill(shape);
-                } //TODO: fix the bottom shape
+                } 
             }
             return;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
+
 }

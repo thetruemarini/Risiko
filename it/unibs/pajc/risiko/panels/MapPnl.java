@@ -1,28 +1,45 @@
 package it.unibs.pajc.risiko.panels;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MapPnl extends JPanel {
-    private Image mappa;
 
+    private static final long serialVersionUID = 1L;
+    private RoundPnl roundPnl;
+
+    /**
+     * Create the panel.
+     */
     public MapPnl() {
-        // Carica l'immagine della mappa
-        mappa = new ImageIcon("it/unibs/pajc/risiko/map/Mappa_Risiko.jpg").getImage();
+        setLayout(null);
+
+        // Creazione del RoundPnl
+        roundPnl = new RoundPnl();
+        add(roundPnl);
+
+        // Imposta le dimensioni iniziali
+        resizeRoundPnl();
+
+        // Aggiunge un listener per ridimensionare il RoundPnl quando il MapPnl cambia dimensione
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                resizeRoundPnl();
+            }
+        });
     }
 
-    @Override
+    private void resizeRoundPnl() {
+        int width = getWidth();
+        int height = getHeight();
+        int roundHeight = 100; // Altezza fissa
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
+        // Posiziona RoundPnl in basso e lo adatta in larghezza
+        roundPnl.setBounds(0, height - roundHeight, width, roundHeight);
 
-        // Disegna l'immagine della mappa
-        g2d.drawImage(mappa, 0, 0, getWidth(), getHeight(), this);
-
-        // Aggiungi altri elementi grafici sopra, se necessario
+        // Ridisegna il pannello
+        repaint();
     }
 }
