@@ -5,6 +5,7 @@ import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.svg.SVGParser;
 import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,23 +44,14 @@ public class RisikoApp {
 
         // print della mappa con svg si spera:
         
-         try {
-            // Carica il file SVG
-            Document svgDocument = SVGLoader.loadSVGDocument("it/unibs/pajc/risiko/resources/oceania.svg");
-
-            // Estrai i percorsi dal documento SVG
-            List<String> paths = SVGParser.extractPaths(svgDocument);
-
-            // Crea e mostra il frame con il pannello di disegno
-            JFrame frame = new JFrame("SVG Drawer");
-            SVGDrawer svgDrawer = new SVGDrawer(paths);
-            frame.add(svgDrawer);
-            frame.setSize(800, 600);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        EventQueue.invokeLater(() -> {
+            try {
+                RisikoWindow window = new RisikoWindow();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         
 
         // creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero

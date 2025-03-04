@@ -9,18 +9,7 @@ import it.unibs.pajc.risiko.panels.*;
 
 public class RisikoWindow {
 
-    private JFrame frame;
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                RisikoWindow window = new RisikoWindow();
-                window.frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+    JFrame frame;
 
     public RisikoWindow() {
         initialize();
@@ -28,7 +17,7 @@ public class RisikoWindow {
 
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 600, 400); // Finestra più grande
+        frame.setBounds(200, 200, 1200, 800); // Finestra più grande
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout()); // Layout principale
 
