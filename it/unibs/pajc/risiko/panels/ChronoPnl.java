@@ -27,6 +27,14 @@ public class ChronoPnl extends JPanel {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		add(scrollPane, BorderLayout.CENTER);
+		/* for(int i = 0; i < 10; i++) {
+			appendText("Ciao " + i);
+		} */
+	}
+
+	// Aggiunge un messaggio al pannello
+	public void appendText(String text) {
+		textArea.append(text + "\n");
 	}
 
 }

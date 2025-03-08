@@ -18,11 +18,11 @@ public class MapPnl extends JPanel {
     /**
      * Create the panel.
      */
-    public MapPnl() {
+    public MapPnl(ChronoPnl chronoPnl) {
         setLayout(new BorderLayout()); // Usa BorderLayout per gestire meglio i componenti
 
         // Creazione del RoundPnl
-        roundPnl = new RoundPnl();
+        roundPnl = new RoundPnl(chronoPnl);
         add(roundPnl, BorderLayout.SOUTH); // Aggiungi il RoundPnl in basso
 
         // Aggiunge un listener per ridimensionare il RoundPnl quando il MapPnl cambia
@@ -42,7 +42,7 @@ public class MapPnl extends JPanel {
             List<String> paths = SVGParser.extractPaths(svgDocument);
 
             // Crea e mostra il pannello di disegno
-            SVGDrawer svgDrawer = new SVGDrawer(paths);
+            SVGDrawer svgDrawer = new SVGDrawer(paths, chronoPnl);
             svgDrawer.setPreferredSize(new Dimension(800, 600)); // Imposta dimensioni preferite
             add(svgDrawer, BorderLayout.CENTER); // Aggiungi il pannello SVGDrawer al centro
 

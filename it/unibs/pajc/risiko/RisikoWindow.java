@@ -3,13 +3,12 @@ package it.unibs.pajc.risiko;
 import java.awt.*;
 import javax.swing.*;
 
-import it.unibs.pajc.risiko.panels.ChronoPnl;
-import it.unibs.pajc.risiko.panels.MapPnl;
 import it.unibs.pajc.risiko.panels.*;
 
 public class RisikoWindow {
 
     JFrame frame;
+    ChronoPnl chronoPnl = new ChronoPnl();
 
     public RisikoWindow() {
         initialize();
@@ -23,15 +22,15 @@ public class RisikoWindow {
 
         // Pannello sinistro (Chrono)
         JPanel leftPanel = new JPanel(new BorderLayout());
-        leftPanel.add(new ChronoPnl(), BorderLayout.CENTER);
+        leftPanel.add(chronoPnl, BorderLayout.CENTER);
 
         // Pannello centrale (Mappa + Round)
         JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(new MapPnl(), BorderLayout.CENTER);
+        centerPanel.add(new MapPnl(chronoPnl), BorderLayout.CENTER);
 
         // Pannello destro (Player)
         JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(new PlayerPnl(), BorderLayout.CENTER);
+        rightPanel.add(new PlayerPnl(chronoPnl), BorderLayout.CENTER);
 
         // Aggiunta dei pannelli al frame
         frame.add(leftPanel, BorderLayout.WEST);
@@ -39,9 +38,13 @@ public class RisikoWindow {
         frame.add(rightPanel, BorderLayout.EAST);
 
         // Imposta proporzioni dei pannelli
-        leftPanel.setPreferredSize(new Dimension(100, 0));
+        leftPanel.setPreferredSize(new Dimension(200, 0));
         rightPanel.setPreferredSize(new Dimension(100, 0));
 
         frame.setVisible(true);
+    }
+
+    public ChronoPnl getChronoPnl() {
+        return chronoPnl;
     }
 }

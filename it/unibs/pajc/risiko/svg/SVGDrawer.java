@@ -11,19 +11,24 @@ import javax.swing.*;
 import org.apache.batik.parser.AWTPathProducer;
 import org.apache.batik.parser.PathParser;
 
+import it.unibs.pajc.risiko.panels.ChronoPnl;
+
 public class SVGDrawer extends JPanel {
     private List<String> paths;
     private List<Shape> shapes;
     private AffineTransform transform;
+    private ChronoPnl chronoPnl;
+    private Point movePoint = new Point(0, 0);
 
-    public SVGDrawer(List<String> paths) {
+    public SVGDrawer(List<String> paths, ChronoPnl chronoPnl) {
         this.paths = paths;
         this.shapes = new ArrayList<>();
+        this.chronoPnl = chronoPnl;
         addMouseListener(
                 new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        // handleMouseClick(e); //TODO gestire click mouse
+                        handleMouseClick(e);
                     }
                 });
         addMouseMotionListener(
@@ -96,8 +101,6 @@ public class SVGDrawer extends JPanel {
         }
     }
 
-    Point movePoint = new Point(0, 0);
-
     private void fillShape(Graphics2D g2d) {
         try {
             if (transform != null) { // Ensure transform is initialized
@@ -122,4 +125,20 @@ public class SVGDrawer extends JPanel {
         }
     }
 
+    private void handleMouseClick(MouseEvent e) {
+        try {
+            if (transform != null) { // Ensure transform is initialized
+                Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
+
+                for (Shape shape : shapes) {
+                    if (shape.contains(transformedPoint)) {
+                        chronoPnl.appendText("Shape clicked at: " + transformedPoint);
+                        break; // Exit loop once a shape is found
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
