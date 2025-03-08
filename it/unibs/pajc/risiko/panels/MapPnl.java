@@ -1,7 +1,5 @@
 package it.unibs.pajc.risiko.panels;
 
-import javax.swing.*;
-import org.w3c.dom.Document;
 import it.unibs.pajc.risiko.svg.SVGDrawer;
 import it.unibs.pajc.risiko.svg.SVGLoader;
 import it.unibs.pajc.risiko.svg.SVGParser;
@@ -9,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import javax.swing.*;
+import org.w3c.dom.Document;
 
 public class MapPnl extends JPanel {
 

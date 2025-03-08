@@ -61,7 +61,7 @@ public class SVGDrawer extends JPanel {
 
             // Apply the translation transformation
             transform = AffineTransform.getTranslateInstance(translateX, translateY);
-            g2d.setTransform(transform);
+            g2d.transform(transform);
 
             // Draw the shapes
             for (Shape shape : shapes) {
@@ -100,20 +100,23 @@ public class SVGDrawer extends JPanel {
 
     private void fillShape(Graphics2D g2d) {
         try {
+            if (transform != null) { // Ensure transform is initialized
             Point2D transformedPoint = transform.inverseTransform(movePoint, null);
-            g2d.setTransform(transform); //TODO coordinate mondo (gia fatto)
+            
+            boolean found = false;
             for (Shape shape : shapes) {
                 if (shape.contains(transformedPoint)) {
-                    // System.out.println("Shape moved: " + shape);
                     setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     g2d.setColor(Color.YELLOW);
                     g2d.fill(shape);
-                    return;
-                } else {
-                    setCursor(Cursor.getDefaultCursor());
-                } 
+                    found = true;
+                    break; // Exit loop once a shape is found
+                }
             }
-            return;
+            if (!found) {
+                setCursor(Cursor.getDefaultCursor());
+            }
+        }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
