@@ -9,7 +9,7 @@ import java.util.*;
 public class Game {
     private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players = new ArrayList<>(); // TODO constructor
-    private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
+    // private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
     private ArrayList<Territory> territories = new ArrayList<>(); // che sarà =world.getTerritories(); questo dico
     private ArrayList<Continent> continents = new ArrayList<>();
     private ArrayList<Achievement> achievements = new ArrayList<>();
@@ -155,7 +155,7 @@ public class Game {
         this.achievements.add(new Achievement(
                 "Distruggere completamente le armate gialle. Se le armate non sono presenti nel gioco, se le armate sono possedute dal giocatore che ha l'obiettivo di distruggerle o se l'ultima armata viene distrutta da un altro giocatore, l'obiettivo diventa conquistare 24 territori",
                 player -> defeatArmy(Color.YELLOW, player)));
-    }
+    } // TODO: gestire se io ho quel colore di armata
 
     public Continent findContinent(String nameContinent) {
         for (Continent c : continents)
@@ -291,12 +291,19 @@ public class Game {
     // TODO disponi bonus
 
     // attacco
-    public boolean attack(Territory att, Territory dif, int attTanks) { //TODO controlllare il check att tanks > 1 con interfaccia utente
+    public boolean attack(Territory att, Territory dif, int attTanks) { // TODO controlllare il check att tanks > 1 con
+                                                                        // interfaccia utente
         int difTanks = 0;
         switch (dif.getNumberTanks()) {
-            case  1: difTanks = 1; break;
-            case  2: difTanks = 2; break;
-            default: difTanks = 3; break;
+            case 1:
+                difTanks = 1;
+                break;
+            case 2:
+                difTanks = 2;
+                break;
+            default:
+                difTanks = 3;
+                break;
         }
 
         if (att.isLinked(dif) && att.getNumberTanks() > 1 && !att.getOwner().equals(dif.getOwner())) {
@@ -309,52 +316,53 @@ public class Game {
             for (int i = 0; i < attTanks; i++) {
                 attRolls[i] = MyMath.diceRoll();
             }
-            
+
             Arrays.sort(difRolls, (a, b) -> Integer.compare(b, a));
             Arrays.sort(attRolls, (a, b) -> Integer.compare(b, a));
 
             int nFight = Math.min(attTanks, difTanks);
 
-
             for (int i = 0; i < nFight; i++) { // ha senso. se è 3 v 1 gioca il maggior risultato
-                                                                     // dell'attacco contro l'unico della difesa.
-                                                                     // avendone lanciati 3 ha piu probabilità di fare
-                                                                     // un numero piu alto ma si itera 1 sola volta
+                                               // dell'attacco contro l'unico della difesa.
+                                               // avendone lanciati 3 ha piu probabilità di fare
+                                               // un numero piu alto ma si itera 1 sola volta
                 if (attRolls[i] > difRolls[i]) // al pareggio vince la difesa, io ho sempre giocato cosi
                     dif.decrementsUnits(1);
-                else{
+                else {
                     att.decrementsUnits(1);
                     attTanks--;
                 }
             }
-            if (dif.getNumberTanks() == 0) {// TODO da qualche parte ma no qui, se conquista almeno un territorio dai la carta
+            if (dif.getNumberTanks() == 0) {// TODO da qualche parte ma no qui, se conquista almeno un territorio dai la
+                                            // carta
                 att.decrementsUnits(attTanks);
                 dif.getOwner().removeTerritory(dif);
                 dif.setOwner(att.getOwner());
                 dif.setNumberTanks(attTanks);
                 att.getOwner().addTerritory(dif);
                 this.reachedCard = true;
-                pickCard(att.getOwner());    
-                return true; 
+                pickCard(att.getOwner());
+                return true;
             }
         } else
-            System.out.println("ATTACCO NON FATTIBILE"); //TODO occhio al return
+            System.out.println("ATTACCO NON FATTIBILE"); // TODO occhio al return
         return false;
     }
 
     public void pickCard(Player winner) {
 
-        if(reachedCard){
+        if (reachedCard) {
             winner.addCard(MyMath.generatedCard());
         }
         reachedCard = false;
     }
 
-    public void  checkCards(Player p) {  //scorro le carte e se ne ha 3 di un tipo prende dei tanks bonus con un for, if e switch
+    public void checkCards(Player p) { // scorro le carte e se ne ha 3 di un tipo prende dei tanks bonus con un for, if
+                                       // e switch
 
-        for(Map.Entry<Card,Integer> entry : p.getCards().entrySet()){
-            if(entry.getValue() == 3){
-                switch(entry.getKey()){
+        for (Map.Entry<Card, Integer> entry : p.getCards().entrySet()) {
+            if (entry.getValue() == 3) {
+                switch (entry.getKey()) {
                     case gun -> p.incrementBonusTank(3);
                     case jack -> p.incrementBonusTank(5);
                     case knight -> p.incrementBonusTank(7);
@@ -363,15 +371,14 @@ public class Game {
         }
     }
 
-    public boolean checkAchievent(Player p){
+    public boolean checkAchievent(Player p) {
         return p.getAchievement().isAchived(p);
     }
 
-
     public void checkVictory() {
-        for (Player p : players) {   
-            if(checkAchievent(p)){
-                System.out.println("VITTORIA DI " + p.getName()); 
+        for (Player p : players) {
+            if (checkAchievent(p)) {
+                System.out.println("VITTORIA DI " + p.getName());
             }
 
         }

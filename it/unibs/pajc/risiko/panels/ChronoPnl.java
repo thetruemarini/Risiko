@@ -13,18 +13,20 @@ public class ChronoPnl extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	    private JTextArea textArea;
+	private JTextArea textArea;
 
-	    public ChronoPnl() {
-	        setLayout(new BorderLayout()); // Layout per organizzare i componenti
+	public ChronoPnl() {
+		setLayout(new BorderLayout()); // Layout per organizzare i componenti
 
-	        textArea = new JTextArea(15, 30);
-	        textArea.setEditable(true); // Impedisce all'utente di scrivere direttamente
+		textArea = new JTextArea(15, 30);
+		textArea.setEditable(false); // Impedisce all'utente di scrivere direttamente
 
-	        JScrollPane scrollPane = new JScrollPane(textArea);
-	        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		textArea.append("Benvenuto in Risiko!\n");
 
-	        add(scrollPane, BorderLayout.CENTER);
-	    }
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		add(scrollPane, BorderLayout.CENTER);
+	}
 
 }

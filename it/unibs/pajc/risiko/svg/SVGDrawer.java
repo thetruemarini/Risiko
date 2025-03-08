@@ -20,20 +20,20 @@ public class SVGDrawer extends JPanel {
         this.paths = paths;
         this.shapes = new ArrayList<>();
         addMouseListener(
-            new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    //handleMouseClick(e); //TODO gestire click mouse
-                }
-            });
+                new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        // handleMouseClick(e); //TODO gestire click mouse
+                    }
+                });
         addMouseMotionListener(
-            new MouseAdapter() {
-                @Override
-                public void mouseMoved(MouseEvent e) {
-                    movePoint = e.getPoint();
-                    repaint();
-                }
-            });
+                new MouseAdapter() {
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                        movePoint = e.getPoint();
+                        repaint();
+                    }
+                });
     }
 
     @Override
@@ -101,26 +101,25 @@ public class SVGDrawer extends JPanel {
     private void fillShape(Graphics2D g2d) {
         try {
             if (transform != null) { // Ensure transform is initialized
-            Point2D transformedPoint = transform.inverseTransform(movePoint, null);
-            
-            boolean found = false;
-            for (Shape shape : shapes) {
-                if (shape.contains(transformedPoint)) {
-                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                    g2d.setColor(Color.YELLOW);
-                    g2d.fill(shape);
-                    found = true;
-                    break; // Exit loop once a shape is found
+                Point2D transformedPoint = transform.inverseTransform(movePoint, null);
+
+                boolean found = false;
+                for (Shape shape : shapes) {
+                    if (shape.contains(transformedPoint)) {
+                        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                        g2d.setColor(Color.YELLOW);
+                        g2d.fill(shape);
+                        found = true;
+                        break; // Exit loop once a shape is found
+                    }
+                }
+                if (!found) {
+                    setCursor(Cursor.getDefaultCursor());
                 }
             }
-            if (!found) {
-                setCursor(Cursor.getDefaultCursor());
-            }
-        }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
 
 }

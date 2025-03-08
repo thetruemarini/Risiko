@@ -37,7 +37,7 @@ public class RisikoWindow {
         frame.add(leftPanel, BorderLayout.WEST);
         frame.add(centerPanel, BorderLayout.CENTER);
         frame.add(rightPanel, BorderLayout.EAST);
-        
+
         // Imposta proporzioni dei pannelli
         leftPanel.setPreferredSize(new Dimension(100, 0));
         rightPanel.setPreferredSize(new Dimension(100, 0));

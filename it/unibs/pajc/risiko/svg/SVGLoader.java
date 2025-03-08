@@ -49,17 +49,16 @@ public class SVGLoader {
                 System.out.println(path);
                 System.out.println("\n");
             }
-            
+
             // Stampa l'intero documento SVG
-             printSVGDocument(svgDocument);
+            printSVGDocument(svgDocument);
 
             JFrame frame = new JFrame("SVG Drawer");
-            //SVGDrawer svgDrawer = new SVGDrawer(paths);
-            //frame.add(svgDrawer);
+            // SVGDrawer svgDrawer = new SVGDrawer(paths);
+            // frame.add(svgDrawer);
             frame.setSize(400, 400);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-
 
         } catch (Exception e) {
             e.printStackTrace();

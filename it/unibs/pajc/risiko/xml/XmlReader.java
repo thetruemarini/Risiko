@@ -86,7 +86,7 @@ public class XmlReader {
                         // System.out.println(name);
                         linkedTerritoriesNames.add(name);
                     }
-                   // System.out.println("\n------------------------\n");
+                    // System.out.println("\n------------------------\n");
                 }
             }
         }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Continent {
     private String name;
     private ArrayList<Territory> states;
-    private int bonusTanks;
+    // private int bonusTanks;
 
     public Continent(String name, ArrayList<Territory> territories/* , int bonusTanks */) { // TODO pensare ai bonus
                                                                                             // TODO tank

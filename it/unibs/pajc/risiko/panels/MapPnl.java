@@ -25,7 +25,8 @@ public class MapPnl extends JPanel {
         roundPnl = new RoundPnl();
         add(roundPnl, BorderLayout.SOUTH); // Aggiungi il RoundPnl in basso
 
-        // Aggiunge un listener per ridimensionare il RoundPnl quando il MapPnl cambia dimensione
+        // Aggiunge un listener per ridimensionare il RoundPnl quando il MapPnl cambia
+        // dimensione
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -55,7 +56,6 @@ public class MapPnl extends JPanel {
 
     private void resizeRoundPnl() {
         int width = getWidth();
-        int height = getHeight();
         int roundHeight = 100; // Altezza fissa
 
         // Posiziona RoundPnl in basso e lo adatta in larghezza

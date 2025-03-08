@@ -86,38 +86,38 @@
     </continent>
     <!-- America Del Sud-->
     <continent>
-    <name>America Del Sud</name>
-    <territory>
-        <name>Venezuela</name>
-        <linkedTerritories>
-            <territory>Brasile</territory>
-            <territory>Perù</territory>
-        </linkedTerritories>
-    </territory>
-    <territory>
-        <name>Brasile</name>
-        <linkedTerritories>
-            <territory>Venezuela</territory>
-            <territory>Perù</territory>
-            <territory>Argentina</territory>
-            <territory>Africa del Nord</territory>
-        </linkedTerritories>
-    </territory>
-    <territory>
-        <name>Perù</name>
-        <linkedTerritories>
-            <territory>Venezuela</territory>
-            <territory>Brasile</territory>
-            <territory>Argentina</territory>
-        </linkedTerritories>
-    </territory>
-    <territory>
-        <name>Argentina</name>
-        <linkedTerritories>
-            <territory>Perù</territory>
-            <territory>Brasile</territory>
-        </linkedTerritories>
-    </territory>
+        <name>America Del Sud</name>
+        <territory>
+            <name>Venezuela</name>
+            <linkedTerritories>
+                <territory>Brasile</territory>
+                <territory>Perù</territory>
+            </linkedTerritories>
+        </territory>
+        <territory>
+            <name>Brasile</name>
+            <linkedTerritories>
+                <territory>Venezuela</territory>
+                <territory>Perù</territory>
+                <territory>Argentina</territory>
+                <territory>Africa del Nord</territory>
+            </linkedTerritories>
+        </territory>
+        <territory>
+            <name>Perù</name>
+            <linkedTerritories>
+                <territory>Venezuela</territory>
+                <territory>Brasile</territory>
+                <territory>Argentina</territory>
+            </linkedTerritories>
+        </territory>
+        <territory>
+            <name>Argentina</name>
+            <linkedTerritories>
+                <territory>Perù</territory>
+                <territory>Brasile</territory>
+            </linkedTerritories>
+        </territory>
     </continent>
     <!-- Europa (marini ti amo)-->
     <continent>
@@ -167,7 +167,7 @@
                 <territory>Europa Settentrionale</territory>
             </linkedTerritories>
         </territory>
-         <territory>
+        <territory>
             <name>Europa Meridionale</name>
             <linkedTerritories>
                 <territory>Medio Oriente</territory>

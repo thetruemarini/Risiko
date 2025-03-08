@@ -11,13 +11,13 @@ public class RoundPnl extends JPanel {
 	 * Create the panel.
 	 */
 	public RoundPnl() {
-		
+
 		JButton btnNewButton_2 = new JButton("New button");
 		add(btnNewButton_2);
-		
+
 		JButton btnNewButton_1 = new JButton("New button");
 		add(btnNewButton_1);
-		
+
 		JButton btnNewButton = new JButton("New button");
 		add(btnNewButton);
 
