@@ -6,7 +6,7 @@ import it.unibs.pajc.risiko.xml.XmlReader;
 import java.awt.Color;
 import java.util.*;
 
-public class Game {
+public class GameModel {
     private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players = new ArrayList<>(); // TODO constructor
     // private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
@@ -16,7 +16,7 @@ public class Game {
     private XmlReader reader;
     private boolean reachedCard = false;
 
-    public Game() {
+    public GameModel() {
         this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml");
         data = reader.getData();
         initializeWorld();
@@ -223,7 +223,8 @@ public class Game {
     }
 
     // TODO disposizione tank
-    public void placeTanks(int placebleTanks, Player p) {// TODO pensare alla classe turno
+    public void placeTanks(Player p) {// TODO pensare alla classe turno
+        int placebleTanks = p.getBonusTanks();
         while (placebleTanks > 0) {
             for (Territory t : p.getTerritories()) {
                 if (placebleTanks > 0) {
@@ -236,6 +237,7 @@ public class Game {
         }
 
         // TODO implementare la logica di distribuzione dei tank
+        p.setBonusTanks(0);
     }
 
     // inizia per primo
@@ -382,6 +384,40 @@ public class Game {
             }
 
         }
+    }
+
+    public boolean isGameOver(){
+        for (Player p : players) {
+            if (checkAchievent(p)) { // Se un giocatore ha completato l'obiettivo, il gioco finisce
+                return true;
+            }
+        }
+        
+        // Controlla se c'è un solo giocatore rimasto
+        int playersInGame = 0;
+        for (Player p : players) {
+            if (!p.getTerritories().isEmpty()) {
+                playersInGame++;
+            }
+        }
+        
+        return playersInGame == 1; // Il gioco termina se rimane un solo giocatore
+    }
+
+    public void playGame() { 
+        Turn turnManager = new Turn(this); //ricorda asteroid in un certo senso, ugo ti spiega
+        
+        while (!isGameOver()) {
+            System.out.println("Turno di: " + turnManager.getCurrentPlayer().getName());
+            
+            turnManager.startTurn();
+            
+            // TODO fare tutte le cose di un turno?
+            
+            turnManager.nextTurn();
+        }
+        
+        checkVictory();
     }
 
 }

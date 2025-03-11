@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Player {
     private String name;
     private Color color;
-    // private int bonusTank;
+    private int bonusTanks;
     private ArrayList<Territory> territoriesList = new ArrayList<>();
     private HashMap<Card, Integer> cards = new HashMap<>();;
     private Achievement target; // TODO implement
@@ -21,6 +21,14 @@ public class Player {
 
     public void setAchievements(Achievement target) {
         this.target = target;
+    }
+
+    public int getBonusTanks() {
+        return bonusTanks;
+    }
+
+    public void setBonusTanks(int bonusTanks) {
+        this.bonusTanks = bonusTanks;
     }
 
     public Achievement getAchievement() {
@@ -59,7 +67,7 @@ public class Player {
     }
 
     public void incrementBonusTank(int nTanks) {
-        // this.bonusTank += nTanks;
+        this.bonusTanks += nTanks;
     }
 
     public ArrayList<Territory> getTerritories() {
