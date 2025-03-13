@@ -13,7 +13,7 @@ public class Player {
     private HashMap<Card, Integer> cards = new HashMap<>();;
     private Achievement target; // TODO implement
 
-    public Player(String name, Color color) {
+    public Player(String name) {
         this.name = name;
         this.color = color;
         initializeCards();

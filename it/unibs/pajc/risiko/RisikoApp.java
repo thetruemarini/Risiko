@@ -1,7 +1,6 @@
 package it.unibs.pajc.risiko;
 
 // import it.unibs.pajc.risiko.xml.XmlReader;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,16 +48,18 @@ public class RisikoApp {
 
         // creo un giocatore, mi prendo il target dei 24, gli do 27 territori e spero
         // che Dio mi voglia bene
-        Game game = new Game();
+        GameModel game = new GameModel();
         // TODO game.start();
-        Player p = new Player("marini", Color.red);
-        Player p1 = new Player("ugo", Color.yellow);
-        Player p2 = new Player("prins", Color.black);
-        Player p3 = new Player("redolfi", Color.green);
-        game.addPlayer(p);
-        game.addPlayer(p1);
-        game.addPlayer(p2);
-        game.addPlayer(p3);
+        //Player p = new Player("marini", Color.red);
+        //Player p1 = new Player("ugo", Color.yellow);
+        //Player p2 = new Player("prins", Color.black);
+        //Player p3 = new Player("redolfi", Color.green);
+        //game.addPlayer(p);
+        
+        
+        //game.addPlayer(p1);
+        //game.addPlayer(p2);
+        //game.addPlayer(p3);
 
         game.assignTerritories();
         game.assignAchievements();
@@ -83,7 +84,7 @@ public class RisikoApp {
          */
 
         for (Player player : game.getPlayers()) {
-            game.placeTanks(30, player);
+            //game.placeTanks(30, player);
             System.out.println(player.getName() + " has " +
                     player.getTerritories().size() + " territories.");
             for (Territory territory : player.getTerritories()) {
