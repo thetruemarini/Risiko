@@ -22,8 +22,4 @@ public class RisikoGame {
         return started;
     }
 
-    public void startGame() {
-        started = true;
-        // qua dentro implemento penso
-    }
 }

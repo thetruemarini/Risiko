@@ -20,6 +20,7 @@ public class RisikoServerProtocol implements Runnable {
         try {
             this.in = new ObjectInputStream(socket.getInputStream());
             this.out = new ObjectOutputStream(socket.getOutputStream());
+            this.out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

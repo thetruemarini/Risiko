@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class RisikoServer {
 
-    public int playerCount = 0;
+    public static int playerCount = 0;
     public RisikoGame game = new RisikoGame();
 
     public static void main(String[] args) {
@@ -47,12 +47,11 @@ public class RisikoServer {
         Player player = new Player("Player " + playerCount);
         game.addPlayer(player);
 
-        log("Player %s joined the game! (%d/6 players)", player.getName(), game.getPlayers().size());
+        log("%s joined the game! (%d/6 players)", player.getName(), game.getPlayers().size());
 
-        RisikoServerProtocol playerProtocol = new RisikoServerProtocol(game, player, playerSocket);
-        new Thread(playerProtocol).start(); //sempre se serve?
+        //RisikoServerProtocol playerProtocol = new RisikoServerProtocol(game, player, playerSocket);
+        //new Thread(playerProtocol).start(); //sempre se serve?
 
     }
-    //e startGame()?
-    
 }
+

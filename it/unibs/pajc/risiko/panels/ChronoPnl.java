@@ -1,7 +1,6 @@
 package it.unibs.pajc.risiko.panels;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -30,6 +29,16 @@ public class ChronoPnl extends JPanel {
 		/* for(int i = 0; i < 10; i++) {
 			appendText("Ciao " + i);
 		} */
+		
+	}
+
+	public void addToChrono(String text) {
+		textArea.append(text + "\n"); // Aggiungi il testo e una nuova linea
+		textArea.setCaretPosition(textArea.getDocument().getLength()); // Scrolla automaticamente
+	}
+
+	public JScrollPane getScrollPane() {
+		return (JScrollPane) getComponent(0); // Restituisce lo JScrollPane
 	}
 
 	// Aggiunge un messaggio al pannello
