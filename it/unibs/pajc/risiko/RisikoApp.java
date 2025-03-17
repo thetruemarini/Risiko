@@ -1,6 +1,7 @@
 package it.unibs.pajc.risiko;
 
 // import it.unibs.pajc.risiko.xml.XmlReader;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,18 +51,18 @@ public class RisikoApp {
         // che Dio mi voglia bene
         GameModel game = new GameModel();
         // TODO game.start();
-        //Player p = new Player("marini", Color.red);
-        //Player p1 = new Player("ugo", Color.yellow);
-        //Player p2 = new Player("prins", Color.black);
+        Player p = new Player("marini", Color.red);
+        Player p1 = new Player("ugo", Color.yellow);
+        Player p2 = new Player("prins", Color.black);
         //Player p3 = new Player("redolfi", Color.green);
-        //game.addPlayer(p);
+        game.addPlayer(p);
         
         
-        //game.addPlayer(p1);
-        //game.addPlayer(p2);
+        game.addPlayer(p1);
+        game.addPlayer(p2);
         //game.addPlayer(p3);
 
-        game.assignTerritories();
+        //game.assignTerritories();
         game.assignAchievements();
 
         /*

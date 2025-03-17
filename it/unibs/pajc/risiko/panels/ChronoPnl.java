@@ -35,6 +35,10 @@ public class ChronoPnl extends JPanel {
 	public void addToChrono(String text) {
 		textArea.append(text + "\n"); // Aggiungi il testo e una nuova linea
 		textArea.setCaretPosition(textArea.getDocument().getLength()); // Scrolla automaticamente
+		// Forza il ridisegno del JScrollPane
+		JScrollPane scrollPane = getScrollPane();
+		scrollPane.getViewport().revalidate();
+		scrollPane.getViewport().repaint();
 	}
 
 	public JScrollPane getScrollPane() {

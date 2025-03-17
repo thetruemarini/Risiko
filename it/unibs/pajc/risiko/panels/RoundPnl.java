@@ -1,40 +1,37 @@
 package it.unibs.pajc.risiko.panels;
 
-import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
+import it.unibs.pajc.risiko.RisikoController;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class RoundPnl extends JPanel {
-
     private static final long serialVersionUID = 1L;
+    private JComboBox<String> comboBox;
+    private RisikoController cntrl;
 
-    /**
-     * Create the panel.
-     */
-    public RoundPnl(ChronoPnl chronoPnl) {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
+    public RoundPnl(ChronoPnl chronoPnl, RisikoController cntrl) {
+        this.cntrl = cntrl;
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         String[] options = { "Attacca", "Muovi truppe", "Termina turno", "Rinforza" };
-        JComboBox<String> comboBox = new JComboBox<>(options);
+        comboBox = new JComboBox<>(options);
 
         comboBox.addActionListener(e -> {
+            // Invece di modificare direttamente il ChronoPnl, delega al controller
             String selectedOption = (String) comboBox.getSelectedItem();
-            switch (selectedOption) {
-                case "Attacca":
-                    chronoPnl.addToChrono("Azione di attacco eseguita");
-                    break;
-                case "Muovi truppe":
-                    chronoPnl.addToChrono("Movimento delle truppe eseguito");
-                    break;
-                case "Termina turno":
-                    chronoPnl.addToChrono("Turno terminato");
-                    break;
-                case "Rinforza":
-                    chronoPnl.addToChrono("Rinforzo delle truppe eseguito");
-                    break;
-            }
+            // Passa l'azione al controller
+            // Il controller deciderà cosa fare con la mappa e con il modello
+            cntrl.handleRoundAction(selectedOption);
         });
 
         add(comboBox);
+    }
+
+    public void addActionListenerToComboBox(ActionListener listener) {
+        comboBox.addActionListener(listener);
+    }
+
+    public String getSelectedAction() {
+        return (String) comboBox.getSelectedItem();
     }
 }

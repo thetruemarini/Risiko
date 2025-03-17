@@ -1,13 +1,14 @@
 package it.unibs.pajc.risiko.server;
 
-import it.unibs.pajc.risiko.Player;
+import it.unibs.pajc.risiko.*;
+import java.awt.Color;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 
 public class RisikoServer {
-
     public static int playerCount = 0;
     public RisikoGame game = new RisikoGame();
 
@@ -44,14 +45,18 @@ public class RisikoServer {
         }
 
         ++playerCount;
-        Player player = new Player("Player " + playerCount);
+        Player player = new Player("Player " + playerCount, Color.BLACK); //TODO assegnare un colore diverso
         game.addPlayer(player);
 
         log("%s joined the game! (%d/6 players)", player.getName(), game.getPlayers().size());
 
-        //RisikoServerProtocol playerProtocol = new RisikoServerProtocol(game, player, playerSocket);
-        //new Thread(playerProtocol).start(); //sempre se serve?
-
+        // **Mandiamo il giocatore al client** ????????? forse boh
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(playerSocket.getOutputStream());
+            out.writeObject(player);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
-
