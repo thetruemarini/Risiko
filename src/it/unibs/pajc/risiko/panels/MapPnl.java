@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 import org.w3c.dom.Document;
-
 import src.it.unibs.pajc.risiko.svg.SVGDrawer;
 import src.it.unibs.pajc.risiko.svg.SVGLoader;
 import src.it.unibs.pajc.risiko.svg.SVGParser;
@@ -22,7 +21,7 @@ public class MapPnl extends JPanel {
 
         try {
             // Carica il file SVG
-            Document svgDocument = SVGLoader.loadSVGDocument("it/unibs/pajc/risiko/resources/oceania.svg");
+            Document svgDocument = SVGLoader.loadSVGDocument("src/it/unibs/pajc/risiko/resources/oceania.svg");
 
             // Estrai i percorsi dal documento SVG
             List<String> paths = SVGParser.extractPaths(svgDocument);
