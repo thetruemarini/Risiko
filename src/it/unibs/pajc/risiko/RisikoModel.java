@@ -2,12 +2,13 @@ package src.it.unibs.pajc.risiko;
 
 import java.awt.Color;
 import java.util.*;
-
 import src.it.unibs.pajc.risiko.achivement.*;
 import src.it.unibs.pajc.risiko.utility.MyMath;
 import src.it.unibs.pajc.risiko.xml.XmlReader;
 
-public class GameModel {
+public class RisikoModel extends BaseModel{
+
+    GameStatus gameStatus;
     private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players = new ArrayList<>(); // TODO constructor
     // private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
@@ -17,8 +18,8 @@ public class GameModel {
     private XmlReader reader;
     private boolean reachedCard = false;
 
-    public GameModel() {
-        this.reader = new XmlReader("it/unibs/pajc/risiko/xml/territories.xml");
+    public RisikoModel() {
+        this.reader = new XmlReader("src/it/unibs/pajc/risiko/xml/territories.xml");
         data = reader.getData();
         initializeWorld();
         initializeAchievements();
@@ -40,6 +41,14 @@ public class GameModel {
     public ArrayList<Continent> getContinents() {
         return continents;
     }
+
+    public GameStatus getStatus() {
+        return gameStatus;
+    }
+
+    public Player getCurrentPlayer() {
+        return gameStatus.getCurrentPlayer();
+    } 
 
     private void initializeWorld() {
         // Mappa globale che collega i nomi dei territori alle loro istanze
@@ -406,19 +415,33 @@ public class GameModel {
     }
 
     public void playGame() { 
-        Turn turnManager = new Turn(this); //ricorda asteroid in un certo senso, ugo ti spiega
-        
-        while (!isGameOver()) {
-            System.out.println("Turno di: " + turnManager.getCurrentPlayer().getName());
-            
-            turnManager.startTurn();
-            
-            // TODO fare tutte le cose di un turno?
-            
-            turnManager.nextTurn();
+        gameStatus = new GameStatus(players.get(0));
+        Turn turnManager = new Turn(this);
+
+        while (gameStatus.getGameState() == GameStatus.State.IN_PROGRESS) {
+            Player currentPlayer = gameStatus.getCurrentPlayer();
+            System.out.println("Turno di: " + currentPlayer.getName());
+
+            // Fasi del turno
+            switch (gameStatus.getCurrentPhase()) {
+                case REINFORCEMENT -> {
+                    placeTanks(currentPlayer);
+                    gameStatus.nextPhase();
+                }
+                case ATTACK -> {
+                    turnManager.startTurn();  // Simulazione attacco
+                    gameStatus.nextPhase();
+                }
+                case MOVEMENT -> {
+                    // TODO: Aggiungere fase di movimento
+                    gameStatus.nextPhase();
+                    turnManager.nextTurn();
+                    gameStatus.setCurrentPlayer(turnManager.getCurrentPlayer());
+                }
+            }
         }
-        
-        checkVictory();
+
+    checkVictory();
     }
 
 }

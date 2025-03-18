@@ -11,17 +11,14 @@ public class RisikoWindow {
     private MapPnl mapPnl;
     private RoundPnl roundPnl;
     private PlayerPnl playerPnl;
-    private RisikoController cntrl;
-    private GameModel model;
+    private RisikoModel model;
 
     public RisikoWindow() { //dovremo passare il cliente, cosi quando entra fa la sua window con il suo pleyerPnl
-        model = new GameModel();
+        model = new RisikoModel();
         initialize();
-        cntrl = new RisikoController(model, this); 
-        //TODO osservazione: per ora l'unico pannello regolato dal controller è il roundPnl
     }
 
-    private void initialize() {
+    public void initialize() {
         frame = new JFrame();
         frame.setBounds(200, 200, 1200, 800); // Finestra più grande
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +40,7 @@ public class RisikoWindow {
         rightPanel.add(playerPnl, BorderLayout.CENTER);
 
         // Pannello inferiore (Round)
-        roundPnl = new RoundPnl(chronoPnl, cntrl);
+        roundPnl = new RoundPnl(chronoPnl);
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(roundPnl, BorderLayout.CENTER);
 

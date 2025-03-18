@@ -1,21 +1,21 @@
 package src.it.unibs.pajc.risiko;
 
-//è un'idea perche penso che cosi chiuderemmo il model (che è il game)
-//e dopo basterebbe avere un controller a cui passare sia model che view
+
 
 public class Turn {
 
-    private GameModel game;
+    private RisikoModel game;
     private Player currentPlayer;
 
-    public Turn(GameModel game) {
+    public Turn(RisikoModel game) {
         this.game = game;
         this.currentPlayer = game.getPlayers().get(0);
     }
 
-    public void nextTurn() {//TODO
+    public void nextTurn() {
         int index = game.getPlayers().indexOf(currentPlayer);
-        currentPlayer = game.getPlayers().get(0);//metto 0 ma intendo pensare al prossimo giocatore.
+        int nextIndex = (index + 1) % game.getPlayers().size(); // Ciclo dei giocatori
+        currentPlayer = game.getPlayers().get(nextIndex);
     }
 
     public Player getCurrentPlayer() {
