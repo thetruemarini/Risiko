@@ -1,7 +1,5 @@
 package src.it.unibs.pajc.risiko;
 
-
-
 public class Turn {
 
     private RisikoModel game;
@@ -11,6 +9,7 @@ public class Turn {
         this.game = game;
         this.currentPlayer = game.getPlayers().get(0);
     }
+
 
     public void nextTurn() {
         int index = game.getPlayers().indexOf(currentPlayer);
@@ -22,7 +21,8 @@ public class Turn {
         return currentPlayer;
     }
 
-    public void startTurn() {
+
+    public void reinforcePhase(Player currentPlayer) {
         int tanksFromTerritories = game.bonusTankPerTerritories(currentPlayer);
         int tanksFromContinents = game.bonusTankPerContinent(currentPlayer);
         
@@ -30,28 +30,24 @@ public class Turn {
         game.checkCards(currentPlayer);
         
         // Il totale dei tank che il giocatore può piazzare
-        int totalTanks = tanksFromTerritories + tanksFromContinents + currentPlayer.getBonusTanks();
-        currentPlayer.setBonusTanks(totalTanks);
+        int tanksToPlace = tanksFromTerritories + tanksFromContinents + currentPlayer.getBonusTanks();
         
-        placeTanks();
+        System.out.println("Posiziona i carri armati: " + tanksToPlace + " disponibili");
+    
+        // Gestione del clic sui territori
+        // TODO
     }
 
-    public void placeTanks() {
-        int placeableTanks = currentPlayer.getBonusTanks();
+    public void attackPhase(Player currentPlayer) {
+        // TODO
+    }   
+
+    public void movementPhase(Player currentPlayer) {
+        // TODO
+    }   
     
-        while (placeableTanks > 0) {
-            for (Territory t : currentPlayer.getTerritories()) {
-                if (placeableTanks > 0) {
-                    t.incrementsUnits(1);
-                    placeableTanks--;
-                } else {
-                    break;
-                }
-            }
-        }
-        
-        // Una volta piazzati i carri armati, azzeriamo il bonus
-        currentPlayer.setBonusTanks(0);
+    public void endTurn() {
+        nextTurn();
     }
 
 }

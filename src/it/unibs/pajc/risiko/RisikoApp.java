@@ -1,22 +1,32 @@
 package src.it.unibs.pajc.risiko;
 
 // import it.unibs.pajc.risiko.xml.XmlReader;
-import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import src.it.unibs.pajc.risiko.panels.ChronoPnl;
+import src.it.unibs.pajc.risiko.panels.MapPnl;
+import src.it.unibs.pajc.risiko.panels.PlayerPnl;
+import src.it.unibs.pajc.risiko.panels.RoundPnl;
 
 public class RisikoApp {
 
-    private static RisikoWindow window;
+    public JFrame frame;
+    private ChronoPnl chronoPnl;
+    private MapPnl mapPnl;
+    private RoundPnl roundPnl;
+    private PlayerPnl playerPnl;
+ 
 
     public static void main(String[] args) {
        
 
         EventQueue.invokeLater(() -> {
             try {
-                window = new RisikoWindow();
+                RisikoApp window = new RisikoApp();
                 window.frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -56,6 +66,8 @@ public class RisikoApp {
 
     public RisikoApp() {
 
+        model = new RisikoModel();
+
         Player p = new Player("marini", Color.red);
         Player p1 = new Player("ugo", Color.yellow);
         Player p2 = new Player("prins", Color.black);
@@ -66,9 +78,66 @@ public class RisikoApp {
         
         cntrl = new RisikoLocalCntrl(model);
 
-        window.initialize();
+        initialize();
 
-        model.addChangeListener(e -> window.frame.repaint());
+        model.addChangeListener(e -> frame.repaint());
+    }
+
+    public void initialize() {
+        frame = new JFrame();
+        frame.setBounds(200, 200, 1200, 800); // Finestra più grande
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout()); // Layout principale
+
+        // Pannello sinistro (Chrono)
+        chronoPnl = new ChronoPnl();
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        leftPanel.add(chronoPnl, BorderLayout.CENTER);
+
+        // Pannello centrale (Mappa)
+        mapPnl = new MapPnl(chronoPnl);
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(mapPnl, BorderLayout.CENTER);
+
+        // Pannello destro (Player)
+        playerPnl = new PlayerPnl(chronoPnl);
+        JPanel rightPanel = new JPanel(new BorderLayout());
+        rightPanel.add(playerPnl, BorderLayout.CENTER);
+
+        // Pannello inferiore (Round)
+        roundPnl = new RoundPnl(cntrl, chronoPnl);
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(roundPnl, BorderLayout.CENTER);
+
+        // Aggiunta dei pannelli al frame
+        frame.add(leftPanel, BorderLayout.WEST);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.EAST);
+        frame.add(bottomPanel, BorderLayout.SOUTH); // Aggiunto il bottom panel
+
+        // Imposta proporzioni dei pannelli
+        leftPanel.setPreferredSize(new Dimension(200, 0));
+        rightPanel.setPreferredSize(new Dimension(200, 0));
+        bottomPanel.setPreferredSize(new Dimension(0, 150)); // Altezza per il round panel
+
+        frame.setVisible(true);
+    }
+
+    public ChronoPnl getChronoPnl() {
+        return chronoPnl;
+
+    }
+
+    public MapPnl getMapPanel() {
+        return mapPnl;
+    }
+
+    public RoundPnl getRoundPanel() {
+        return roundPnl;
+    }
+
+    public PlayerPnl getPlayerPanel() {
+        return playerPnl;
     }
 
     public static void printMap(HashMap<String, HashMap<String, ArrayList<String>>> map) {

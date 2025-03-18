@@ -7,13 +7,18 @@ public class GameStatus { //per ora si attacca una sola volta poi sistemiamo
     }
     
     public enum State {
-            IN_PROGRESS, VICTORY, GAME_OVER;
+            IN_PROGRESS, VICTORY;
     }
     
     private int turnNumber;
     private Player currentPlayer;
     private Phase currentPhase;
     private State gameState;
+
+    public GameStatus(){
+        this.currentPhase = Phase.REINFORCEMENT;
+        this.gameState = State.IN_PROGRESS;
+    }
     
     public GameStatus(Player startingPlayer) {
         this.turnNumber = 1;
@@ -36,10 +41,6 @@ public class GameStatus { //per ora si attacca una sola volta poi sistemiamo
     public void setVictory(Player winner) {
         this.gameState = State.VICTORY;
         System.out.println("Il giocatore " + winner.getName() + " ha vinto!");
-    }
-    
-    public void setGameOver() {
-        this.gameState = State.GAME_OVER;
     }
     
     public void setCurrentPlayer(Player player) {

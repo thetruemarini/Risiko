@@ -9,6 +9,7 @@ import src.it.unibs.pajc.risiko.xml.XmlReader;
 public class RisikoModel extends BaseModel{
 
     GameStatus gameStatus;
+    Turn turnManager;
     private HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
     private ArrayList<Player> players = new ArrayList<>(); // TODO constructor
     // private ArrayList<Card> cardDeck = new ArrayList<>(); // TODO constructor
@@ -19,6 +20,7 @@ public class RisikoModel extends BaseModel{
     private boolean reachedCard = false;
 
     public RisikoModel() {
+        gameStatus = new GameStatus();
         this.reader = new XmlReader("src/it/unibs/pajc/risiko/xml/territories.xml");
         data = reader.getData();
         initializeWorld();
@@ -232,7 +234,7 @@ public class RisikoModel extends BaseModel{
         }
     }
 
-    // TODO disposizione tank
+    // TODO disposizione tank forse meglio nella classe turno
     public void placeTanks(Player p) {// TODO pensare alla classe turno
         int placebleTanks = p.getBonusTanks();
         while (placebleTanks > 0) {
@@ -387,13 +389,13 @@ public class RisikoModel extends BaseModel{
         return p.getAchievement().isAchived(p);
     }
 
-    public void checkVictory() {
+    public Player checkVictory() {
         for (Player p : players) {
             if (checkAchievent(p)) {
-                System.out.println("VITTORIA DI " + p.getName());
+                return p;
             }
-
         }
+        return null;
     }
 
     public boolean isGameOver(){
@@ -416,7 +418,7 @@ public class RisikoModel extends BaseModel{
 
     public void playGame() { 
         gameStatus = new GameStatus(players.get(0));
-        Turn turnManager = new Turn(this);
+        turnManager = new Turn(this);
 
         while (gameStatus.getGameState() == GameStatus.State.IN_PROGRESS) {
             Player currentPlayer = gameStatus.getCurrentPlayer();
@@ -425,23 +427,25 @@ public class RisikoModel extends BaseModel{
             // Fasi del turno
             switch (gameStatus.getCurrentPhase()) {
                 case REINFORCEMENT -> {
-                    placeTanks(currentPlayer);
+                    turnManager.reinforcePhase(currentPlayer);
                     gameStatus.nextPhase();
                 }
                 case ATTACK -> {
-                    turnManager.startTurn();  // Simulazione attacco
+                    turnManager.attackPhase(currentPlayer);  // Simulazione attacco
                     gameStatus.nextPhase();
                 }
                 case MOVEMENT -> {
-                    // TODO: Aggiungere fase di movimento
+                    turnManager.movementPhase(currentPlayer);  // Simulazione movimento
                     gameStatus.nextPhase();
-                    turnManager.nextTurn();
                     gameStatus.setCurrentPlayer(turnManager.getCurrentPlayer());
                 }
             }
         }
 
-    checkVictory();
+        Player winner = checkVictory();
+        if(winner != null){
+            gameStatus.setVictory(winner);
+        }
     }
 
 }
