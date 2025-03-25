@@ -1,53 +1,42 @@
 package src.it.unibs.pajc.risiko.panels;
 
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import java.awt.*;
+import javax.swing.*;
 
 public class ChronoPnl extends JPanel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private JTextArea textArea;
 
-	/**
-	 * Create the panel.
-	 */
-	private JTextArea textArea;
+    public ChronoPnl() {
+        setLayout(new BorderLayout()); // Layout per organizzare i componenti
 
-	public ChronoPnl() {
-		setLayout(new BorderLayout()); // Layout per organizzare i componenti
+        // TextArea per visualizzare i messaggi
+        textArea = new JTextArea(15, 30);
+        textArea.setEditable(false); // Impedisce all'utente di scrivere direttamente
+        textArea.setBackground(new Color(230, 230, 230)); // Colore di sfondo chiaro per contrastare
 
-		textArea = new JTextArea(15, 30);
-		textArea.setEditable(false); // Impedisce all'utente di scrivere direttamente
+        // Aggiungi un messaggio di benvenuto
+        textArea.append("Benvenuto in Risiko!\n");
 
-		textArea.append("Benvenuto in Risiko!\n");
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // Bordo per uniformità
 
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(scrollPane, BorderLayout.CENTER);
+    }
 
-		add(scrollPane, BorderLayout.CENTER);
-		/* for(int i = 0; i < 10; i++) {
-			appendText("Ciao " + i);
-		} */
-		
-	}
+    public void addToChrono(String text) {
+        textArea.append(text + "\n"); // Aggiungi il testo e una nuova linea
+        textArea.setCaretPosition(textArea.getDocument().getLength()); // Scrolla automaticamente
+    }
 
-	public void addToChrono(String text) {
-		textArea.append(text + "\n"); // Aggiungi il testo e una nuova linea
-		textArea.setCaretPosition(textArea.getDocument().getLength()); // Scrolla automaticamente
-		// Forza il ridisegno del JScrollPane
-		JScrollPane scrollPane = getScrollPane();
-		scrollPane.getViewport().revalidate();
-		scrollPane.getViewport().repaint();
-	}
+    public JScrollPane getScrollPane() {
+        return (JScrollPane) getComponent(0); // Restituisce lo JScrollPane
+    }
 
-	public JScrollPane getScrollPane() {
-		return (JScrollPane) getComponent(0); // Restituisce lo JScrollPane
-	}
-
-	// Aggiunge un messaggio al pannello
-	public void appendText(String text) {
-		textArea.append(text + "\n");
-	}
-
+    // Aggiunge un messaggio al pannello
+    public void appendText(String text) {
+        textArea.append(text + "\n");
+    }
 }

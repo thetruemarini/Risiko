@@ -2,7 +2,6 @@ package src.it.unibs.pajc.risiko.panels;
 
 import java.awt.*;
 import javax.swing.*;
-
 public class PlayerPnl extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -60,4 +59,3 @@ public class PlayerPnl extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 }
-
