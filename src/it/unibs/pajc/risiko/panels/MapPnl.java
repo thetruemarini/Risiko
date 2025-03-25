@@ -21,7 +21,7 @@ public class MapPnl extends JPanel {
 
         try {
             // Carica il file SVG
-            Document svgDocument = SVGLoader.loadSVGDocument("src/it/unibs/pajc/risiko/resources/oceania.svg");
+            Document svgDocument = SVGLoader.loadSVGDocument("src/it/unibs/pajc/risiko/resources/Cartina_Risiko.svg");
 
             // Estrai i percorsi dal documento SVG
             List<String> paths = SVGParser.extractPaths(svgDocument);
