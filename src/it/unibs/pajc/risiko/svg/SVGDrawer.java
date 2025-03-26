@@ -11,16 +11,17 @@ import org.apache.batik.parser.PathParser;
 import src.it.unibs.pajc.risiko.panels.ChronoPnl;
 
 public class SVGDrawer extends JPanel {
+    private ChronoPnl chronoPnl;
+    private List<String> paths;
     private List<Shape> shapes;
     private AffineTransform transform;
-    private ChronoPnl chronoPnl;
     private Point movePoint = new Point(0, 0);
-    private Rectangle bounds = null;
+    private Rectangle bounds;
 
     public SVGDrawer(List<String> paths, ChronoPnl chronoPnl) {
-        this.shapes = new ArrayList<>();
         this.chronoPnl = chronoPnl;
-
+        this.paths = paths;
+        this.shapes = new ArrayList<>();
         for (String path : paths) {
             Shape shape = createShape(path);
             if (shape != null) {
@@ -28,16 +29,15 @@ public class SVGDrawer extends JPanel {
             }
         }
 
-        bounds = getShapesBounds();
-        updateTransform(); // Inizializza la trasformazione
-
-        addMouseListener(new MouseAdapter() {
+        // Aggiungi il listener per il ridimensionamento
+        addComponentListener(new ComponentAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                handleMouseClick(e);
+            public void componentResized(ComponentEvent e) {
+                repaint(); // Ricalcola la trasformazione quando il componente viene ridimensionato
             }
         });
 
+        // Aggiungi il mouse listener per il movimento del mouse
         addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -45,35 +45,7 @@ public class SVGDrawer extends JPanel {
                 repaint();
             }
         });
-
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                updateTransform();
-                repaint();
-            }
-        });
     }
-
-    private void updateTransform() {
-        if (bounds != null) {
-            double scaleX = getWidth() / (double) bounds.width;
-            double scaleY = getHeight() / (double) bounds.height;
-            double scale = Math.min(scaleX, scaleY);
-    
-            double translateX = (getWidth() - bounds.width * scale) / 2;
-            double translateY = (getHeight() - bounds.height * scale) / 2;
-    
-            transform = new AffineTransform();
-            transform.translate(translateX, translateY);
-            transform.scale(scale, scale);
-    
-            System.out.println("Updated Transform: " + transform);
-        } else {
-            System.out.println("Bounds is null, transformation skipped.");
-        }
-    }
-    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -81,15 +53,51 @@ public class SVGDrawer extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (transform != null) {
-            g2d.setTransform(transform);
-            drawShapes(g2d);
+        // Pulisci la lista delle shape se necessario
+        shapes.clear();
+        for (String path : paths) {
+            Shape shape = createShape(path);
+            if (shape != null) {
+                shapes.add(shape);
+            }
+        }
+
+        // Calcola il bounding box delle shape
+        bounds = getShapesBounds();
+        if (bounds != null) {
+            // Calcola la traslazione per centrare le shape
+            int panelWidth = getWidth();
+            int panelHeight = getHeight();
+
+            // Calcola la scala dinamica
+            double scaleX = (double) panelWidth / bounds.width;
+            double scaleY = (double) panelHeight / bounds.height;
+            double scale = Math.min(scaleX, scaleY); // Mantieni il rapporto di aspetto
+
+            // Calcola la traslazione per centrare la mappa
+            int translateX = (panelWidth - (int) (bounds.width * scale)) / 2;
+            int translateY = (panelHeight - (int) (bounds.height * scale)) / 2;
+
+
+            // Applica la trasformazione di traduzione e scala
+            transform = AffineTransform.getTranslateInstance(translateX, translateY);
+            transform.scale(scale, scale);
+
+            // Disegna le shape
+            g2d.transform(transform);
+            for (Shape shape : shapes) {
+                g2d.draw(shape);
+            }
+
+            // Gestisci il riempimento delle shape (se cliccate)
             fillShape(g2d);
         }
     }
 
     private Rectangle getShapesBounds() {
-        if (shapes.isEmpty()) return null;
+        if (shapes.isEmpty()) {
+            return null;
+        }
         Rectangle bounds = shapes.get(0).getBounds();
         for (Shape shape : shapes) {
             bounds = bounds.union(shape.getBounds());
@@ -111,47 +119,19 @@ public class SVGDrawer extends JPanel {
     }
 
     private void fillShape(Graphics2D g2d) {
-        if (transform != null) {
-            try {
-                Point2D transformedPoint = transform.inverseTransform(movePoint, null);
-                boolean found = false;
-                for (Shape shape : shapes) {
-                    if (shape.contains(transformedPoint)) {
-                        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                        g2d.setColor(Color.YELLOW);
-                        g2d.fill(shape);
-                        found = true;
-                        break;
-                    }
+        try {
+            Point2D transformedPoint = transform.inverseTransform(movePoint, null);
+            for (Shape shape : shapes) {
+                if (shape.contains(transformedPoint)) {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    g2d.setColor(Color.YELLOW);
+                    g2d.fill(shape);
+                    return;
                 }
-                if (!found) {
-                    setCursor(Cursor.getDefaultCursor());
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
-        }
-    }
-
-    private void handleMouseClick(MouseEvent e) {
-        if (transform != null) {
-            try {
-                Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
-                for (Shape shape : shapes) {
-                    if (shape.contains(transformedPoint)) {
-                        chronoPnl.appendText("Shape clicked at: " + transformedPoint);
-                        break;
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    private void drawShapes(Graphics2D g2d) {
-        for (Shape shape : shapes) {
-            g2d.draw(shape);
+            setCursor(Cursor.getDefaultCursor());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
