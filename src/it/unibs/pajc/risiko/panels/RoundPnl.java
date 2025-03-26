@@ -96,13 +96,13 @@ public class RoundPnl extends JPanel {
     
         // Icona spade
         try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/it/unibs/pajc/risiko/resources/spade_incrociate.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/src/it/unibs/pajc/risiko/panels/spade_incrociate.png"));
             Image scaled = icon.getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
             nextToAttackButton.setIcon(new ImageIcon(scaled));
             nextToAttackButton.setHorizontalTextPosition(SwingConstants.RIGHT);
-            nextToAttackButton.setIconTextGap(10); // Spazio tra icona e testo
+            nextToAttackButton.setIconTextGap(10); // Space between icon and text
         } catch (Exception ex) {
-            System.err.println("Icona non trovata!");
+            System.err.println("Icon not found!");
             ex.printStackTrace();
         }
     
