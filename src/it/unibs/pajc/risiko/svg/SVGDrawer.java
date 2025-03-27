@@ -8,19 +8,21 @@ import java.util.List;
 import javax.swing.*;
 import org.apache.batik.parser.AWTPathProducer;
 import org.apache.batik.parser.PathParser;
+
+import src.it.unibs.pajc.risiko.RisikoLocalCntrl;
 import src.it.unibs.pajc.risiko.panels.ChronoPnl;
 
 public class SVGDrawer extends JPanel {
     private ChronoPnl chronoPnl;
-    private List<String> paths;
     private List<Shape> shapes;
     private AffineTransform transform;
     private Point movePoint = new Point(0, 0);
     private Rectangle bounds;
+    private RisikoLocalCntrl cntrl;
 
     public SVGDrawer(List<String> paths, ChronoPnl chronoPnl) {
+        this.cntrl = cntrl;
         this.chronoPnl = chronoPnl;
-        this.paths = paths;
         this.shapes = new ArrayList<>();
         for (String path : paths) {
             Shape shape = createShape(path);
@@ -28,6 +30,8 @@ public class SVGDrawer extends JPanel {
                 shapes.add(shape);
             }
         }
+        // Calcola il bounding box delle shape
+        bounds = getShapesBounds();
 
         // Aggiungi il listener per il ridimensionamento
         addComponentListener(new ComponentAdapter() {
@@ -45,6 +49,14 @@ public class SVGDrawer extends JPanel {
                 repaint();
             }
         });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleMouseClick(e);
+            }
+        });
+
     }
 
     @Override
@@ -53,17 +65,6 @@ public class SVGDrawer extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Pulisci la lista delle shape se necessario
-        shapes.clear();
-        for (String path : paths) {
-            Shape shape = createShape(path);
-            if (shape != null) {
-                shapes.add(shape);
-            }
-        }
-
-        // Calcola il bounding box delle shape
-        bounds = getShapesBounds();
         if (bounds != null) {
             // Calcola la traslazione per centrare le shape
             int panelWidth = getWidth();
@@ -72,8 +73,9 @@ public class SVGDrawer extends JPanel {
             // Calcola la scala dinamica
             double scaleX = (double) panelWidth / bounds.width;
             double scaleY = (double) panelHeight / bounds.height;
-            double scale = Math.min(scaleX, scaleY); // Mantieni il rapporto di aspetto
-
+            double scale = Math.min(scaleX, scaleY)*0.9; // Mantieni il rapporto di aspetto
+            //TODO sistemare il 0.9 qua sopra
+            
             // Calcola la traslazione per centrare la mappa
             int translateX = (panelWidth - (int) (bounds.width * scale)) / 2;
             int translateY = (panelHeight - (int) (bounds.height * scale)) / 2;
@@ -102,6 +104,7 @@ public class SVGDrawer extends JPanel {
         for (Shape shape : shapes) {
             bounds = bounds.union(shape.getBounds());
         }
+        System.out.println("Bounds: " + bounds);
         return bounds;
     }
 
@@ -132,6 +135,22 @@ public class SVGDrawer extends JPanel {
             setCursor(Cursor.getDefaultCursor());
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void handleMouseClick(MouseEvent e) {
+        if (transform != null) {
+            try {
+                Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
+                for (Shape shape : shapes) {
+                    if (shape.contains(transformedPoint)) {
+                        chronoPnl.appendText("Shape clicked at: " + transformedPoint);
+                        break;
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
