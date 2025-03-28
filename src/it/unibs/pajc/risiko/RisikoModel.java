@@ -293,7 +293,7 @@ public class RisikoModel extends BaseModel{
                 case "Europa" -> bonus += 5;
                 case "America Del Nord" -> bonus += 5;
                 case "America Del Sud" -> bonus += 2;
-                case "Ocenia" -> bonus += 2;
+                case "Oceania" -> bonus += 2;
 
                 default -> {
                 }
@@ -429,15 +429,18 @@ public class RisikoModel extends BaseModel{
                 case REINFORCEMENT -> {
                     turnManager.reinforcePhase(currentPlayer);
                     gameStatus.nextPhase();
+                    fireChangeListener();
                 }
                 case ATTACK -> {
                     turnManager.attackPhase(currentPlayer);  // Simulazione attacco
                     gameStatus.nextPhase();
+                    fireChangeListener();
                 }
                 case MOVEMENT -> {
                     turnManager.movementPhase(currentPlayer);  // Simulazione movimento
                     gameStatus.nextPhase();
                     gameStatus.setCurrentPlayer(turnManager.getCurrentPlayer());
+                    fireChangeListener();
                 }
             }
         }
@@ -445,7 +448,10 @@ public class RisikoModel extends BaseModel{
         Player winner = checkVictory();
         if(winner != null){
             gameStatus.setVictory(winner);
+            fireChangeListener();
         }
+
+        
     }
 
 }

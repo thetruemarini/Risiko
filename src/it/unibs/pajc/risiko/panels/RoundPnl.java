@@ -83,11 +83,8 @@ public class RoundPnl extends JPanel {
     
         bonusTanksLabel = new JLabel("Bonus Tanks: 0");
         JLabel instructionLabel = new JLabel("Posiziona i tanks cliccando sui tuoi territori.");
-        nextToAttackButton = new JButton("ATTACK");
-        nextToAttackButton.setPreferredSize(new Dimension(130, 40));
-        
-        // Imposta la dimensione del pulsante
-        nextToAttackButton.setPreferredSize(new Dimension(130, 40));
+        nextToAttackButton = new JButton("ATTACK PHASE");
+        nextToAttackButton.setPreferredSize(new Dimension(160, 60));
         
         // Applichiamo lo stile al testo e al pulsante
         for (JComponent comp : Arrays.asList(bonusTanksLabel, instructionLabel, nextToAttackButton)) {
@@ -96,10 +93,10 @@ public class RoundPnl extends JPanel {
     
         // Icona spade
         try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/src/it/unibs/pajc/risiko/panels/spade_incrociate.png"));
+            ImageIcon icon = new ImageIcon(getClass().getResource("/src/it/unibs/pajc/risiko/resources/spade_incrociate.png"));
             Image scaled = icon.getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
             nextToAttackButton.setIcon(new ImageIcon(scaled));
-            nextToAttackButton.setHorizontalTextPosition(SwingConstants.RIGHT);
+            nextToAttackButton.setHorizontalTextPosition(SwingConstants.LEFT);
             nextToAttackButton.setIconTextGap(10); // Space between icon and text
         } catch (Exception ex) {
             System.err.println("Icon not found!");
