@@ -27,10 +27,6 @@ public class MapPnl extends JPanel {
 
             // Estrai i percorsi dal documento SVG
             List<String> paths = SVGParser.extractPaths(svgDocument);
-            //for (String path : paths) {
-              
-            //System.out.println("PATH SVG: " + path);
-            //}
 
             // Crea e mostra il pannello di disegno
             svgDrawer = new SVGDrawer(paths, chronoPnl);
@@ -41,7 +37,7 @@ public class MapPnl extends JPanel {
                 @Override
                 public void componentResized(ComponentEvent e) {
                     svgDrawer.revalidate();
-                    svgDrawer.repaint();
+                    svgDrawer.repaint(); //TODO togliere sta merda
                 }
             });
 
