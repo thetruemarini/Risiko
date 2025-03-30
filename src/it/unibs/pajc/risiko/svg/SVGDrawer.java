@@ -57,6 +57,7 @@ public class SVGDrawer extends JPanel {
             }
         });
 
+        setOpaque(false);
     }
 
     @Override
@@ -73,13 +74,12 @@ public class SVGDrawer extends JPanel {
             // Calcola la scala dinamica
             double scaleX = (double) panelWidth / bounds.width;
             double scaleY = (double) panelHeight / bounds.height;
-            double scale = Math.min(scaleX, scaleY)*0.9; // Mantieni il rapporto di aspetto
-            //TODO sistemare il 0.9 qua sopra
-            
+            double scale = Math.min(scaleX, scaleY) * 0.9; // Mantieni il rapporto di aspetto
+            // TODO sistemare il 0.9 qua sopra
+
             // Calcola la traslazione per centrare la mappa
             int translateX = (panelWidth - (int) (bounds.width * scale)) / 2;
             int translateY = (panelHeight - (int) (bounds.height * scale)) / 2;
-
 
             // Applica la trasformazione di traduzione e scala
             transform = AffineTransform.getTranslateInstance(translateX, translateY);
@@ -93,6 +93,11 @@ public class SVGDrawer extends JPanel {
 
             // Gestisci il riempimento delle shape (se cliccate)
             fillShape(g2d);
+
+            // disegno il rettangolo per capire casa non va
+            g2d.setColor(Color.RED);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2d.fill(bounds); // Disegna il bounding box (opzionale)
         }
     }
 
@@ -144,7 +149,9 @@ public class SVGDrawer extends JPanel {
                 Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
                 for (Shape shape : shapes) {
                     if (shape.contains(transformedPoint)) {
-                        chronoPnl.appendText("Shape clicked at: " + transformedPoint);
+                        chronoPnl.appendText("Shape clicked at: " + transformedPoint + "\n" + "shape clicked : "
+                                + shapes.indexOf(shape));
+                        // ora printa in crono il numero della shape cliccata
                         break;
                     }
                 }

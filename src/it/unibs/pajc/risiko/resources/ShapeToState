@@ -1,0 +1,56 @@
+butto nel puzzong il numero della shape nel vettore shapes con la 
+rispettiva nazione:
+
+OCEANIA :
+Australia Orientale : 11
+Australia Occidentale : 12
+Nuova Guinea : 5
+Indonesia : 0 - 1 - 2 - 3 - 10 - 9 - 8 - 7 - 6 - 4
+
+ASIA :
+Siam : 58
+India : 59
+Cina : 57
+Mongolia : 51
+Kamchatka : non esiste a quanto pare
+Giappone : 52 - 53 - 54
+Jakuzia : 47
+Cita : 50
+Siberia : 49
+Urali : 40
+Afghanistan : 55 + da togliere il 37
+Medio Oriente : 56
+
+EUROPA : 
+Ucraina : 32
+Europa Meridionale : 21 - 23 - 24 - 25 
+Europa Settentrionale : 26
+Scandinavia : 29
+Islanda : 31
+Gran Bretagna : 28 - 27
+Europa Occidentale : 20
+
+AFRICA :
+Madagascar : 13
+Africa Del Sud : 14
+Africa Orientale : 16
+Congo : 15
+Africa Del Nord : 19
+Egitto : 18
+
+AMERICA DEL NORD :
+Groenlandia : 60 - 61 - 62
+Territori Del Nord Ovest : 66 - 65 - 64 - 63
+Alaska : 67
+Alberta : 68
+Ontario : 70
+Quebec : 72
+Stati Uniti Orientali : 74
+Stati Uniti Occidentali : 73
+America Centrale : 75
+
+AMERICA DEL SUD : 
+Venezuela : 76
+Brasile : 81
+Peru : 83
+Argentina : 85
