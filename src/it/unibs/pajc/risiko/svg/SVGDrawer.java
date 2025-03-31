@@ -97,7 +97,7 @@ public class SVGDrawer extends JPanel {
             // disegno il rettangolo per capire casa non va
             g2d.setColor(Color.RED);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-            g2d.fill(bounds); // Disegna il bounding box (opzionale)
+            //g2d.fill(bounds); // Disegna il bounding box (opzionale)
         }
     }
 
