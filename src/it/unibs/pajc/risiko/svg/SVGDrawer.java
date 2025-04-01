@@ -5,11 +5,14 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.*;
 import org.apache.batik.parser.AWTPathProducer;
 import org.apache.batik.parser.PathParser;
 
 import src.it.unibs.pajc.risiko.RisikoLocalCntrl;
+import src.it.unibs.pajc.risiko.Territory;
 import src.it.unibs.pajc.risiko.panels.ChronoPnl;
 
 public class SVGDrawer extends JPanel {
@@ -20,7 +23,7 @@ public class SVGDrawer extends JPanel {
     private Rectangle bounds;
     private RisikoLocalCntrl cntrl;
 
-    public SVGDrawer(List<String> paths, ChronoPnl chronoPnl) {
+    public SVGDrawer(List<String> paths, ChronoPnl chronoPnl, RisikoLocalCntrl cntrl) {
         this.cntrl = cntrl;
         this.chronoPnl = chronoPnl;
         this.shapes = new ArrayList<>();
@@ -149,9 +152,14 @@ public class SVGDrawer extends JPanel {
                 Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
                 for (Shape shape : shapes) {
                     if (shape.contains(transformedPoint)) {
-                        chronoPnl.appendText("Shape clicked at: " + transformedPoint + "\n" + "shape clicked : "
-                                + shapes.indexOf(shape));
-                        // ora printa in crono il numero della shape cliccata
+                        int shapeIndex = shapes.indexOf(shape);
+    
+                        // Trova il nome del territorio associato a questa shape
+                        String territoryName = getTerritoryNameByShapeId(shapeIndex);
+    
+                        // Mostra il nome nel pannello
+                        chronoPnl.appendText("Hai cliccato su: " + territoryName);
+    
                         break;
                     }
                 }
@@ -160,4 +168,18 @@ public class SVGDrawer extends JPanel {
             }
         }
     }
+
+    private String getTerritoryNameByShapeId(int shapeId) {
+        Integer shapeIdInteger = Integer.valueOf(shapeId);
+    
+        for (Territory territory : cntrl.getTerritories()) {    
+            if (territory.getShapeIds().contains(shapeIdInteger)) {
+                return territory.getName();
+            }
+        }
+        return "Unknown Territory"; // Default return value
+    }
+    
+
+    
 }

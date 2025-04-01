@@ -25,6 +25,10 @@ public class RisikoLocalCntrl {
     public ArrayList<Territory> getPlayerTerritories(Player p) {
         return p.getTerritories();
     }
+    public ArrayList<Territory> getTerritories() {
+        return model.getTerritories();
+    }
+
 
     public GameStatus getStatus() {
         return model.getStatus();

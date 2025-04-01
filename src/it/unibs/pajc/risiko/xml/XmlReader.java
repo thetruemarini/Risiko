@@ -3,8 +3,12 @@ package src.it.unibs.pajc.risiko.xml;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 //Bro io ho fatto sta cosa, ci ho messo un bel po,sono un bot pero secondo me funziona ed è funzionale mi chiamo marini sono gay fes mi piace
 //il pisello
@@ -123,4 +127,63 @@ public class XmlReader {
 
         return territories;
     }
+
+    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
+        HashMap<String, ArrayList<Integer>> shapeIds = new HashMap<>();
+    
+        try {
+            NodeList continentList = document.getElementsByTagName("continent");
+    
+            for (int i = 0; i < continentList.getLength(); i++) {
+                Node continentNode = continentList.item(i);
+                shapeIds.putAll(getShapesByContinent(continentNode));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return shapeIds;
+    }
+
+    private HashMap<String, ArrayList<Integer>> getShapesByContinent(Node continent) {
+        HashMap<String, ArrayList<Integer>> shapesByTerritory = new HashMap<>();
+    
+        if (continent.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) continent;
+            NodeList territoriesList = element.getElementsByTagName("territory"); // Ottieni i territori
+    
+            for (int i = 0; i < territoriesList.getLength(); i++) {
+                Node node = territoriesList.item(i);
+    
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element territoryElement = (Element) node;
+    
+                    // Estraggo il nome del territorio
+                    NodeList nameList = territoryElement.getElementsByTagName("name");
+    
+                    if (nameList.getLength() > 0) {
+                        String name = nameList.item(0).getTextContent().trim();
+    
+                        // Estraggo gli ID delle shape
+                        ArrayList<Integer> shapeIds = getShapeIds(territoryElement);
+                        shapesByTerritory.put(name, shapeIds);
+                    }
+                }
+            }
+        }
+        return shapesByTerritory;
+    }
+
+    private ArrayList<Integer> getShapeIds(Element territoryElement) {
+        ArrayList<Integer> shapeIds = new ArrayList<>();
+        NodeList shapesList = territoryElement.getElementsByTagName("shape");
+    
+        for (int i = 0; i < shapesList.getLength(); i++) {
+            String shapeText = shapesList.item(i).getTextContent().trim();
+            shapeIds.add(Integer.parseInt(shapeText));
+        }
+        return shapeIds;
+    }
+    
+        
 }

@@ -95,7 +95,7 @@ public class RisikoApp {
         leftPanel.add(chronoPnl, BorderLayout.CENTER);
 
         // Pannello centrale (Mappa)
-        mapPnl = new MapPnl(chronoPnl);
+        mapPnl = new MapPnl(chronoPnl, cntrl);
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(mapPnl, BorderLayout.CENTER);
 

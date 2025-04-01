@@ -40,6 +40,11 @@ public class RisikoModel extends BaseModel{
         return territories;
     }
 
+    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
+        return reader.getTerritoryShapeIds(); // Prende i dati dal XmlReader
+    }
+    
+
     public ArrayList<Continent> getContinents() {
         return continents;
     }
@@ -55,29 +60,40 @@ public class RisikoModel extends BaseModel{
     private void initializeWorld() {
         // Mappa globale che collega i nomi dei territori alle loro istanze
         HashMap<String, Territory> territoryMap = new HashMap<>();
-
+    
+        // Recupera la mappa con i territori e i relativi shapeId
+        HashMap<String, ArrayList<Integer>> shapeIds = reader.getTerritoryShapeIds();
+    
         // Primo passaggio: Creare tutti i territori e inserirli nella mappa
         for (String continentName : data.keySet()) {
             HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
-
+    
             for (String territoryName : continentTerritoriesData.keySet()) {
                 // Se il territorio non è già stato creato, lo creiamo
                 if (!territoryMap.containsKey(territoryName)) {
                     Territory territory = new Territory(territoryName);
+                    
+                    // Assegna la lista di shapeId al territorio
+                    if (shapeIds.containsKey(territoryName)) {
+                        for (Integer shapeId : shapeIds.get(territoryName)) {
+                            territory.addShapeId(shapeId);
+                        }
+                    }
+    
                     territoryMap.put(territoryName, territory);
                     territories.add(territory); // Aggiungilo alla lista globale
                 }
             }
         }
-
+    
         // Secondo passaggio: Popolare i territori confinanti
         for (String continentName : data.keySet()) {
             HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
-
+    
             for (String territoryName : continentTerritoriesData.keySet()) {
                 Territory currentTerritory = territoryMap.get(territoryName);
                 ArrayList<String> linkedTerritoriesNames = continentTerritoriesData.get(territoryName);
-
+    
                 // Aggiungi i territori confinanti alla lista del territorio corrente
                 for (String linkedTerritoryName : linkedTerritoriesNames) {
                     Territory linkedTerritory = territoryMap.get(linkedTerritoryName);
@@ -85,21 +101,21 @@ public class RisikoModel extends BaseModel{
                 }
             }
         }
-
+    
         // Terzo passaggio: Creare i continenti e popolare la lista `continents`
         for (String continentName : data.keySet()) {
             HashMap<String, ArrayList<String>> continentTerritoriesData = data.get(continentName);
             ArrayList<Territory> continentTerritories = new ArrayList<>();
-
+    
             for (String territoryName : continentTerritoriesData.keySet()) {
                 continentTerritories.add(territoryMap.get(territoryName));
             }
-
+    
             Continent continent = new Continent(continentName, continentTerritories);
             continents.add(continent);
         }
-
     }
+    
 
     public void initializeAchievements() { // usa la findcontinent() e hasConquiredContinent() che ho fatto
         // 18 ter con 2 armate

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Territory {
     private String name;
+    private ArrayList<Integer> shapeIds = new ArrayList<>();
     private int numberTanks;
     private Player owner;
     private ArrayList<Territory> linkedTerritories = new ArrayList<>();
@@ -13,6 +14,18 @@ public class Territory {
         this.name = name;
         this.numberTanks = 0;
         this.owner = null;
+    }
+
+    public ArrayList<Integer> getShapeIds() {
+        return shapeIds;
+    }
+
+    public void setShapeIds(ArrayList<Integer> shapeIds) {
+        this.shapeIds = shapeIds;
+    }
+
+    public void addShapeId(int shapeId) {
+        this.shapeIds.add(shapeId);
     }
 
     public ArrayList<Territory> getLinkedTerritories() {

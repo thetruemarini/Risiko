@@ -6,6 +6,7 @@ import java.awt.event.ComponentEvent;
 import java.util.List;
 import javax.swing.*;
 import org.w3c.dom.Document;
+import src.it.unibs.pajc.risiko.RisikoLocalCntrl;
 import src.it.unibs.pajc.risiko.svg.SVGDrawer;
 import src.it.unibs.pajc.risiko.svg.SVGLoader;
 import src.it.unibs.pajc.risiko.svg.SVGParser;
@@ -18,7 +19,7 @@ public class MapPnl extends JPanel {
     /**
      * Create the panel.
      */
-    public MapPnl(ChronoPnl chronoPnl) {
+    public MapPnl(ChronoPnl chronoPnl, RisikoLocalCntrl cntrl) {
         setLayout(new BorderLayout()); // Usa BorderLayout per gestire meglio i componenti
 
         try {
@@ -29,7 +30,7 @@ public class MapPnl extends JPanel {
             List<String> paths = SVGParser.extractPaths(svgDocument);
 
             // Crea e mostra il pannello di disegno
-            svgDrawer = new SVGDrawer(paths, chronoPnl);
+            svgDrawer = new SVGDrawer(paths, chronoPnl, cntrl);
             add(svgDrawer, BorderLayout.CENTER); // Aggiungi il pannello SVGDrawer al centro
 
             // Aggiungi un listener per il ridimensionamento del pannello
