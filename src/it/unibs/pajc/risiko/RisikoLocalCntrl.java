@@ -29,13 +29,21 @@ public class RisikoLocalCntrl {
         return model.getTerritories();
     }
 
-
     public GameStatus getStatus() {
         return model.getStatus();
     }
 
     public Player getCurrentPlayer() {
         return model.getCurrentPlayer();
+    }
+
+    public Territory getTerritoryByName(String name) {
+        for (Territory territory : model.getTerritories()) {
+            if (territory.getName().equals(name)) {
+                return territory;
+            }
+        }
+        return null;
     }
 
 

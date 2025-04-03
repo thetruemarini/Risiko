@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.*;
 import org.apache.batik.parser.AWTPathProducer;
@@ -158,7 +157,10 @@ public class SVGDrawer extends JPanel {
                         String territoryName = getTerritoryNameByShapeId(shapeIndex);
     
                         // Mostra il nome nel pannello
+                        Territory territory = cntrl.getTerritoryByName(territoryName);
                         chronoPnl.appendText("Hai cliccato su: " + territoryName);
+                        chronoPnl.appendText(territoryName + " è di " + territory.getOwner().getName() + "\n");
+                        chronoPnl.appendText("Numero di carri armati: " + territory.getNumberTanks() + "\n");
     
                         break;
                     }

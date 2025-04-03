@@ -75,12 +75,25 @@ public class RisikoApp {
         model.addPlayer(p);
         model.addPlayer(p1);
         model.addPlayer(p2);
+
+        model.assignTerritories();
+        model.assignAchievements();
+        model.placeTanks(p, 30);
+        model.placeTanks(p1, 30);
+        model.placeTanks(p2, 30);
         
         cntrl = new RisikoLocalCntrl(model);
 
         initialize();
 
         model.addChangeListener(e -> frame.repaint());
+
+        
+        /* for(Player player : model.getPlayers()) {
+            System.out.println(player.getName() + " has " +
+                    player.getTerritories().size() + " territories.");
+
+        } */
     }
 
     public void initialize() {

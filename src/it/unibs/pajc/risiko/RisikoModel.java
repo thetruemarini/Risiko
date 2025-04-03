@@ -1,7 +1,13 @@
 package src.it.unibs.pajc.risiko;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import src.it.unibs.pajc.risiko.achivement.*;
 import src.it.unibs.pajc.risiko.utility.MyMath;
 import src.it.unibs.pajc.risiko.xml.XmlReader;
@@ -21,41 +27,18 @@ public class RisikoModel extends BaseModel{
 
     public RisikoModel() {
         gameStatus = new GameStatus();
-        this.reader = new XmlReader("src/it/unibs/pajc/risiko/xml/territories.xml");
+        try {
+            this.reader = new XmlReader("src/it/unibs/pajc/risiko/xml/territories.xml");
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error initializing XmlReader", e);
+        }
         data = reader.getData();
         initializeWorld();
         initializeAchievements();
 
     }
 
-    public void addPlayer(Player p) {
-        players.add(p);
-    }
-
-    public ArrayList<Achievement> getAchievements() {
-        return achievements;
-    }
-
-    public ArrayList<Territory> getTerritories() {
-        return territories;
-    }
-
-    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
-        return reader.getTerritoryShapeIds(); // Prende i dati dal XmlReader
-    }
-    
-
-    public ArrayList<Continent> getContinents() {
-        return continents;
-    }
-
-    public GameStatus getStatus() {
-        return gameStatus;
-    }
-
-    public Player getCurrentPlayer() {
-        return gameStatus.getCurrentPlayer();
-    } 
 
     private void initializeWorld() {
         // Mappa globale che collega i nomi dei territori alle loro istanze
@@ -114,6 +97,7 @@ public class RisikoModel extends BaseModel{
             Continent continent = new Continent(continentName, continentTerritories);
             continents.add(continent);
         }
+        
     }
     
 
@@ -238,10 +222,6 @@ public class RisikoModel extends BaseModel{
         }
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
     // assegna obbiettivi
     public void assignAchievements() {
         ArrayList<Achievement> toAssign = new ArrayList<>(achievements);
@@ -251,8 +231,8 @@ public class RisikoModel extends BaseModel{
     }
 
     // TODO disposizione tank forse meglio nella classe turno
-    public void placeTanks(Player p) {// TODO pensare alla classe turno
-        int placebleTanks = p.getBonusTanks();
+    public void placeTanks(Player p, Integer placebleTanks) {// TODO pensare alla classe turno
+        // int placebleTanks = p.getBonusTanks();
         while (placebleTanks > 0) {
             for (Territory t : p.getTerritories()) {
                 if (placebleTanks > 0) {
@@ -470,4 +450,37 @@ public class RisikoModel extends BaseModel{
         
     }
 
+    
+    public void addPlayer(Player p) {
+        players.add(p);
+    }
+
+    public ArrayList<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public ArrayList<Territory> getTerritories() {
+        return territories;
+    }
+
+    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
+        return reader.getTerritoryShapeIds(); // Prende i dati dal XmlReader
+    }
+    
+    public ArrayList<Continent> getContinents() {
+        return continents;
+    }
+
+    public GameStatus getStatus() {
+        return gameStatus;
+    }
+
+    public Player getCurrentPlayer() {
+        return gameStatus.getCurrentPlayer();
+    } 
+    
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+    
 }

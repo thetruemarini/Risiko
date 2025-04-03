@@ -1,188 +1,190 @@
 package src.it.unibs.pajc.risiko.xml;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.util.ArrayList; // Import specifico
+import java.util.HashMap;   // Import specifico
+// Non più necessari: import java.util.List;
+// Non più necessari: import java.util.Map;
+
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-//Bro io ho fatto sta cosa, ci ho messo un bel po,sono un bot pero secondo me funziona ed è funzionale mi chiamo marini sono gay fes mi piace
-//il pisello
-//TODO l'unica cosa che si potrebbe fare è impostare i parametri delle ultime due funzioni a String e non nodo se serve (solo se serve)
 public class XmlReader {
-    File inputFile;
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder builder;
-    Document document;
 
-    // costruttore di apertura del file
-    public XmlReader(String filePath) {
+    // Costanti per i nomi dei tag XML
+    private static final String TAG_CONTINENT = "continent";
+    private static final String TAG_TERRITORY = "territory";
+    private static final String TAG_NAME = "name";
+    private static final String TAG_LINKED_TERRITORIES = "linkedTerritories";
+    private static final String TAG_ID = "id";
+
+    private Document document;
+    private boolean isValid = false;
+
+    public XmlReader(String filePath) throws IOException, ParserConfigurationException, SAXException {
         try {
-            inputFile = new File(filePath); // Percorso del file XML
-            builder = factory.newDocumentBuilder();
+            File inputFile = new File(filePath);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(inputFile);
             document.getDocumentElement().normalize();
-
-        } catch (Exception e) {
+            isValid = true;
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            System.err.println("Errore durante il parsing del file XML: " + filePath);
             e.printStackTrace();
+            isValid = false;
+            throw e;
+        } catch (IllegalArgumentException e) {
+             System.err.println("Errore: Percorso file non valido o nullo: " + filePath);
+             e.printStackTrace();
+             isValid = false;
+             throw e;
         }
-
     }
 
-    // Funzione che ritorna un hashmap contenente i continenti in un hashmap con i
-    // relativi territori(con i relativi territori confinanti)
+    public boolean isDocumentValid() {
+        return isValid;
+    }
+
+    // Tipo restituito e variabile interna usano HashMap e ArrayList
     public HashMap<String, HashMap<String, ArrayList<String>>> getData() {
+        if (!isValid) {
+            System.err.println("Tentativo di leggere i dati da un documento XML non valido.");
+            return new HashMap<>();
+            // Oppure: throw new IllegalStateException("Documento XML non caricato correttamente.");
+        }
+
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
-        HashMap<String, ArrayList<String>> territories;
+        NodeList continentList = document.getElementsByTagName(TAG_CONTINENT);
 
-        try {
-            // TODO immagino che le ultime due nodeList saranno da spostare nei for
-            NodeList continentList = document.getElementsByTagName("continent"); // ottieni elementi continent
+        for (int i = 0; i < continentList.getLength(); i++) {
+            Node continentNode = continentList.item(i);
+            if (continentNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element continentElement = (Element) continentNode;
+                String continentName = getFirstElementTextByTagName(continentElement, TAG_NAME);
 
-            for (int i = 0; i < continentList.getLength(); i++) {
-                Node node = continentList.item(i);
-
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-
-                    // estraggo il nome del continente
-                    NodeList continentNameList = element.getElementsByTagName("name");
-
-                    if (continentNameList.getLength() > 0) {
-                        String name = continentNameList.item(0).getTextContent();
-                        territories = getTerritoriesByContinent(node);
-                        data.put(name, territories);
-                    }
+                if (continentName != null && !continentName.isEmpty()) {
+                    // La variabile locale e il tipo restituito dal metodo helper usano HashMap/ArrayList
+                    HashMap<String, ArrayList<String>> territories = getTerritoriesByContinent(continentElement);
+                    data.put(continentName, territories);
                 }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
         return data;
-
     }
 
-    // Funzione che ritorna la lista dei territori confinanti dato un nodo
-    // territorio
-    private ArrayList<String> getLinkedTerritoryesNames(Node territory) {
-        ArrayList<String> linkedTerritoriesNames = new ArrayList<>();
-        if (territory.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) territory;
-            NodeList linkedTerritoriesList = element.getElementsByTagName("linkedTerritories"); // ottirni elementi
-                                                                                                // linked territory
-            // perche per ogni territorio c'e solo 1 linked territories
-            Node node = linkedTerritoriesList.item(0);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element2 = (Element) node;
-
-                NodeList linkedeTerritoriesNameList = element2.getElementsByTagName("territory");
-
-                if (linkedeTerritoriesNameList.getLength() > 0) {
-                    for (int i = 0; i < linkedeTerritoriesNameList.getLength(); i++) {
-                        String name = linkedeTerritoriesNameList.item(i).getTextContent();
-                        // System.out.println(name);
-                        linkedTerritoriesNames.add(name);
-                    }
-                    // System.out.println("\n------------------------\n");
-                }
-            }
+    // Tipo restituito e variabile interna usano HashMap e ArrayList
+    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
+         if (!isValid) {
+            System.err.println("Tentativo di leggere gli ID shape da un documento XML non valido.");
+            return new HashMap<>();
+            // Oppure: throw new IllegalStateException("Documento XML non caricato correttamente.");
         }
-        // System.out.println("fine funzione\n------------------------\n");
-        return linkedTerritoriesNames;
+
+        HashMap<String, ArrayList<Integer>> shapeIds = new HashMap<>();
+        NodeList territoryList = document.getElementsByTagName(TAG_TERRITORY);
+
+        for (int i = 0; i < territoryList.getLength(); i++) {
+             Node territoryNode = territoryList.item(i);
+             if (territoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                 Element territoryElement = (Element) territoryNode;
+                 String territoryName = getFirstElementTextByTagName(territoryElement, TAG_NAME);
+                 if (territoryName != null && !territoryName.isEmpty()) {
+                     // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
+                     ArrayList<Integer> ids = getShapeIds(territoryElement);
+                     shapeIds.put(territoryName, ids);
+                 }
+             }
+        }
+        return shapeIds;
     }
 
-    // Funzione che ritorna l'hashmap dei territori per ogni continente(con i
-    // relativi territori confinanti)
-    private HashMap<String, ArrayList<String>> getTerritoriesByContinent(Node continent) {
+
+    // --- Metodi Helper ---
+
+    // Tipo restituito e variabile interna usano HashMap e ArrayList
+    private HashMap<String, ArrayList<String>> getTerritoriesByContinent(Element continentElement) {
         HashMap<String, ArrayList<String>> territories = new HashMap<>();
-        if (continent.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) continent;
-            NodeList territoriesList = element.getElementsByTagName("territory"); // ottirni elementi territory del
-                                                                                  // continent
+        NodeList territoriesList = continentElement.getElementsByTagName(TAG_TERRITORY);
 
-            for (int i = 0; i < territoriesList.getLength(); i++) {
-                Node node = territoriesList.item(i);
+        for (int i = 0; i < territoriesList.getLength(); i++) {
+            Node territoryNode = territoriesList.item(i);
+            if (territoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element territoryElement = (Element) territoryNode;
+                String territoryName = getFirstElementTextByTagName(territoryElement, TAG_NAME);
 
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element2 = (Element) node;
-
-                    // estraggo i nomi dei territori
-                    NodeList territoriesNameList = element2.getElementsByTagName("name");
-
-                    if (territoriesNameList.getLength() > 0) {
-                        String name = territoriesNameList.item(0).getTextContent();
-                        ArrayList<String> linkedTerritories = getLinkedTerritoryesNames(node);
-                        territories.put(name, linkedTerritories);
-                    }
+                if (territoryName != null && !territoryName.isEmpty()) {
+                     // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
+                    ArrayList<String> linkedTerritories = getLinkedTerritoriesNames(territoryElement);
+                    territories.put(territoryName, linkedTerritories);
                 }
             }
         }
-
         return territories;
     }
 
-    public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
-        HashMap<String, ArrayList<Integer>> shapeIds = new HashMap<>();
+    // Tipo restituito e variabile interna usano ArrayList
+    private ArrayList<String> getLinkedTerritoriesNames(Element territoryElement) {
+        ArrayList<String> linkedTerritoriesNames = new ArrayList<>();
+        NodeList linkedGroupList = territoryElement.getElementsByTagName(TAG_LINKED_TERRITORIES);
 
-        try {
-            NodeList continentList = document.getElementsByTagName("continent");
+        if (linkedGroupList.getLength() > 0 && linkedGroupList.item(0).getNodeType() == Node.ELEMENT_NODE) {
+            Element linkedGroupElement = (Element) linkedGroupList.item(0);
+            NodeList linkedTerritoriesList = linkedGroupElement.getElementsByTagName(TAG_TERRITORY);
 
-            for (int i = 0; i < continentList.getLength(); i++) {
-                Node continentNode = continentList.item(i);
-                shapeIds.putAll(getShapesByContinent(continentNode));
+            for (int i = 0; i < linkedTerritoriesList.getLength(); i++) {
+                 Node linkedTerritoryNode = linkedTerritoriesList.item(i);
+                 if(linkedTerritoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                     String name = linkedTerritoryNode.getTextContent().trim();
+                     if (!name.isEmpty()) {
+                        linkedTerritoriesNames.add(name);
+                     }
+                 } else if (linkedTerritoryNode.getNodeType() == Node.TEXT_NODE && !linkedTerritoryNode.getTextContent().trim().isEmpty()) {
+                     String name = linkedTerritoryNode.getTextContent().trim();
+                     linkedTerritoriesNames.add(name);
+                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        return shapeIds;
+        return linkedTerritoriesNames;
     }
 
-    private HashMap<String, ArrayList<Integer>> getShapesByContinent(Node continent) {
-        HashMap<String, ArrayList<Integer>> shapesByTerritory = new HashMap<>();
+    // Tipo restituito e variabile interna usano ArrayList
+    private ArrayList<Integer> getShapeIds(Element territoryElement) {
+        ArrayList<Integer> shapeIds = new ArrayList<>();
+        NodeList shapesList = territoryElement.getElementsByTagName(TAG_ID);
 
-        if (continent.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) continent;
-            NodeList territoriesList = element.getElementsByTagName("territory"); // Ottieni i territori
-
-            for (int i = 0; i < territoriesList.getLength(); i++) {
-                Node node = territoriesList.item(i);
-
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element territoryElement = (Element) node;
-
-                    // Estraggo il nome del territorio
-                    NodeList nameList = territoryElement.getElementsByTagName("name");
-
-                    if (nameList.getLength() > 0) {
-                        String name = nameList.item(0).getTextContent().trim();
-
-                        // Estraggo gli ID delle shape
-                        ArrayList<Integer> shapeIds = getShapeIds(territoryElement);
-                        shapesByTerritory.put(name, shapeIds);
+        for (int i = 0; i < shapesList.getLength(); i++) {
+            Node idNode = shapesList.item(i);
+             if (idNode.getNodeType() == Node.ELEMENT_NODE || (idNode.getNodeType() == Node.TEXT_NODE && !idNode.getTextContent().trim().isEmpty()) ) {
+                String shapeText = idNode.getTextContent().trim();
+                try {
+                    if (!shapeText.isEmpty()) {
+                       shapeIds.add(Integer.parseInt(shapeText));
                     }
+                } catch (NumberFormatException e) {
+                    System.err.println("Attenzione: Impossibile parsare l'ID shape '" + shapeText + "' per il territorio " + getFirstElementTextByTagName(territoryElement, TAG_NAME));
                 }
             }
         }
-        return shapesByTerritory;
-    }
-
-    private ArrayList<Integer> getShapeIds(Element territoryElement) {
-        ArrayList<Integer> shapeIds = new ArrayList<>();
-        NodeList shapesList = territoryElement.getElementsByTagName("id");
-
-        for (int i = 0; i < shapesList.getLength(); i++) {
-            String shapeText = shapesList.item(i).getTextContent().trim();
-            shapeIds.add(Integer.parseInt(shapeText));
-        }
         return shapeIds;
     }
 
+    // Helper per ottenere il testo del primo sotto-elemento con un dato tag name
+    private String getFirstElementTextByTagName(Element parentElement, String tagName) {
+        NodeList nodeList = parentElement.getElementsByTagName(tagName);
+        if (nodeList.getLength() > 0) {
+             Node firstNode = nodeList.item(0);
+             return firstNode.getTextContent().trim();
+        }
+        return null;
+    }
 }
