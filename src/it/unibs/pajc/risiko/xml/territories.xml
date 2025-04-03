@@ -5,9 +5,9 @@
         <name>America Del Nord</name>
         <territory>
             <name>Alaska</name>
-            <shapes>
-                <shape>67</shape>
-            </shapes>
+            <ids>
+                <id>67</id>
+            </ids>
             <linkedTerritories>
                 <territory>Territori del Nord Ovest</territory>
                 <territory>Alberta</territory>
@@ -16,12 +16,12 @@
         </territory>
         <territory>
             <name>Territori del Nord Ovest</name>
-            <shapes>
-                <shape>66</shape>
-                <shape>65</shape>
-                <shape>64</shape>
-                <shape>63</shape>
-            </shapes>
+            <ids>
+                <id>66</id>
+                <id>65</id>
+                <id>64</id>
+                <id>63</id>
+            </ids>
             <linkedTerritories>
                 <territory>Alaska</territory>
                 <territory>Alberta</territory>
@@ -31,11 +31,11 @@
         </territory>
         <territory>
             <name>Groenlandia</name>
-            <shapes>
-                <shape>60</shape>
-                <shape>61</shape>
-                <shape>62</shape>
-            </shapes>
+            <ids>
+                <id>60</id>
+                <id>61</id>
+                <id>62</id>
+            </ids>
             <linkedTerritories>
                 <territory>Territori del Nord Ovest</territory>
                 <territory>Ontario</territory>
@@ -45,9 +45,9 @@
         </territory>
         <territory>
             <name>Alberta</name>
-            <shapes>
-                <shape>68</shape>
-            </shapes>
+            <ids>
+                <id>68</id>
+            </ids>
             <linkedTerritories>
                 <territory>Alaska</territory>
                 <territory>Ontario</territory>
@@ -57,9 +57,9 @@
         </territory>
         <territory>
             <name>Ontario</name>
-            <shapes>
-                <shape>70</shape>
-            </shapes>
+            <ids>
+                <id>70</id>
+            </ids>
             <linkedTerritories>
                 <territory>Alberta</territory>
                 <territory>Territori del Nord Ovest</territory>
@@ -71,9 +71,9 @@
         </territory>
         <territory>
             <name>Quebec</name>
-            <shapes>
-                <shape>72</shape>
-            </shapes>
+            <ids>
+                <id>72</id>
+            </ids>
             <linkedTerritories>
                 <territory>Ontario</territory>
                 <territory>Groenlandia</territory>
@@ -82,9 +82,9 @@
         </territory>
         <territory>
             <name>Stati Uniti Occidentali</name>
-            <shapes>
-                <shape>73</shape>
-            </shapes>
+            <ids>
+                <id>73</id>
+            </ids>
             <linkedTerritories>
                 <territory>Alberta</territory>
                 <territory>Ontario</territory>
@@ -94,9 +94,9 @@
         </territory>
         <territory>
             <name>Stati Uniti Orientali</name>
-            <shapes>
-                <shape>74</shape>
-            </shapes>
+            <ids>
+                <id>74</id>
+            </ids>
             <linkedTerritories>
                 <territory>Stati Uniti Occidentali</territory>
                 <territory>Ontario</territory>
@@ -106,9 +106,9 @@
         </territory>
         <territory>
             <name>America Centrale</name>
-            <shapes>
-                <shape>75</shape>
-            </shapes>
+            <ids>
+                <id>75</id>
+            </ids>
             <linkedTerritories>
                 <territory>Stati Uniti Occidentali</territory>
                 <territory>Stati Uniti Orientali</territory>
@@ -121,9 +121,9 @@
         <name>America Del Sud</name>
         <territory>
             <name>Venezuela</name>
-            <shapes>
-                <shape>76</shape>
-            </shapes>
+            <ids>
+                <id>76</id>
+            </ids>
             <linkedTerritories>
                 <territory>Brasile</territory>
                 <territory>Perù</territory>
@@ -131,9 +131,9 @@
         </territory>
         <territory>
             <name>Brasile</name>
-            <shapes>
-                <shape>81</shape>
-            </shapes>
+            <ids>
+                <id>81</id>
+            </ids>
             <linkedTerritories>
                 <territory>Venezuela</territory>
                 <territory>Perù</territory>
@@ -143,9 +143,9 @@
         </territory>
         <territory>
             <name>Perù</name>
-            <shapes>
-                <shape>83</shape>
-            </shapes>
+            <ids>
+                <id>83</id>
+            </ids>
             <linkedTerritories>
                 <territory>Venezuela</territory>
                 <territory>Brasile</territory>
@@ -154,9 +154,9 @@
         </territory>
         <territory>
             <name>Argentina</name>
-            <shapes>
-                <shape>85</shape>
-            </shapes>
+            <ids>
+                <id>85</id>
+            </ids>
             <linkedTerritories>
                 <territory>Perù</territory>
                 <territory>Brasile</territory>
@@ -168,9 +168,9 @@
         <name>Europa</name>
         <territory>
             <name>Islanda</name>
-            <shapes>
-                <shape>31</shape>
-            </shapes>
+            <ids>
+                <id>31</id>
+            </ids>
             <linkedTerritories>
                 <territory>Groenlandia</territory>
                 <territory>Scandinavia</territory>
@@ -179,9 +179,9 @@
         </territory>
         <territory>
             <name>Scandinavia</name>
-            <shapes>
-                <shape>29</shape>
-            </shapes>
+            <ids>
+                <id>29</id>
+            </ids>
             <linkedTerritories>
                 <territory>Islanda</territory>
                 <territory>Gran Bretagna</territory>
@@ -191,10 +191,10 @@
         </territory>
         <territory>
             <name>Gran Bretagna</name>
-            <shapes>
-                <shape>28</shape>
-                <shape>27</shape>
-            </shapes>
+            <ids>
+                <id>28</id>
+                <id>27</id>
+            </ids>
             <linkedTerritories>
                 <territory>Europa Occidentale</territory>
                 <territory>Europa Settentrionale</territory>
@@ -204,9 +204,9 @@
         </territory>
         <territory>
             <name>Europa Settentrionale</name>
-            <shapes>
-                <shape>26</shape>
-            </shapes>
+            <ids>
+                <id>26</id>
+            </ids>
             <linkedTerritories>
                 <territory>Gran Bretagna</territory>
                 <territory>Scandinavia</territory>
@@ -217,9 +217,9 @@
         </territory>
         <territory>
             <name>Europa Occidentale</name>
-            <shapes>
-                <shape>20</shape>
-            </shapes>
+            <ids>
+                <id>20</id>
+            </ids>
             <linkedTerritories>
                 <territory>Gran Bretagna</territory>
                 <territory>Africa del Nord</territory>
@@ -229,12 +229,12 @@
         </territory>
         <territory>
             <name>Europa Meridionale</name>
-            <shapes>
-                <shape>21</shape>
-                <shape>23</shape>
-                <shape>24</shape>
-                <shape>25</shape>
-            </shapes>
+            <ids>
+                <id>21</id>
+                <id>23</id>
+                <id>24</id>
+                <id>25</id>
+            </ids>
             <linkedTerritories>
                 <territory>Medio Oriente</territory>
                 <territory>Africa del Nord</territory>
@@ -246,9 +246,9 @@
         </territory>
         <territory>
             <name>Ucraina</name>
-            <shapes>
-                <shape>32</shape>
-            </shapes>
+            <ids>
+                <id>32</id>
+            </ids>
             <linkedTerritories>
                 <territory>Urali</territory>
                 <territory>Scandinavia</territory>
@@ -264,9 +264,9 @@
         <name>Africa</name>
         <territory>
             <name>Africa del Nord</name>
-            <shapes>
-                <shape>19</shape>
-            </shapes>
+            <ids>
+                <id>19</id>
+            </ids>
             <linkedTerritories>
                 <territory>Brasile</territory>
                 <territory>Egitto</territory>
@@ -278,9 +278,9 @@
         </territory>
         <territory>
             <name>Egitto</name>
-            <shapes>
-                <shape>18</shape>
-            </shapes>
+            <ids>
+                <id>18</id>
+            </ids>
             <linkedTerritories>
                 <territory>Africa del Nord</territory>
                 <territory>Europa Meridionale</territory>
@@ -290,9 +290,9 @@
         </territory>
         <territory>
             <name>Africa Orientale</name>
-            <shapes>
-                <shape>16</shape>
-            </shapes>
+            <ids>
+                <id>16</id>
+            </ids>
             <linkedTerritories>
                 <territory>Congo</territory>
                 <territory>Egitto</territory>
@@ -303,9 +303,9 @@
         </territory>
         <territory>
             <name>Congo</name>
-            <shapes>
-                <shape>15</shape>
-            </shapes>
+            <ids>
+                <id>15</id>
+            </ids>
             <linkedTerritories>
                 <territory>Africa Orientale</territory>
                 <territory>Africa del Nord</territory>
@@ -314,9 +314,9 @@
         </territory>
         <territory>
             <name>Africa del Sud</name>
-            <shapes>
-                <shape>14</shape>
-            </shapes>
+            <ids>
+                <id>14</id>
+            </ids>
             <linkedTerritories>
                 <territory>Congo</territory>
                 <territory>Africa Orientale</territory>
@@ -325,9 +325,9 @@
         </territory>
         <territory>
             <name>Madagascar</name>
-            <shapes>
-                <shape>13</shape>
-            </shapes>
+            <ids>
+                <id>13</id>
+            </ids>
             <linkedTerritories>
                 <territory>Africa Orientale</territory>
                 <territory>Africa del Sud</territory>
@@ -339,9 +339,9 @@
         <name>Oceania</name>
         <territory>
             <name>Australia Occidentale</name>
-            <shapes>
-                <shape>12</shape>
-            </shapes>
+            <ids>
+                <id>12</id>
+            </ids>
             <linkedTerritories>
                 <territory>Australia Orientale</territory>
                 <territory>Nuova Guinea</territory>
@@ -350,9 +350,9 @@
         </territory>
         <territory>
             <name>Australia Orientale</name>
-            <shapes>
-                <shape>11</shape>
-            </shapes>
+            <ids>
+                <id>11</id>
+            </ids>
             <linkedTerritories>
                 <territory>Australia Occidentale</territory>
                 <territory>Nuova Guinea</territory>
@@ -360,9 +360,9 @@
         </territory>
         <territory>
             <name>Nuova Guinea</name>
-            <shapes>
-                <shape>5</shape>
-            </shapes>
+            <ids>
+                <id>5</id>
+            </ids>
             <linkedTerritories>
                 <territory>Australia Orientale</territory>
                 <territory>Australia Occidentale</territory>
@@ -371,19 +371,19 @@
         </territory>
         <territory>
             <name>Indonesia</name>
-            <shapes>
-                <shape>0</shape>
-                <shape>1</shape>
-                <shape>2</shape>
-                <shape>3</shape>
-                <shape>4</shape>
-                <shape>5</shape>
-                <shape>6</shape>
-                <shape>7</shape>
-                <shape>8</shape>
-                <shape>9</shape>
-                <shape>10</shape>
-            </shapes>
+            <ids>
+                <id>0</id>
+                <id>1</id>
+                <id>2</id>
+                <id>3</id>
+                <id>4</id>
+                <id>5</id>
+                <id>6</id>
+                <id>7</id>
+                <id>8</id>
+                <id>9</id>
+                <id>10</id>
+            </ids>
             <linkedTerritories>
                 <territory>Siam</territory>
                 <territory>Australia Occidentale</territory>
@@ -397,9 +397,9 @@
         <name>Asia</name>
         <territory>
             <name>Medio Oriente</name>
-            <shapes>
-                <shape>56</shape>
-            </shapes>
+            <ids>
+                <id>56</id>
+            </ids>
             <linkedTerritories>
                 <territory>Egitto</territory>
                 <territory>Ucraina</territory>
@@ -411,9 +411,9 @@
         </territory>
         <territory>
             <name>Afghanistan</name>
-            <shapes>
-                <shape>55</shape>
-            </shapes>
+            <ids>
+                <id>55</id>
+            </ids>
             <linkedTerritories>
                 <territory>Urali</territory>
                 <territory>Ucraina</territory>
@@ -423,9 +423,9 @@
         </territory>
         <territory>
             <name>Urali</name>
-            <shapes>
-                <shape>40</shape>
-            </shapes>
+            <ids>
+                <id>40</id>
+            </ids>
             <linkedTerritories>
                 <territory>Afghanistan</territory>
                 <territory>Ucraina</territory>
@@ -435,9 +435,9 @@
         </territory>
         <territory>
             <name>Siberia</name>
-            <shapes>
-                <shape>49</shape>
-            </shapes>
+            <ids>
+                <id>49</id>
+            </ids>
             <linkedTerritories>
                 <territory>Urali</territory>
                 <territory>Jacuzia</territory>
@@ -448,9 +448,9 @@
         </territory>
         <territory>
             <name>Jacuzia</name>
-            <shapes>
-                <shape>47</shape>
-            </shapes>
+            <ids>
+                <id>47</id>
+            </ids>
             <linkedTerritories>
                 <territory>Siberia</territory>
                 <territory>Kamchatka</territory>
@@ -459,9 +459,9 @@
         </territory>
         <territory>
             <name>Kamchatka</name>
-            <shapes>
-                <shape>17</shape>
-            </shapes>
+            <ids>
+                <id>17</id>
+            </ids>
             <linkedTerritories>
                 <territory>Jacuzia</territory>
                 <territory>Alaska</territory>
@@ -471,9 +471,9 @@
         </territory>
         <territory>
             <name>Cita</name>
-            <shapes>
-                <shape>50</shape>
-            </shapes>
+            <ids>
+                <id>50</id>
+            </ids>
             <linkedTerritories>
                 <territory>Jacuzia</territory>
                 <territory>Kamchatka</territory>
@@ -483,9 +483,9 @@
         </territory>
         <territory>
             <name>Mongolia</name>
-            <shapes>
-                <shape>51</shape>
-            </shapes>
+            <ids>
+                <id>51</id>
+            </ids>
             <linkedTerritories>
                 <territory>Cita</territory>
                 <territory>Kamchatka</territory>
@@ -496,9 +496,9 @@
         </territory>
         <territory>
             <name>Cina</name>
-            <shapes>
-                <shape>57</shape>
-            </shapes>
+            <ids>
+                <id>57</id>
+            </ids>
             <linkedTerritories>
                 <territory>Mongolia</territory>
                 <territory>Urali</territory>
@@ -511,11 +511,11 @@
         </territory>
         <territory>
             <name>Giappone</name>
-            <shapes>
-                <shape>52</shape>
-                <shape>53</shape>
-                <shape>54</shape>
-            </shapes>
+            <ids>
+                <id>52</id>
+                <id>53</id>
+                <id>54</id>
+            </ids>
             <linkedTerritories>
                 <territory>Mongolia</territory>
                 <territory>Kamchatka</territory>
@@ -523,9 +523,9 @@
         </territory>
         <territory>
             <name>Siam</name>
-            <shapes>
-                <shape>58</shape>
-            </shapes>
+            <ids>
+                <id>58</id>
+            </ids>
             <linkedTerritories>
                 <territory>Cina</territory>
                 <territory>India</territory>
@@ -534,9 +534,9 @@
         </territory>
         <territory>
             <name>India</name>
-            <shapes>
-                <shape>59</shape>
-            </shapes>
+            <ids>
+                <id>59</id>
+            </ids>
             <linkedTerritories>
                 <territory>Cina</territory>
                 <territory>Siam</territory>

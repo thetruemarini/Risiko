@@ -130,10 +130,10 @@ public class XmlReader {
 
     public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
         HashMap<String, ArrayList<Integer>> shapeIds = new HashMap<>();
-    
+
         try {
             NodeList continentList = document.getElementsByTagName("continent");
-    
+
             for (int i = 0; i < continentList.getLength(); i++) {
                 Node continentNode = continentList.item(i);
                 shapeIds.putAll(getShapesByContinent(continentNode));
@@ -141,29 +141,29 @@ public class XmlReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+
         return shapeIds;
     }
 
     private HashMap<String, ArrayList<Integer>> getShapesByContinent(Node continent) {
         HashMap<String, ArrayList<Integer>> shapesByTerritory = new HashMap<>();
-    
+
         if (continent.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) continent;
             NodeList territoriesList = element.getElementsByTagName("territory"); // Ottieni i territori
-    
+
             for (int i = 0; i < territoriesList.getLength(); i++) {
                 Node node = territoriesList.item(i);
-    
+
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element territoryElement = (Element) node;
-    
+
                     // Estraggo il nome del territorio
                     NodeList nameList = territoryElement.getElementsByTagName("name");
-    
+
                     if (nameList.getLength() > 0) {
                         String name = nameList.item(0).getTextContent().trim();
-    
+
                         // Estraggo gli ID delle shape
                         ArrayList<Integer> shapeIds = getShapeIds(territoryElement);
                         shapesByTerritory.put(name, shapeIds);
@@ -176,14 +176,13 @@ public class XmlReader {
 
     private ArrayList<Integer> getShapeIds(Element territoryElement) {
         ArrayList<Integer> shapeIds = new ArrayList<>();
-        NodeList shapesList = territoryElement.getElementsByTagName("shape");
-    
+        NodeList shapesList = territoryElement.getElementsByTagName("id");
+
         for (int i = 0; i < shapesList.getLength(); i++) {
             String shapeText = shapesList.item(i).getTextContent().trim();
             shapeIds.add(Integer.parseInt(shapeText));
         }
         return shapeIds;
     }
-    
-        
+
 }
