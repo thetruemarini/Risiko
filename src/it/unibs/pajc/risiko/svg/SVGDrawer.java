@@ -90,11 +90,21 @@ public class SVGDrawer extends JPanel {
             // Disegna le shape
             g2d.transform(transform);
             for (Shape shape : shapes) {
-                g2d.draw(shape);
+                g2d.setColor(Color.BLACK); // Imposta il colore del bordo
+                g2d.draw(shape); // Disegna il contorno della shape
+
+                Territory territory = getTerritoryByShape(shape);
+                if (territory != null && territory.getOwner() != null) {
+                    g2d.setColor(territory.getOwner().getColor()); // Colore del giocatore
+                    g2d.fill(shape); // Riempie la shape con il colore del proprietario
+                }
             }
 
+            // Disegna il centro delle shape
+            drawNumberAtShapeCenter(g2d);
+
             // Gestisci il riempimento delle shape (se cliccate)
-            fillShape(g2d);
+            lightShape(g2d);
 
             // disegno il rettangolo per capire casa non va
             g2d.setColor(Color.RED);
@@ -115,6 +125,26 @@ public class SVGDrawer extends JPanel {
         return bounds;
     }
 
+    private Point getShapeCenterPoint(Shape shape) {
+        Rectangle bounds = shape.getBounds();
+        int centerX = (int) (bounds.getX() + bounds.getWidth() / 2);
+        int centerY = (int) (bounds.getY() + bounds.getHeight() / 2);
+        return new Point(centerX, centerY); // Restituisce un punto centrale
+    }
+
+    private void drawNumberAtShapeCenter(Graphics2D g2d) {
+        g2d.setColor(Color.GREEN);
+        g2d.setFont(new Font("Arial", Font.BOLD, 20));
+        for (Shape shape : shapes) {
+            Point center = getShapeCenterPoint(shape);
+            String territoryName = getTerritoryNameByShapeId(shapes.indexOf(shape));
+            Territory territory = cntrl.getTerritoryByName(territoryName);
+            if (territory != null) {
+                g2d.drawString(String.valueOf(territory.getNumberTanks()), center.x, center.y);
+            }
+        }
+    }
+
     private Shape createShape(String path) {
         try {
             AWTPathProducer pathProducer = new AWTPathProducer();
@@ -124,42 +154,45 @@ public class SVGDrawer extends JPanel {
             return pathProducer.getShape();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return null; // Restituisce null in caso di errore
+            }
         }
-    }
 
-    private void fillShape(Graphics2D g2d) {
+        private void lightShape(Graphics2D g2d) {
         try {
             Point2D transformedPoint = transform.inverseTransform(movePoint, null);
             for (Shape shape : shapes) {
                 if (shape.contains(transformedPoint)) {
                     setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                    g2d.setColor(Color.YELLOW);
-                    g2d.fill(shape);
+                    Territory territory = getTerritoryByShape(shape);
+                    if (territory != null && territory.getOwner() != null) {
+                        Color color = territory.getOwner().getColor();
+                        Color lighterColor = new Color(
+                            Math.min(color.getRed() + 100, 255),
+                            Math.min(color.getGreen() + 100, 255),
+                            Math.min(color.getBlue() + 100, 255)
+                        );
+                        g2d.setColor(lighterColor);
+                        g2d.fill(shape);
+                    }
                     return;
                 }
             }
             setCursor(Cursor.getDefaultCursor());
         } catch (Exception ex) {
-            ex.printStackTrace();
+                ex.printStackTrace();
+            }
         }
-    }
 
-    private void handleMouseClick(MouseEvent e) {
+            private void handleMouseClick(MouseEvent e) {
         if (transform != null) {
             try {
                 Point2D transformedPoint = transform.inverseTransform(e.getPoint(), null);
                 for (Shape shape : shapes) {
                     if (shape.contains(transformedPoint)) {
-                        int shapeIndex = shapes.indexOf(shape);
-    
-                        // Trova il nome del territorio associato a questa shape
-                        String territoryName = getTerritoryNameByShapeId(shapeIndex);
-    
-                        // Mostra il nome nel pannello
-                        Territory territory = cntrl.getTerritoryByName(territoryName);
-                        chronoPnl.appendText("Hai cliccato su: " + territoryName);
-                        chronoPnl.appendText(territoryName + " è di " + territory.getOwner().getName() + "\n");
+                        Territory territory = getTerritoryByShape(shape);
+                        chronoPnl.appendText("Hai cliccato su: " + territory.getName() + "\n");
+                        chronoPnl.appendText(territory.getName() + " è di " + territory.getOwner().getName() + "\n");
                         chronoPnl.appendText("Numero di carri armati: " + territory.getNumberTanks() + "\n");
     
                         break;
@@ -169,6 +202,17 @@ public class SVGDrawer extends JPanel {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public Territory getTerritoryByShape(Shape shape){
+        int shapeIndex = shapes.indexOf(shape);
+        String territoryName = getTerritoryNameByShapeId(shapeIndex);
+        Territory territory = cntrl.getTerritoryByName(territoryName);
+        if (territory != null) {
+            return territory;
+        }
+        // Se non troviamo il territorio, restituiamo null o gestiamo l'errore come preferisci
+        return null;
     }
 
     private String getTerritoryNameByShapeId(int shapeId) {

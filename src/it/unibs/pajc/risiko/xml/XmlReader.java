@@ -3,10 +3,9 @@ package src.it.unibs.pajc.risiko.xml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList; // Import specifico
-import java.util.HashMap;   // Import specifico
+import java.util.HashMap; // Import specifico
 // Non più necessari: import java.util.List;
 // Non più necessari: import java.util.Map;
-
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,10 +43,10 @@ public class XmlReader {
             isValid = false;
             throw e;
         } catch (IllegalArgumentException e) {
-             System.err.println("Errore: Percorso file non valido o nullo: " + filePath);
-             e.printStackTrace();
-             isValid = false;
-             throw e;
+            System.err.println("Errore: Percorso file non valido o nullo: " + filePath);
+            e.printStackTrace();
+            isValid = false;
+            throw e;
         }
     }
 
@@ -60,7 +59,8 @@ public class XmlReader {
         if (!isValid) {
             System.err.println("Tentativo di leggere i dati da un documento XML non valido.");
             return new HashMap<>();
-            // Oppure: throw new IllegalStateException("Documento XML non caricato correttamente.");
+            // Oppure: throw new IllegalStateException("Documento XML non caricato
+            // correttamente.");
         }
 
         HashMap<String, HashMap<String, ArrayList<String>>> data = new HashMap<>();
@@ -73,7 +73,8 @@ public class XmlReader {
                 String continentName = getFirstElementTextByTagName(continentElement, TAG_NAME);
 
                 if (continentName != null && !continentName.isEmpty()) {
-                    // La variabile locale e il tipo restituito dal metodo helper usano HashMap/ArrayList
+                    // La variabile locale e il tipo restituito dal metodo helper usano
+                    // HashMap/ArrayList
                     HashMap<String, ArrayList<String>> territories = getTerritoriesByContinent(continentElement);
                     data.put(continentName, territories);
                 }
@@ -84,30 +85,30 @@ public class XmlReader {
 
     // Tipo restituito e variabile interna usano HashMap e ArrayList
     public HashMap<String, ArrayList<Integer>> getTerritoryShapeIds() {
-         if (!isValid) {
+        if (!isValid) {
             System.err.println("Tentativo di leggere gli ID shape da un documento XML non valido.");
             return new HashMap<>();
-            // Oppure: throw new IllegalStateException("Documento XML non caricato correttamente.");
+            // Oppure: throw new IllegalStateException("Documento XML non caricato
+            // correttamente.");
         }
 
         HashMap<String, ArrayList<Integer>> shapeIds = new HashMap<>();
         NodeList territoryList = document.getElementsByTagName(TAG_TERRITORY);
 
         for (int i = 0; i < territoryList.getLength(); i++) {
-             Node territoryNode = territoryList.item(i);
-             if (territoryNode.getNodeType() == Node.ELEMENT_NODE) {
-                 Element territoryElement = (Element) territoryNode;
-                 String territoryName = getFirstElementTextByTagName(territoryElement, TAG_NAME);
-                 if (territoryName != null && !territoryName.isEmpty()) {
-                     // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
-                     ArrayList<Integer> ids = getShapeIds(territoryElement);
-                     shapeIds.put(territoryName, ids);
-                 }
-             }
+            Node territoryNode = territoryList.item(i);
+            if (territoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element territoryElement = (Element) territoryNode;
+                String territoryName = getFirstElementTextByTagName(territoryElement, TAG_NAME);
+                if (territoryName != null && !territoryName.isEmpty()) {
+                    // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
+                    ArrayList<Integer> ids = getShapeIds(territoryElement);
+                    shapeIds.put(territoryName, ids);
+                }
+            }
         }
         return shapeIds;
     }
-
 
     // --- Metodi Helper ---
 
@@ -123,7 +124,7 @@ public class XmlReader {
                 String territoryName = getFirstElementTextByTagName(territoryElement, TAG_NAME);
 
                 if (territoryName != null && !territoryName.isEmpty()) {
-                     // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
+                    // La variabile locale e il tipo restituito dal metodo helper usano ArrayList
                     ArrayList<String> linkedTerritories = getLinkedTerritoriesNames(territoryElement);
                     territories.put(territoryName, linkedTerritories);
                 }
@@ -142,16 +143,17 @@ public class XmlReader {
             NodeList linkedTerritoriesList = linkedGroupElement.getElementsByTagName(TAG_TERRITORY);
 
             for (int i = 0; i < linkedTerritoriesList.getLength(); i++) {
-                 Node linkedTerritoryNode = linkedTerritoriesList.item(i);
-                 if(linkedTerritoryNode.getNodeType() == Node.ELEMENT_NODE) {
-                     String name = linkedTerritoryNode.getTextContent().trim();
-                     if (!name.isEmpty()) {
+                Node linkedTerritoryNode = linkedTerritoriesList.item(i);
+                if (linkedTerritoryNode.getNodeType() == Node.ELEMENT_NODE) {
+                    String name = linkedTerritoryNode.getTextContent().trim();
+                    if (!name.isEmpty()) {
                         linkedTerritoriesNames.add(name);
-                     }
-                 } else if (linkedTerritoryNode.getNodeType() == Node.TEXT_NODE && !linkedTerritoryNode.getTextContent().trim().isEmpty()) {
-                     String name = linkedTerritoryNode.getTextContent().trim();
-                     linkedTerritoriesNames.add(name);
-                 }
+                    }
+                } else if (linkedTerritoryNode.getNodeType() == Node.TEXT_NODE
+                        && !linkedTerritoryNode.getTextContent().trim().isEmpty()) {
+                    String name = linkedTerritoryNode.getTextContent().trim();
+                    linkedTerritoriesNames.add(name);
+                }
             }
         }
         return linkedTerritoriesNames;
@@ -164,14 +166,16 @@ public class XmlReader {
 
         for (int i = 0; i < shapesList.getLength(); i++) {
             Node idNode = shapesList.item(i);
-             if (idNode.getNodeType() == Node.ELEMENT_NODE || (idNode.getNodeType() == Node.TEXT_NODE && !idNode.getTextContent().trim().isEmpty()) ) {
+            if (idNode.getNodeType() == Node.ELEMENT_NODE
+                    || (idNode.getNodeType() == Node.TEXT_NODE && !idNode.getTextContent().trim().isEmpty())) {
                 String shapeText = idNode.getTextContent().trim();
                 try {
                     if (!shapeText.isEmpty()) {
-                       shapeIds.add(Integer.parseInt(shapeText));
+                        shapeIds.add(Integer.parseInt(shapeText));
                     }
                 } catch (NumberFormatException e) {
-                    System.err.println("Attenzione: Impossibile parsare l'ID shape '" + shapeText + "' per il territorio " + getFirstElementTextByTagName(territoryElement, TAG_NAME));
+                    System.err.println("Attenzione: Impossibile parsare l'ID shape '" + shapeText
+                            + "' per il territorio " + getFirstElementTextByTagName(territoryElement, TAG_NAME));
                 }
             }
         }
@@ -182,8 +186,8 @@ public class XmlReader {
     private String getFirstElementTextByTagName(Element parentElement, String tagName) {
         NodeList nodeList = parentElement.getElementsByTagName(tagName);
         if (nodeList.getLength() > 0) {
-             Node firstNode = nodeList.item(0);
-             return firstNode.getTextContent().trim();
+            Node firstNode = nodeList.item(0);
+            return firstNode.getTextContent().trim();
         }
         return null;
     }
