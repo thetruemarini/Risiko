@@ -70,7 +70,7 @@ public class RisikoApp {
 
         Player p = new Player("marini", Color.red);
         Player p1 = new Player("ugo", Color.yellow);
-        Player p2 = new Player("prins", Color.black);
+        Player p2 = new Player("prins", Color.magenta);
         
         model.addPlayer(p);
         model.addPlayer(p1);
